@@ -125,7 +125,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
             fab.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
-                    Snackbar.make(view, "Transaction", Snackbar.LENGTH_LONG)
+                    Snackbar.make(view, "Purchase", Snackbar.LENGTH_LONG)
                             .setAction("Action", null).show();
 
 

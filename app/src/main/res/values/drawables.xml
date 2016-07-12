@@ -1,0 +1,7 @@
+<resources xmlns:android="http://schemas.android.com/apk/res/android">
+    <item name="ic_menu_book" type="drawable">@mipmap/ic_book_black_24dp</item>
+    <item name="ic_menu_favorite" type="drawable">@mipmap/ic_monetization_on_black_24dp</item>
+    <item name="ic_menu_game" type="drawable">@mipmap/ic_videogame_asset_black_24dp</item>
+    <item name="ic_menu_money" type="drawable">@mipmap/ic_favorite_border_black_24dp</item>
+    <item name="ic_menu_star" type="drawable">@mipmap/ic_stars_black_24dp</item>
+</resources>

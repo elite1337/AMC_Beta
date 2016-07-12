@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <group android:checkableBehavior="single">
+        <item
+            android:id="@+id/nav_book"
+            android:icon="@mipmap/ic_book_black_24dp"
+            android:title="有聲書架" />
+        <item
+            android:id="@+id/nav_money"
+            android:icon="@mipmap/ic_monetization_on_black_24dp"
+            android:title="付費試題" />
+        <item
+            android:id="@+id/nav_game"
+            android:icon="@mipmap/ic_videogame_asset_black_24dp"
+            android:title="字彙聯盟" />
+    </group>
+
+    <item android:title="Communicate">
+        <menu>
+            <item
+                android:id="@+id/nav_favorite"
+                android:icon="@mipmap/ic_favorite_border_black_24dp"
+                android:title="Support" />
+            <item
+                android:id="@+id/nav_star"
+                android:icon="@mipmap/ic_stars_black_24dp"
+                android:title="Rate This App." />
+        </menu>
+    </item>
+
+</menu>

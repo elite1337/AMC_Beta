@@ -142,8 +142,8 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
             FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
             fab.hide();
 
-            GameFragment gameFragment = new GameFragment();
-            getSupportFragmentManager().beginTransaction().replace(R.id.content_id, gameFragment).commit();
+            FragmentTransaction xfragmentTransaction = mFragmentManager.beginTransaction();
+            xfragmentTransaction.replace(R.id.content_id,new GameTabFragment()).commit();
         }
         else if (id == R.id.nav_favorite)
         {

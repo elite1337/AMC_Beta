@@ -53,9 +53,9 @@ public class FavoriteAdapter extends BaseAdapter {
 
         textView.setText(arrayList.get(i).get("title"));
 
-        String image = favoriteFragment.arrayList.get(i).get("image");
-        int intImage = Integer.parseInt(image);
-        imageView.setImageResource(intImage);
+//        String image = favoriteFragment.arrayList.get(i).get("image");
+//        int intImage = Integer.parseInt(image);
+//        imageView.setImageResource(intImage);
 
         return view;
     }

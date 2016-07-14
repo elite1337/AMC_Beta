@@ -24,11 +24,11 @@ import java.util.HashMap;
  */
 public class FavoriteFragment extends Fragment {
 
-    ArrayList<HashMap<String,String>> arrayList;
-    HashMap<String, String> hashMap, hashMap2, hashMap3;
-
-    ListView listView;
-    Adapter adapter;
+//    ArrayList<HashMap<String,String>> arrayList;
+//    HashMap<String, String> hashMap, hashMap2, hashMap3;
+//
+//    ListView listView;
+//    Adapter adapter;
 
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
@@ -76,33 +76,35 @@ public class FavoriteFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
 
-        View view = inflater.inflate(R.layout.fragment_favorite, container, false);
+//        View view = inflater.inflate(R.layout.fragment_favorite, container, false);
+//
+//        arrayList = new ArrayList<>();
+//
+//        hashMap = new HashMap<>();
+//        hashMap.put("title", "FAQ");
+//        hashMap.put("image", R.mipmap.ic_explore_black_24dp+"");
+//
+//        hashMap2 = new HashMap<>();
+//        hashMap2.put("title", "Like Us on FaceBook");
+//        hashMap2.put("image", R.mipmap.facebook+"");
+//
+//        hashMap3 = new HashMap<>();
+//        hashMap3.put("title", "Email Support");
+//        hashMap3.put("image", R.mipmap.ic_email_black_24dp+"");
+//
+//        arrayList.add(hashMap);
+//        arrayList.add(hashMap2);
+//        arrayList.add(hashMap3);
+//
+//        listView = (ListView)view.findViewById(R.id.listView);
+//
+////        adapter = new FavoriteAdapter(getActivity(), arrayList);
+//        listView.setAdapter(new FavoriteAdapter(getActivity(), arrayList));
 
-        arrayList = new ArrayList<>();
 
-        hashMap = new HashMap<>();
-        hashMap.put("title", "FAQ");
-        hashMap.put("image", R.mipmap.ic_explore_black_24dp+"");
-
-        hashMap2 = new HashMap<>();
-        hashMap2.put("title", "Like Us on FaceBook");
-        hashMap2.put("image", R.mipmap.facebook+"");
-
-        hashMap3 = new HashMap<>();
-        hashMap3.put("title", "Email Support");
-        hashMap3.put("image", R.mipmap.ic_email_black_24dp+"");
-
-        arrayList.add(hashMap);
-        arrayList.add(hashMap2);
-        arrayList.add(hashMap3);
-
-        listView = (ListView)getActivity().findViewById(R.id.listView);
-
-//        adapter = new FavoriteAdapter(getActivity(), arrayList);
-        listView.setAdapter(new FavoriteAdapter(getActivity(), arrayList));
 
         // Inflate the layout for this fragment
-        return view;
+        return inflater.inflate(R.layout.fragment_favorite, container, false);
     }
 
     // TODO: Rename method, update argument and hook method into UI event

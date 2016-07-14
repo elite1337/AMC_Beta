@@ -7,6 +7,11 @@ import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Adapter;
+import android.widget.ListView;
+
+import java.util.ArrayList;
+import java.util.HashMap;
 
 
 /**
@@ -18,6 +23,13 @@ import android.view.ViewGroup;
  * create an instance of this fragment.
  */
 public class FavoriteFragment extends Fragment {
+
+    ArrayList<HashMap<String,String>> arrayList;
+    HashMap<String, String> hashMap, hashMap2, hashMap3;
+
+    ListView listView;
+    Adapter adapter;
+
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
     private static final String ARG_PARAM1 = "param1";
@@ -63,8 +75,34 @@ public class FavoriteFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
+
+        View view = inflater.inflate(R.layout.fragment_favorite, container, false);
+
+        arrayList = new ArrayList<>();
+
+        hashMap = new HashMap<>();
+        hashMap.put("title", "FAQ");
+        hashMap.put("image", R.mipmap.ic_explore_black_24dp+"");
+
+        hashMap2 = new HashMap<>();
+        hashMap2.put("title", "Like Us on FaceBook");
+        hashMap2.put("image", R.mipmap.facebook+"");
+
+        hashMap3 = new HashMap<>();
+        hashMap3.put("title", "Email Support");
+        hashMap3.put("image", R.mipmap.ic_email_black_24dp+"");
+
+        arrayList.add(hashMap);
+        arrayList.add(hashMap2);
+        arrayList.add(hashMap3);
+
+        listView = (ListView)getActivity().findViewById(R.id.listView);
+
+//        adapter = new FavoriteAdapter(getActivity(), arrayList);
+        listView.setAdapter(new FavoriteAdapter(getActivity(), arrayList));
+
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_favorite, container, false);
+        return view;
     }
 
     // TODO: Rename method, update argument and hook method into UI event

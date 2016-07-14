@@ -8,5 +8,5 @@
     android:paddingTop="@dimen/activity_vertical_margin"
     tools:context="com.example.pete.amc.FavoriteFragment">
 
-    
+
 </FrameLayout>

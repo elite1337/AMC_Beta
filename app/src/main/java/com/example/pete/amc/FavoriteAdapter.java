@@ -1,5 +1,7 @@
 package com.example.pete.amc;
 
+import java.util.List;
+import android.app.Activity;
 import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -8,55 +10,50 @@ import android.widget.BaseAdapter;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-import java.util.ArrayList;
-import java.util.HashMap;
-
 public class FavoriteAdapter extends BaseAdapter {
 
     Context context;
-    ArrayList<HashMap<String,String>> arrayList;
-    FavoriteFragment favoriteFragment;
+    List<FavoriteRow> rowItem;
 
-    LayoutInflater layoutInflater;
-    TextView textView;
-    ImageView imageView;
-
-    FavoriteAdapter(Context context_inner, ArrayList<HashMap<String,String>> arrayList_inner)
-    {
-        this.context = context_inner;
-        this.arrayList = arrayList_inner;
+    FavoriteAdapter(Context context, List<FavoriteRow> rowItem) {
+        this.context = context;
+        this.rowItem = rowItem;
     }
 
     @Override
     public int getCount() {
-        return arrayList.size();
+
+        return rowItem.size();
     }
 
     @Override
-    public Object getItem(int i) {
-        return arrayList.get(i);
+    public Object getItem(int position) {
+
+        return rowItem.get(position);
     }
 
     @Override
-    public long getItemId(int i) {
-        return arrayList.indexOf(getItemId(i));
+    public long getItemId(int position) {
+
+        return rowItem.indexOf(getItem(position));
     }
 
     @Override
-    public View getView(int i, View view, ViewGroup viewGroup) {
+    public View getView(int position, View convertView, ViewGroup parent) {
 
-        layoutInflater = (LayoutInflater)context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-        view = layoutInflater.inflate(R.layout.fragment_favorite_row, null);
+        if (convertView == null) {
+            LayoutInflater mInflater = (LayoutInflater)context.getSystemService(Activity.LAYOUT_INFLATER_SERVICE);
+            convertView = mInflater.inflate(R.layout.fragment_favorite_row, null);
+        }
 
-        textView = (TextView) view.findViewById(R.id.textView);
-        imageView = (ImageView) view.findViewById(R.id.imageView);
+        ImageView imgIcon = (ImageView)convertView.findViewById(R.id.icon);
+        TextView txtTitle = (TextView)convertView.findViewById(R.id.title);
 
-        textView.setText(arrayList.get(i).get("title"));
+        FavoriteRow row_pos = rowItem.get(position);
+        // setting the image resource and title
+        imgIcon.setImageResource(row_pos.getIcon());
+        txtTitle.setText(row_pos.getTitle());
 
-//        String image = favoriteFragment.arrayList.get(i).get("image");
-//        int intImage = Integer.parseInt(image);
-//        imageView.setImageResource(intImage);
-
-        return view;
+        return convertView;
     }
 }

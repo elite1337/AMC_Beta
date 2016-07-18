@@ -114,7 +114,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
             });
 
             FragmentTransaction xfragmentTransaction = mFragmentManager.beginTransaction();
-            xfragmentTransaction.replace(R.id.content_id,new TabFragment()).commit();
+            xfragmentTransaction.replace(R.id.content_id, new TabFragment()).commit();
         }
         else if (id == R.id.nav_money)
         {
@@ -133,7 +133,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
             });
 
             FragmentTransaction xfragmentTransaction = mFragmentManager.beginTransaction();
-            xfragmentTransaction.replace(R.id.content_id,new MoneyTabFragment()).commit();
+            xfragmentTransaction.replace(R.id.content_id, new MoneyTabFragment()).commit();
         }
         else if (id == R.id.nav_game)
         {
@@ -143,7 +143,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
             fab.hide();
 
             FragmentTransaction xfragmentTransaction = mFragmentManager.beginTransaction();
-            xfragmentTransaction.replace(R.id.content_id,new GameTabFragment()).commit();
+            xfragmentTransaction.replace(R.id.content_id, new GameTabFragment()).commit();
         }
         else if (id == R.id.nav_favorite)
         {

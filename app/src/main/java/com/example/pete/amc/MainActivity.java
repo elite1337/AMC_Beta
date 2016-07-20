@@ -1,5 +1,8 @@
 package com.example.pete.amc;
 
+import android.content.Context;
+import android.content.Intent;
+import android.content.SharedPreferences;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.NavigationView;
 import android.support.design.widget.Snackbar;
@@ -24,6 +27,19 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
+        SharedPreferences sharedPreferences = getSharedPreferences("MyData", Context.MODE_PRIVATE);
+        String initialization = sharedPreferences.getString("identification", "default");
+        if(initialization.equals("default"))
+        {
+            SharedPreferences.Editor editor = sharedPreferences.edit();
+            editor.putString("identification", "0");
+            editor.commit();
+
+            Intent intentPopUp = new Intent(this, PopUpActivity.class);
+            startActivity(intentPopUp);
+        }
+
 
         mFragmentManager = getSupportFragmentManager();
         mFragmentTransaction = mFragmentManager.beginTransaction();
@@ -53,6 +69,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
 
         NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
+
 
         getSupportActionBar().setTitle("AMC");
     }

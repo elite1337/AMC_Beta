@@ -8,16 +8,4 @@
 
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
-
-    <string-array name="titles">
-        <item>FAQ</item>
-        <item>Like Us on Facebook</item>
-        <item>Email Support</item>
-    </string-array>
-
-    <array name="images">
-        <item>@drawable/ic_explore_black_24dp</item>
-        <item>@drawable/facebook</item>
-        <item>@drawable/ic_email_black_24dp</item>
-    </array>
 </resources>

@@ -1,55 +1,57 @@
 package com.example.pete.amc;
 
-import java.util.ArrayList;
-import java.util.List;
-import android.app.ListFragment;
-import android.content.res.TypedArray;
+import android.content.Intent;
 import android.os.Bundle;
-import android.view.LayoutInflater;
+import android.support.annotation.Nullable;
+import android.support.v4.app.Fragment;
+import android.support.v4.app.ListFragment;
+import android.support.v4.content.ContextCompat;
 import android.view.View;
-import android.view.ViewGroup;
-import android.widget.AdapterView;
-import android.widget.Toast;
-import android.widget.AdapterView.OnItemClickListener;
+import android.widget.ListView;
 
-public class FavoriteListFragment extends ListFragment implements OnItemClickListener {
+import java.util.ArrayList;
 
-    String[] menutitles;
-    TypedArray menuIcons;
+/**
+ * A simple {@link Fragment} subclass.
+ */
+public class FavoriteListFragment extends ListFragment {
 
-    FavoriteAdapter adapter;
-    private List<FavoriteRow> rowItems;
-
-    @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-
-        return inflater.inflate(R.layout.fragment_favorite_listview, null, false);
-    }
+    private ArrayList<FavoriteRow> notes;
+    private FavoriteArrayAdapter noteAdapter;
 
     @Override
-    public void onActivityCreated(Bundle savedInstanceState) {
-
+    public void onActivityCreated(@Nullable Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
 
-        menutitles = getResources().getStringArray(R.array.titles);
-        menuIcons = getResources().obtainTypedArray(R.array.images);
+        notes = new ArrayList<>();
+        notes.add(new FavoriteRow("FAQ", FavoriteRow.Category.ONE));
+        notes.add(new FavoriteRow("Like Us on Facebook", FavoriteRow.Category.TWO));
+        notes.add(new FavoriteRow("Email Support", FavoriteRow.Category.THREE));
 
-        rowItems = new ArrayList<>();
+        noteAdapter = new FavoriteArrayAdapter(getActivity(), notes);
 
-        for (int i = 0; i < menutitles.length; i++) {
-            FavoriteRow items = new FavoriteRow(menutitles[i], menuIcons.getResourceId(i, -1));
+        setListAdapter(noteAdapter);
 
-            rowItems.add(items);
-        }
-
-        adapter = new FavoriteAdapter(getActivity(), rowItems);
-        setListAdapter(adapter);
-        getListView().setOnItemClickListener(this);
+        getListView().setDivider(ContextCompat.getDrawable(getActivity(), android.R.color.darker_gray));
+        getListView().setDividerHeight(1);
     }
 
     @Override
-    public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+    public void onListItemClick(ListView l, View v, int position, long id) {
+        super.onListItemClick(l, v, position, id);
 
-        Toast.makeText(getActivity(), menutitles[position], Toast.LENGTH_SHORT).show();
+        switch (position)
+        {
+            case 0:
+                Intent intentFAQ = new Intent(getActivity(), FavoriteFAQActivity.class);
+                startActivity(intentFAQ);
+                return;
+            case 1:
+
+                return;
+            case 2:
+
+                return;
+        }
     }
 }

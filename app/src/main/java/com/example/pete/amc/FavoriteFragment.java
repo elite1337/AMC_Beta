@@ -1,11 +1,13 @@
 package com.example.pete.amc;
 
+import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.TextView;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -63,8 +65,19 @@ public class FavoriteFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
 
+        View view = inflater.inflate(R.layout.fragment_favorite, container, false);
+
+        TextView textView = (TextView)view.findViewById(R.id.textViewIntro);
+        textView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent= new Intent(getActivity(), PopUpActivity.class);
+                startActivity(intent);
+            }
+        });
+
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_favorite, container, false);
+        return view;
     }
 
     // TODO: Rename method, update argument and hook method into UI event

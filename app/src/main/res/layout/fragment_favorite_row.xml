@@ -26,11 +26,4 @@
             android:layout_margin="5dp" />
 
     </LinearLayout>
-
-    <View
-        android:layout_width="match_parent"
-        android:layout_height="2dp"
-        android:background="#D3D3D3"
-        android:layout_below="@+id/imageView">
-    </View>
 </LinearLayout>

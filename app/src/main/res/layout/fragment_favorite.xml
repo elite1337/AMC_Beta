@@ -11,5 +11,15 @@ tools:context="com.example.pete.amc.FavoriteFragment">
     android:id="@+id/fragment1"
     android:name="com.example.pete.amc.FavoriteListFragment"
     android:layout_width="match_parent"
-    android:layout_height="match_parent" />
+    android:layout_height="450dp" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceMedium"
+        android:text="View Introduction"
+        android:id="@+id/textViewIntro"
+        android:layout_below="@+id/fragment1"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="20dp" />
 </RelativeLayout>

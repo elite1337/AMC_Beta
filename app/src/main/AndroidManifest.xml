@@ -20,8 +20,17 @@
         </activity>
         <activity
             android:name=".FavoriteFAQActivity"
-            android:parentActivityName=".MainActivity"></activity>
-        <activity android:name=".PopUpActivity"></activity>
+            android:parentActivityName=".MainActivity" />
+        <activity android:name=".PopUpActivity" />
+        <activity android:name=".LogInActivity" />
+        <activity android:name=".IntroActivity" />
+        <activity android:name=".IntroLogInActivity" />
+        <activity
+            android:name=".LogInInfoActivity"
+            android:parentActivityName=".LogInActivity" />
+        <activity
+            android:name=".CreateAccountActivity"
+            android:parentActivityName=".LogInActivity"></activity>
     </application>
 
 </manifest>

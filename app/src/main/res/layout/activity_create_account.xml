@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".CreateAccountActivity">
+
+    <EditText
+        android:layout_width="300dp"
+        android:layout_height="wrap_content"
+        android:inputType="textPersonName"
+        android:ems="10"
+        android:id="@+id/editTextCreateUser"
+        android:layout_alignParentTop="true"
+        android:layout_alignLeft="@+id/editTextCreateEmail"
+        android:layout_alignStart="@+id/editTextCreateEmail"
+        android:layout_marginTop="30dp"
+        android:hint="User Name"/>
+
+    <EditText
+        android:layout_width="300dp"
+        android:layout_height="wrap_content"
+        android:inputType="textEmailAddress"
+        android:ems="10"
+        android:id="@+id/editTextCreateEmail"
+        android:hint="Email Address"
+        android:layout_below="@+id/editTextCreateUser"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="5dp" />
+
+    <EditText
+        android:layout_width="300dp"
+        android:layout_height="wrap_content"
+        android:inputType="textPassword"
+        android:ems="10"
+        android:id="@+id/editTextCreatePW"
+        android:hint="Password"
+        android:layout_below="@+id/editTextCreateEmail"
+        android:layout_alignLeft="@+id/editTextCreateEmail"
+        android:layout_alignStart="@+id/editTextCreateEmail"
+        android:layout_marginTop="5dp" />
+
+    <Button
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Create an Account"
+        android:id="@+id/buttonCreateAcc"
+        android:layout_alignParentBottom="true"
+        android:layout_centerHorizontal="true"
+        android:textColor="#FFFFFF"/>
+</RelativeLayout>

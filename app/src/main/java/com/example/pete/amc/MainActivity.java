@@ -17,11 +17,23 @@ import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.ImageView;
 
 public class MainActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener {
 
     FragmentManager mFragmentManager;
     FragmentTransaction mFragmentTransaction;
+
+    int a;
+
+    public int getA() {
+        return a;
+    }
+
+    public void setA(int a) {
+        this.a = a;
+    }
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -67,8 +79,35 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         drawer.setDrawerListener(toggle);
         toggle.syncState();
 
-        NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
+        final NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
+
+
+        setA(0);
+        View view = navigationView.inflateHeaderView(R.layout.nav_header_main);
+        final ImageView imageViewDown = (ImageView) view.findViewById(R.id.imageViewDown);
+        imageViewDown.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+
+                if(getA() == 0)
+                {
+                    navigationView.getMenu().clear();
+                    navigationView.inflateMenu(R.menu.activity_main_drawer_guest);
+
+                    imageViewDown.setImageResource(R.mipmap.ic_arrow_drop_up_white_24dp);
+                    setA(1);
+                }
+                else
+                {
+                    navigationView.getMenu().clear();
+                    navigationView.inflateMenu(R.menu.activity_main_drawer);
+
+                    imageViewDown.setImageResource(R.mipmap.ic_arrow_drop_down_white_24dp);
+                    setA(0);
+                }
+            }
+        });
 
 
         getSupportActionBar().setTitle("AMC");
@@ -79,9 +118,11 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         if (drawer.isDrawerOpen(GravityCompat.START)) {
             drawer.closeDrawer(GravityCompat.START);
-        } else {
-            super.onBackPressed();
         }
+//        else
+//        {
+//            super.onBackPressed();
+//        }
     }
 
     @Override
@@ -175,6 +216,16 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         else if (id == R.id.nav_star)
         {
 
+        }
+        else if (id == R.id.nav_power)
+        {
+            Intent intentLogIn = new Intent(this, LogInActivity.class);
+            startActivity(intentLogIn);
+        }
+        else if (id == R.id.nav_person)
+        {
+            Intent intentCreateAccount = new Intent(this, CreateAccountActivity.class);
+            startActivity(intentCreateAccount);
         }
 
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);

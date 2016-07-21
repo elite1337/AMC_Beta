@@ -34,7 +34,6 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         this.a = a;
     }
 
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);

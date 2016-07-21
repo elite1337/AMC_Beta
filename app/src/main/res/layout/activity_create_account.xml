@@ -40,6 +40,18 @@
         android:layout_alignStart="@+id/editTextCreateEmail"
         android:layout_marginTop="5dp" />
 
+    <EditText
+        android:layout_width="300dp"
+        android:layout_height="wrap_content"
+        android:inputType="textPassword"
+        android:ems="10"
+        android:id="@+id/editText"
+        android:hint="Re-enter Password"
+        android:layout_marginTop="5dp"
+        android:layout_below="@+id/editTextCreatePW"
+        android:layout_alignLeft="@+id/editTextCreatePW"
+        android:layout_alignStart="@+id/editTextCreatePW" />
+
     <Button
         android:layout_width="match_parent"
         android:layout_height="wrap_content"

@@ -40,11 +40,11 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         setContentView(R.layout.activity_main);
 
         SharedPreferences sharedPreferences = getSharedPreferences("MyData", Context.MODE_PRIVATE);
-        String initialization = sharedPreferences.getString("identification", "default");
+        String initialization = sharedPreferences.getString("firsttimeuse", "default");
         if(initialization.equals("default"))
         {
             SharedPreferences.Editor editor = sharedPreferences.edit();
-            editor.putString("identification", "0");
+            editor.putString("firsttimeuse", "0");
             editor.commit();
 
             Intent intentPopUp = new Intent(this, PopUpActivity.class);
@@ -225,6 +225,14 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         {
             Intent intentCreateAccount = new Intent(this, CreateAccountActivity.class);
             startActivity(intentCreateAccount);
+        }
+        else if (id == R.id.nav_manage_account)
+        {
+
+        }
+        else if (id == R.id.nav_manage_account)
+        {
+
         }
 
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);

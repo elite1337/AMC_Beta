@@ -3,6 +3,7 @@ package com.example.pete.amc;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.media.Image;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.NavigationView;
 import android.support.design.widget.Snackbar;
@@ -18,6 +19,7 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.ImageView;
+import android.widget.TextView;
 
 public class MainActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener {
 
@@ -39,7 +41,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        SharedPreferences sharedPreferences = getSharedPreferences("MyData", Context.MODE_PRIVATE);
+        final SharedPreferences sharedPreferences = getSharedPreferences("MyData", Context.MODE_PRIVATE);
         String initialization = sharedPreferences.getString("firsttimeuse", "default");
         if(initialization.equals("default"))
         {
@@ -84,18 +86,35 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
 
         setA(0);
         View view = navigationView.inflateHeaderView(R.layout.nav_header_main);
-        final ImageView imageViewDown = (ImageView) view.findViewById(R.id.imageViewDown);
+        ImageView imageViewHeader = (ImageView)view.findViewById(R.id.imageViewHeader);
+        final ImageView imageViewDown = (ImageView)view.findViewById(R.id.imageViewDown);
+        TextView textViewName = (TextView)view.findViewById(R.id.textViewHeaderName);
+        TextView textViewEmail = (TextView)view.findViewById(R.id.textViewHeaderEmail);
+
+        final String identification = sharedPreferences.getString("identification", "default");
+
         imageViewDown.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
 
                 if(getA() == 0)
                 {
-                    navigationView.getMenu().clear();
-                    navigationView.inflateMenu(R.menu.activity_main_drawer_guest);
+                    if(identification.equals("1"))
+                    {
+                        navigationView.getMenu().clear();
+                        navigationView.inflateMenu(R.menu.activity_main_drawer_user);
 
-                    imageViewDown.setImageResource(R.mipmap.ic_arrow_drop_up_white_24dp);
-                    setA(1);
+                        imageViewDown.setImageResource(R.mipmap.ic_arrow_drop_up_white_24dp);
+                        setA(1);
+                    }
+                    else
+                    {
+                        navigationView.getMenu().clear();
+                        navigationView.inflateMenu(R.menu.activity_main_drawer_guest);
+
+                        imageViewDown.setImageResource(R.mipmap.ic_arrow_drop_up_white_24dp);
+                        setA(1);
+                    }
                 }
                 else
                 {
@@ -107,6 +126,16 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
                 }
             }
         });
+
+        if(identification.equals("1"))
+        {
+            String email = sharedPreferences.getString("email", "default");
+            textViewEmail.setText(email);
+        }
+        else 
+        {
+            textViewEmail.setText("Log in or sign up");
+        }
 
 
         getSupportActionBar().setTitle("AMC");
@@ -228,11 +257,19 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         }
         else if (id == R.id.nav_manage_account)
         {
-
+            Intent intentManageAccount = new Intent(getApplicationContext(), ManageAccountActivity.class);
+            startActivity(intentManageAccount);
         }
-        else if (id == R.id.nav_manage_account)
+        else if (id == R.id.nav_log_out)
         {
+            SharedPreferences sharedPreferences = getApplicationContext().getSharedPreferences("MyData", Context.MODE_PRIVATE);
+            SharedPreferences.Editor editor = sharedPreferences.edit();
+            editor.putString("identification", "0");
 
+            editor.commit();
+
+            Intent intentMain = new Intent(getApplicationContext(), MainActivity.class);
+            startActivity(intentMain);
         }
 
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);

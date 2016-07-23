@@ -32,7 +32,13 @@
             android:parentActivityName=".LogInActivity" />
         <activity
             android:name=".CreateAccountActivity"
-            android:parentActivityName=".LogInActivity"></activity>
+            android:parentActivityName=".LogInActivity" />
+        <activity
+            android:name=".ManageAccountActivity"
+            android:parentActivityName=".MainActivity" />
+        <activity
+            android:name=".EditProfileActivity"
+            android:parentActivityName=".ManageAccountActivity"></activity>
     </application>
 
 </manifest>

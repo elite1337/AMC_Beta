@@ -42,7 +42,5 @@ public class PopUpActivity extends AppCompatActivity {
 
     @Override
     public void onBackPressed() {
-
-        mHandler.removeCallbacksAndMessages(null);
     }
 }

@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="com.example.pete.amc.EditProfileActivity">
+
+    <ImageView
+        android:layout_width="120dp"
+        android:layout_height="120dp"
+        android:id="@+id/imageViewEditProfile"
+        android:layout_alignParentTop="true"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="30dp"
+        android:src="@mipmap/ic_account_circle_black_24dp"/>
+
+    <EditText
+        android:layout_width="300dp"
+        android:layout_height="wrap_content"
+        android:inputType="textPersonName"
+        android:hint="User Name"
+        android:ems="10"
+        android:id="@+id/editTextEditUser"
+        android:layout_below="@+id/imageViewEditProfile"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="20dp" />
+
+    <EditText
+        android:layout_width="300dp"
+        android:layout_height="wrap_content"
+        android:inputType="textEmailAddress"
+        android:ems="10"
+        android:id="@+id/editTextEditEmail"
+        android:hint="Email Address"
+        android:layout_below="@+id/editTextEditUser"
+        android:layout_alignLeft="@+id/editTextEditUser"
+        android:layout_alignStart="@+id/editTextEditUser"
+        android:layout_marginTop="5dp" />
+
+    <EditText
+        android:layout_width="300dp"
+        android:layout_height="wrap_content"
+        android:id="@+id/editTextDescription"
+        android:hint="Description"
+        android:layout_below="@+id/editTextEditEmail"
+        android:layout_alignLeft="@+id/editTextEditEmail"
+        android:layout_alignStart="@+id/editTextEditEmail"
+        android:layout_marginTop="5dp" />
+
+    <Button
+        android:layout_width="350dp"
+        android:layout_height="wrap_content"
+        android:text="Delete Account"
+        android:id="@+id/buttonDeleteAcc"
+        android:layout_below="@+id/editTextDescription"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="20dp"
+        android:textColor="#FFFFFF"/>
+
+</RelativeLayout>

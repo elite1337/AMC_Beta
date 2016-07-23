@@ -13,7 +13,7 @@
     android:id="@+id/navHeaderMain">
 
     <ImageView
-        android:id="@+id/imageView"
+        android:id="@+id/imageViewHeader"
         android:layout_width="60dp"
         android:layout_height="60dp"
         android:adjustViewBounds="true"
@@ -26,6 +26,7 @@
         android:layout_height="wrap_content"
         android:paddingTop="@dimen/nav_header_vertical_spacing"
         android:text="Guest"
+        android:id="@+id/textViewHeaderName"
         android:textAppearance="@style/TextAppearance.AppCompat.Body1" />
 
     <RelativeLayout
@@ -34,7 +35,7 @@
         android:orientation="horizontal">
 
         <TextView
-            android:id="@+id/textView"
+            android:id="@+id/textViewHeaderEmail"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="Log in or sign up" />

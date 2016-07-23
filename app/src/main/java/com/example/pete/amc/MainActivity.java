@@ -3,7 +3,6 @@ package com.example.pete.amc;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
-import android.media.Image;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.NavigationView;
 import android.support.design.widget.Snackbar;
@@ -20,6 +19,7 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 public class MainActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener {
 
@@ -87,7 +87,8 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         setA(0);
         View view = navigationView.inflateHeaderView(R.layout.nav_header_main);
         ImageView imageViewHeader = (ImageView)view.findViewById(R.id.imageViewHeader);
-        final ImageView imageViewDown = (ImageView)view.findViewById(R.id.imageViewDown);
+        ImageView imageViewCheck = (ImageView)view.findViewById(R.id.imageViewHeaderCheck);
+        final ImageView imageViewDown = (ImageView)view.findViewById(R.id.imageViewHeaderDown);
         TextView textViewName = (TextView)view.findViewById(R.id.textViewHeaderName);
         TextView textViewEmail = (TextView)view.findViewById(R.id.textViewHeaderEmail);
 
@@ -131,10 +132,14 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         {
             String email = sharedPreferences.getString("email", "default");
             textViewEmail.setText(email);
+
+            imageViewCheck.setVisibility(View.VISIBLE);
         }
-        else 
+        else
         {
             textViewEmail.setText("Log in or sign up");
+
+            imageViewCheck.setVisibility(View.GONE);
         }
 
 
@@ -268,8 +273,9 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
 
             editor.commit();
 
-            Intent intentMain = new Intent(getApplicationContext(), MainActivity.class);
-            startActivity(intentMain);
+            Toast.makeText(getApplicationContext(), "Hope to see you again!", Toast.LENGTH_LONG).show();
+            Intent intentLogIn = new Intent(getApplicationContext(), LogInActivity.class);
+            startActivity(intentLogIn);
         }
 
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);

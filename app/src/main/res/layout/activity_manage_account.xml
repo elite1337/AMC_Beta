@@ -25,7 +25,7 @@
         android:textStyle="bold"
         android:textColor="@color/black"
         android:text="User"
-        android:id="@+id/textViewUser"
+        android:id="@+id/textViewProfileUser"
         android:layout_below="@+id/imageViewProfile"
         android:layout_centerHorizontal="true"
         android:layout_marginTop="20dp" />
@@ -33,7 +33,7 @@
     <LinearLayout
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_below="@+id/textViewUser"
+        android:layout_below="@+id/textViewProfileUser"
         android:layout_centerHorizontal="true"
         android:orientation="horizontal">
 
@@ -42,7 +42,7 @@
             android:layout_height="wrap_content"
             android:textAppearance="?android:attr/textAppearanceMedium"
             android:text="email@sample.com"
-            android:id="@+id/textViewEmail"
+            android:id="@+id/textViewProfileEmail"
             android:layout_centerHorizontal="true" />
 
         <ImageView

@@ -1,12 +1,15 @@
 package com.example.pete.amc;
 
+import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
+import android.widget.ImageView;
+import android.widget.TextView;
 
 public class ManageAccountActivity extends AppCompatActivity {
 
@@ -16,6 +19,16 @@ public class ManageAccountActivity extends AppCompatActivity {
         setContentView(R.layout.activity_manage_account);
 
         getSupportActionBar().setTitle("Profile");
+
+        ImageView imageView = (ImageView)findViewById(R.id.imageViewProfile);
+        TextView textViewUser = (TextView)findViewById(R.id.textViewProfileUser);
+        TextView textViewEmail = (TextView)findViewById(R.id.textViewProfileEmail);
+
+        SharedPreferences sharedPreferences = getSharedPreferences("MyData", Context.MODE_PRIVATE);
+        String email = sharedPreferences.getString("email", "default");
+
+        textViewEmail.setText(email);
+
     }
 
     @Override

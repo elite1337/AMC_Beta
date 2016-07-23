@@ -41,9 +41,19 @@
             android:text="Log in or sign up" />
 
         <ImageView
+            android:id="@+id/imageViewHeaderCheck"
+            android:layout_width="20dp"
+            android:layout_height="20dp"
+            android:src="@mipmap/ic_check_circle_black_24dp"
+            android:layout_marginLeft="10dp"
+            android:layout_marginTop="3dp"
+            android:layout_toRightOf="@+id/textViewHeaderEmail"
+            android:layout_toEndOf="@+id/textViewHeaderEmail" />
+
+        <ImageView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:id="@+id/imageViewDown"
+            android:id="@+id/imageViewHeaderDown"
             android:src="@mipmap/ic_arrow_drop_down_white_24dp"
             android:layout_alignParentTop="true"
             android:layout_alignParentRight="true"

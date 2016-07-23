@@ -38,7 +38,10 @@
             android:parentActivityName=".MainActivity" />
         <activity
             android:name=".EditProfileActivity"
-            android:parentActivityName=".ManageAccountActivity"></activity>
+            android:parentActivityName=".ManageAccountActivity" />
+        <activity
+            android:name=".ForgotPwActivity"
+            android:parentActivityName=".LogInInfoActivity"></activity>
     </application>
 
 </manifest>

@@ -1,5 +1,7 @@
 package com.example.pete.amc;
 
+import android.content.Context;
+import android.content.SharedPreferences;
 import android.graphics.PorterDuff;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -20,10 +22,15 @@ public class EditProfileActivity extends AppCompatActivity {
 
         EditText editTextUser = (EditText)findViewById(R.id.editTextEditUser);
         EditText editTextEmail = (EditText)findViewById(R.id.editTextEditEmail);
-        EditText editTextDescription = (EditText)findViewById(R.id.editTextDescription);
+        EditText editTextDescription = (EditText)findViewById(R.id.editTextEditDescription);
         Button button = (Button)findViewById(R.id.buttonDeleteAcc);
 
         button.getBackground().setColorFilter(0xFFFF0000, PorterDuff.Mode.MULTIPLY);
+
+        SharedPreferences sharedPreferences = getSharedPreferences("MyData", Context.MODE_PRIVATE);
+        String email = sharedPreferences.getString("email", "default");
+
+        editTextEmail.setText(email);
 
     }
 

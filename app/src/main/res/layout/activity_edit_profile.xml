@@ -40,7 +40,7 @@
     <EditText
         android:layout_width="300dp"
         android:layout_height="wrap_content"
-        android:id="@+id/editTextDescription"
+        android:id="@+id/editTextEditDescription"
         android:hint="Description"
         android:layout_below="@+id/editTextEditEmail"
         android:layout_alignLeft="@+id/editTextEditEmail"
@@ -52,7 +52,7 @@
         android:layout_height="wrap_content"
         android:text="Delete Account"
         android:id="@+id/buttonDeleteAcc"
-        android:layout_below="@+id/editTextDescription"
+        android:layout_below="@+id/editTextEditDescription"
         android:layout_centerHorizontal="true"
         android:layout_marginTop="20dp"
         android:textColor="#FFFFFF"/>

@@ -8,6 +8,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
+import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
@@ -49,10 +50,21 @@ public class LogInInfoActivity extends AppCompatActivity {
 
         getSupportActionBar().setTitle("AMC");
 
+        this.getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_VISIBLE|WindowManager.LayoutParams.SOFT_INPUT_ADJUST_RESIZE);
+
         final EditText editTextEmail = (EditText)findViewById(R.id.editTextEmail);
         final EditText editTextPW = (EditText)findViewById(R.id.editTextPW);
         TextView textView = (TextView)findViewById(R.id.textViewForget);
         Button button = (Button)findViewById(R.id.button4RealLogIn);
+
+        textView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+
+                Intent intent4got = new Intent(getApplicationContext(), ForgotPwActivity.class);
+                startActivity(intent4got);
+            }
+        });
 
         button.getBackground().setColorFilter(0xFF3F51B5, PorterDuff.Mode.MULTIPLY);
         button.setOnClickListener(new View.OnClickListener() {

@@ -88,8 +88,6 @@ public class LogInInfoActivity extends AppCompatActivity {
                                         SharedPreferences.Editor editor = sharedPreferences.edit();
                                         editor.putString("identification", "1");
                                         editor.putString("email", getEmail());
-                                        editor.putString("pw", getPw());
-
                                         editor.commit();
 
                                         Toast.makeText(getApplicationContext(), "Welcome!", Toast.LENGTH_LONG).show();

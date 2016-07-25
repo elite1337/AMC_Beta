@@ -33,24 +33,26 @@
         android:layout_height="wrap_content"
         android:inputType="textPassword"
         android:ems="10"
-        android:id="@+id/editTextCreatePW"
+        android:id="@+id/editTextCreatePw"
         android:hint="Password"
         android:layout_below="@+id/editTextCreateEmail"
         android:layout_alignLeft="@+id/editTextCreateEmail"
         android:layout_alignStart="@+id/editTextCreateEmail"
-        android:layout_marginTop="5dp" />
+        android:layout_marginTop="5dp"
+        android:maxLength="20"/>
 
     <EditText
         android:layout_width="300dp"
         android:layout_height="wrap_content"
         android:inputType="textPassword"
         android:ems="10"
-        android:id="@+id/editText"
+        android:id="@+id/editTextRePw"
         android:hint="Re-enter Password"
         android:layout_marginTop="5dp"
-        android:layout_below="@+id/editTextCreatePW"
-        android:layout_alignLeft="@+id/editTextCreatePW"
-        android:layout_alignStart="@+id/editTextCreatePW" />
+        android:layout_below="@+id/editTextCreatePw"
+        android:layout_alignLeft="@+id/editTextCreatePw"
+        android:layout_alignStart="@+id/editTextCreatePw"
+        android:maxLength="20"/>
 
     <Button
         android:layout_width="match_parent"

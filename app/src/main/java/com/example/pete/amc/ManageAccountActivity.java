@@ -25,8 +25,10 @@ public class ManageAccountActivity extends AppCompatActivity {
         TextView textViewEmail = (TextView)findViewById(R.id.textViewProfileEmail);
 
         SharedPreferences sharedPreferences = getSharedPreferences("MyData", Context.MODE_PRIVATE);
+        String user = sharedPreferences.getString("user", "default");
         String email = sharedPreferences.getString("email", "default");
 
+        textViewUser.setText(user);
         textViewEmail.setText(email);
 
     }

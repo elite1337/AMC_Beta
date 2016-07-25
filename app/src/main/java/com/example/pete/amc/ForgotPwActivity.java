@@ -7,6 +7,7 @@ import android.view.View;
 import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.Toast;
 
 public class ForgotPwActivity extends AppCompatActivity {
 
@@ -28,13 +29,29 @@ public class ForgotPwActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
 
-                ForgotPwDialogFragment forgotPwDialogFragment = new ForgotPwDialogFragment();
-                forgotPwDialogFragment.show(getFragmentManager(), "DialogFragmentShit");
+                if(!isValidEmail(editText.getText().toString()))
+                {
+                    Toast.makeText(getApplicationContext(), "Does your email address look right?", Toast.LENGTH_LONG).show();
+                    editText.setText("");
+                }
+                else
+                {
+                    ForgotPwDialogFragment forgotPwDialogFragment = new ForgotPwDialogFragment();
+                    forgotPwDialogFragment.show(getFragmentManager(), "DialogFragmentShit");
 
-                Bundle bundle = new Bundle();
-                bundle.putString("email", editText.getText().toString());
-                forgotPwDialogFragment.setArguments(bundle);
+                    Bundle bundle = new Bundle();
+                    bundle.putString("email", editText.getText().toString());
+                    forgotPwDialogFragment.setArguments(bundle);
+                }
             }
         });
+    }
+
+    public final static boolean isValidEmail(CharSequence target) {
+        if (target == null) {
+            return false;
+        } else {
+            return android.util.Patterns.EMAIL_ADDRESS.matcher(target).matches();
+        }
     }
 }

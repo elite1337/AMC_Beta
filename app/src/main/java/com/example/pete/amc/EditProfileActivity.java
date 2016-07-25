@@ -28,8 +28,10 @@ public class EditProfileActivity extends AppCompatActivity {
         button.getBackground().setColorFilter(0xFFFF0000, PorterDuff.Mode.MULTIPLY);
 
         SharedPreferences sharedPreferences = getSharedPreferences("MyData", Context.MODE_PRIVATE);
+        String user = sharedPreferences.getString("user", "default");
         String email = sharedPreferences.getString("email", "default");
 
+        editTextUser.setText(user);
         editTextEmail.setText(email);
 
     }

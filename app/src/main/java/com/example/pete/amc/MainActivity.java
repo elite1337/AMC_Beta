@@ -89,7 +89,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         ImageView imageViewHeader = (ImageView)view.findViewById(R.id.imageViewHeader);
         ImageView imageViewCheck = (ImageView)view.findViewById(R.id.imageViewHeaderCheck);
         final ImageView imageViewDown = (ImageView)view.findViewById(R.id.imageViewHeaderDown);
-        TextView textViewName = (TextView)view.findViewById(R.id.textViewHeaderName);
+        TextView textViewUser = (TextView)view.findViewById(R.id.textViewHeaderUser);
         TextView textViewEmail = (TextView)view.findViewById(R.id.textViewHeaderEmail);
 
         final String identification = sharedPreferences.getString("identification", "default");
@@ -131,6 +131,8 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         if(identification.equals("1"))
         {
             String email = sharedPreferences.getString("email", "default");
+            String user = sharedPreferences.getString("user", "default");
+            textViewUser.setText(user);
             textViewEmail.setText(email);
 
             imageViewCheck.setVisibility(View.VISIBLE);

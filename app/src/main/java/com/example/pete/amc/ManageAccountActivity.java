@@ -3,13 +3,14 @@ package com.example.pete.amc;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.graphics.PorterDuff;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -26,23 +27,31 @@ public class ManageAccountActivity extends AppCompatActivity {
         ImageView imageViewCheck = (ImageView)findViewById(R.id.imageViewProfileCheck);
         TextView textViewUser = (TextView)findViewById(R.id.textViewProfileUser);
         TextView textViewEmail = (TextView)findViewById(R.id.textViewProfileEmail);
+        TextView textViewDescription = (TextView)findViewById(R.id.textViewProfileDescription);
+        Button button = (Button)findViewById(R.id.buttonProfile);
+
+        button.getBackground().setColorFilter(0xFF3F51B5, PorterDuff.Mode.MULTIPLY);
 
         SharedPreferences sharedPreferences = getSharedPreferences("MyData", Context.MODE_PRIVATE);
         String user = sharedPreferences.getString("user", "default");
-        String email = sharedPreferences.getString("email", "default");
+        final String email = sharedPreferences.getString("email", "default");
+        String description = sharedPreferences.getString("description", "default");
         String emailverification = sharedPreferences.getString("emailverification", "default");
         String emailagain = sharedPreferences.getString("emailagain", "default");
 
         textViewUser.setText(user);
         textViewEmail.setText(email);
+        textViewDescription.setText(description);
 
         if(emailverification.equals("1"))
         {
             imageViewCheck.setVisibility(View.VISIBLE);
+            button.setVisibility(View.GONE);
         }
         else
         {
             imageViewCheck.setVisibility(View.GONE);
+            button.setVisibility(View.VISIBLE);
 
             if(emailagain.equals("0"))
             {
@@ -54,6 +63,19 @@ public class ManageAccountActivity extends AppCompatActivity {
                 manageAccountDialogFragment.setArguments(bundle);
             }
         }
+
+        button.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+
+                CreateAccountEmailDialogFragment createAccountEmailDialogFragment = new CreateAccountEmailDialogFragment();
+                createAccountEmailDialogFragment.show(getFragmentManager(), "DialogFragmentShit");
+
+                Bundle bundle = new Bundle();
+                bundle.putString("emailquestiontwo", email);
+                createAccountEmailDialogFragment.setArguments(bundle);
+            }
+        });
 
     }
 
@@ -79,5 +101,9 @@ public class ManageAccountActivity extends AppCompatActivity {
             default:
                 return super.onOptionsItemSelected(item);
         }
+    }
+
+    @Override
+    public void onBackPressed() {
     }
 }

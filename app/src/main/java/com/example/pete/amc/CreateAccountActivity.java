@@ -90,6 +90,7 @@ public class CreateAccountActivity extends AppCompatActivity implements CreateAc
                     SharedPreferences.Editor editor = sharedPreferences.edit();
                     editor.putString("user", editTextUser.getText().toString());
                     editor.putString("email", editTextEmail.getText().toString());
+                    editor.putString("descriptio", "");
                     editor.putString("identification", "1");
                     editor.putString("emailverification", "0");
                     editor.putString("emailagain", "0");

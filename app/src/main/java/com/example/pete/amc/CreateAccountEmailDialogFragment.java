@@ -18,6 +18,7 @@ public class CreateAccountEmailDialogFragment extends DialogFragment {
     public Dialog onCreateDialog(Bundle savedInstanceState) {
 
         final AlertDialog builder = new AlertDialog.Builder(getActivity())
+                .setIcon(R.drawable.ic_email_black_24dp)
                 .setTitle("Please check your email.")
                 .setMessage("An email was sent to\n" + getArguments().getString("emailquestiontwo") + ". \nIf you don't receive our email in your inbox or spam folder, this could mean you signed up with a different address.")
                 .setPositiveButton("CONTINUE", null)

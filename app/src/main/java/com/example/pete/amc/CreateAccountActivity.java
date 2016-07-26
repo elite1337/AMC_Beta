@@ -5,6 +5,8 @@ import android.content.SharedPreferences;
 import android.graphics.PorterDuff;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.text.InputFilter;
+import android.text.Spanned;
 import android.view.View;
 import android.view.WindowManager;
 import android.widget.Button;
@@ -13,7 +15,20 @@ import android.widget.Toast;
 
 public class CreateAccountActivity extends AppCompatActivity implements CreateAccountDialogFragment.OnCompleteListener {
 
-    EditText editTextUser, editTextEmail, editTextPw, editTextRePw;
+    private EditText editTextUser, editTextEmail, editTextPw, editTextRePw;
+
+    private String blockCharacterSet = "尻,.@&%=+-*/()!?'\":;_#^\\[]{}<>|$£€¥…~·`§¤¡¿'\":;_？！：；、…“”（）.+*=-/@<>#^£$€¥§¤¿\\|[]{}&～｀_±×÷·%©〔〕「」《》—‰※№‘’℃℉ˇˊˋ˙′″℅℡°■□▲△◆◇○◎●★☆⊙♀♂〈〉『』【】〖〗＇〃－~＿￠￣＊．≈≠≤≥←↑→↓¡¨⒈⒉⒊⒋⒌⒍⒎⒏⒐⒑,.!?:;……";
+    private final InputFilter inputFilter = new InputFilter() {
+        @Override
+        public CharSequence filter(CharSequence source, int start, int end, Spanned dest, int dstart, int dend) {
+
+            if (source != null && blockCharacterSet.contains((source+"")))
+            {
+                return "";
+            }
+            return null;
+        }
+    };
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -30,6 +45,10 @@ public class CreateAccountActivity extends AppCompatActivity implements CreateAc
         editTextRePw = (EditText)findViewById(R.id.editTextRePw);
         Button button = (Button)findViewById(R.id.buttonCreateAcc);
 
+        editTextUser.setFilters(new InputFilter[] {inputFilter});
+        editTextPw.setFilters(new InputFilter[] {inputFilter});
+        editTextRePw.setFilters(new InputFilter[] {inputFilter});
+
         button.getBackground().setColorFilter(0xFF3F51B5, PorterDuff.Mode.MULTIPLY);
         button.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -45,12 +64,7 @@ public class CreateAccountActivity extends AppCompatActivity implements CreateAc
                     Toast.makeText(getApplicationContext(), "Does your email address look right?", Toast.LENGTH_LONG).show();
                     return;
                 }
-                else if(editTextPw.getText().toString().isEmpty() & editTextRePw.getText().toString().isEmpty())
-                {
-                    Toast.makeText(getApplicationContext(), "Does your password look right?", Toast.LENGTH_LONG).show();
-                    return;
-                }
-                else if(!editTextPw.getText().toString().equals(editTextRePw.getText().toString()))
+                else if(editTextPw.getText().toString().isEmpty())
                 {
                     Toast.makeText(getApplicationContext(), "Does your password look right?", Toast.LENGTH_LONG).show();
                     return;
@@ -60,6 +74,16 @@ public class CreateAccountActivity extends AppCompatActivity implements CreateAc
                     Toast.makeText(getApplicationContext(), "Four characters required!", Toast.LENGTH_LONG).show();
                     return;
                 }
+                else if(editTextRePw.getText().toString().isEmpty())
+                {
+                    Toast.makeText(getApplicationContext(), "Re-enter your password below!", Toast.LENGTH_LONG).show();
+                    return;
+                }
+                else if(!editTextPw.getText().toString().equals(editTextRePw.getText().toString()))
+                {
+                    Toast.makeText(getApplicationContext(), "Does your password look right?", Toast.LENGTH_LONG).show();
+                    return;
+                }
                 else
                 {
                     SharedPreferences sharedPreferences = getApplicationContext().getSharedPreferences("MyData", Context.MODE_PRIVATE);
@@ -67,6 +91,8 @@ public class CreateAccountActivity extends AppCompatActivity implements CreateAc
                     editor.putString("user", editTextUser.getText().toString());
                     editor.putString("email", editTextEmail.getText().toString());
                     editor.putString("identification", "1");
+                    editor.putString("emailverification", "0");
+                    editor.putString("emailagain", "0");
                     editor.commit();
 
                     CreateAccountDialogFragment createAccountDialogFragment = new CreateAccountDialogFragment();

@@ -93,6 +93,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         TextView textViewEmail = (TextView)view.findViewById(R.id.textViewHeaderEmail);
 
         final String identification = sharedPreferences.getString("identification", "default");
+        final String emailverification = sharedPreferences.getString("emailverification", "default");
 
         imageViewDown.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -135,7 +136,14 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
             textViewUser.setText(user);
             textViewEmail.setText(email);
 
-            imageViewCheck.setVisibility(View.VISIBLE);
+            if(emailverification.equals("1"))
+            {
+                imageViewCheck.setVisibility(View.VISIBLE);
+            }
+            else
+            {
+                imageViewCheck.setVisibility(View.GONE);
+            }
         }
         else
         {
@@ -175,7 +183,22 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         int id = item.getItemId();
 
         //noinspection SimplifiableIfStatement
-        if (id == R.id.action_settings) {
+        if (id == R.id.action_english)
+        {
+            return true;
+        }
+        else if (id == R.id.action_default)
+        {
+            SharedPreferences sharedPreferences = getSharedPreferences("MyData", Context.MODE_PRIVATE);
+            SharedPreferences.Editor editor = sharedPreferences.edit();
+            editor.putString("firsttimeuse", "default");
+            editor.putString("identification", "0");
+            editor.putString("emailagain", "0");
+            editor.commit();
+
+            Intent intentMain = new Intent(getApplicationContext(), MainActivity.class);
+            startActivity(intentMain);
+
             return true;
         }
 

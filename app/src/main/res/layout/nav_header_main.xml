@@ -21,13 +21,30 @@
         android:paddingTop="@dimen/nav_header_vertical_spacing"
         android:src="@mipmap/ic_account_circle_black_24dp" />
 
-    <TextView
-        android:layout_width="match_parent"
+    <RelativeLayout
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:paddingTop="@dimen/nav_header_vertical_spacing"
-        android:text="Guest"
-        android:id="@+id/textViewHeaderUser"
-        android:textAppearance="@style/TextAppearance.AppCompat.Body1" />
+        android:orientation="horizontal">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:paddingTop="@dimen/nav_header_vertical_spacing"
+            android:text="Guest"
+            android:id="@+id/textViewHeaderUser"
+            android:textAppearance="@style/TextAppearance.AppCompat.Body1" />
+
+        <ImageView
+            android:id="@+id/imageViewHeaderCheck"
+            android:layout_width="20dp"
+            android:layout_height="20dp"
+            android:src="@mipmap/ic_check_circle_black_24dp"
+            android:layout_marginLeft="10dp"
+            android:layout_marginTop="18dp"
+            android:layout_toRightOf="@+id/textViewHeaderUser"
+            android:layout_toEndOf="@+id/textViewHeaderUser" />
+
+    </RelativeLayout>
 
     <RelativeLayout
         android:layout_width="match_parent"
@@ -39,16 +56,6 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="Log in or sign up" />
-
-        <ImageView
-            android:id="@+id/imageViewHeaderCheck"
-            android:layout_width="20dp"
-            android:layout_height="20dp"
-            android:src="@mipmap/ic_check_circle_black_24dp"
-            android:layout_marginLeft="10dp"
-            android:layout_marginTop="3dp"
-            android:layout_toRightOf="@+id/textViewHeaderEmail"
-            android:layout_toEndOf="@+id/textViewHeaderEmail" />
 
         <ImageView
             android:layout_width="wrap_content"

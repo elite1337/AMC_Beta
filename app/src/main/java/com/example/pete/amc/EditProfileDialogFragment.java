@@ -15,11 +15,21 @@ import android.widget.CheckBox;
 
 public class EditProfileDialogFragment extends DialogFragment {
 
+    int b;
+
+    public int getB() {
+        return b;
+    }
+
+    public void setB(int b) {
+        this.b = b;
+    }
+
     @Override
     public Dialog onCreateDialog(Bundle savedInstanceState) {
 
         LayoutInflater layoutInflater = getActivity().getLayoutInflater();
-        View view = layoutInflater.inflate(R.layout.dialog_fragment_edit_profile, null);
+        final View view = layoutInflater.inflate(R.layout.dialog_fragment_edit_profile, null);
 
         final AlertDialog builder = new AlertDialog.Builder(getActivity())
                 .setView(view)
@@ -27,14 +37,34 @@ public class EditProfileDialogFragment extends DialogFragment {
                 .setNegativeButton("CANCEL", null)
                 .create();
 
-        CheckBox checkBox = (CheckBox)view.findViewById(R.id.checkBoxEdit);
+        setB(0);
 
         builder.setOnShowListener(new DialogInterface.OnShowListener() {
             @Override
             public void onShow(DialogInterface dialogInterface) {
 
+                CheckBox checkBox = (CheckBox)view.findViewById(R.id.checkBoxEdit);
                 Button buttonCancel = builder.getButton(AlertDialog.BUTTON_NEGATIVE);
-                Button buttonDelete = builder.getButton(AlertDialog.BUTTON_POSITIVE);
+                final Button buttonDelete = builder.getButton(AlertDialog.BUTTON_POSITIVE);
+
+                buttonDelete.setEnabled(false);
+
+                checkBox.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View view) {
+
+                        if(getB() == 0)
+                        {
+                            buttonDelete.setEnabled(true);
+                            setB(1);
+                        }
+                        else
+                        {
+                            buttonDelete.setEnabled(false);
+                            setB(0);
+                        }
+                    }
+                });
 
                 buttonCancel.setOnClickListener(new View.OnClickListener() {
                     @Override
@@ -52,7 +82,6 @@ public class EditProfileDialogFragment extends DialogFragment {
                         SharedPreferences.Editor editor = sharedPreferences.edit();
                         editor.putString("firsttimeuse", "default");
                         editor.putString("identification", "0");
-                        editor.putString("emailagain", "0");
                         editor.putString("emailagain", "0");
                         editor.putString("description", "");
                         editor.commit();

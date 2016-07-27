@@ -11,6 +11,7 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.Button;
+import android.widget.CheckBox;
 
 public class EditProfileDialogFragment extends DialogFragment {
 
@@ -25,6 +26,8 @@ public class EditProfileDialogFragment extends DialogFragment {
                 .setPositiveButton("DELETE", null)
                 .setNegativeButton("CANCEL", null)
                 .create();
+
+        CheckBox checkBox = (CheckBox)view.findViewById(R.id.checkBoxEdit);
 
         builder.setOnShowListener(new DialogInterface.OnShowListener() {
             @Override
@@ -50,6 +53,8 @@ public class EditProfileDialogFragment extends DialogFragment {
                         editor.putString("firsttimeuse", "default");
                         editor.putString("identification", "0");
                         editor.putString("emailagain", "0");
+                        editor.putString("emailagain", "0");
+                        editor.putString("description", "");
                         editor.commit();
 
                         Intent intentMain = new Intent(getActivity().getApplicationContext(), MainActivity.class);

@@ -49,8 +49,8 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
             editor.putString("firsttimeuse", "0");
             editor.commit();
 
-            Intent intentPopUp = new Intent(this, PopUpActivity.class);
-            startActivity(intentPopUp);
+            Intent intentIntro = new Intent(this, IntroActivity.class);
+            startActivity(intentIntro);
         }
 
 
@@ -192,8 +192,8 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
             SharedPreferences sharedPreferences = getSharedPreferences("MyData", Context.MODE_PRIVATE);
             SharedPreferences.Editor editor = sharedPreferences.edit();
             editor.putString("firsttimeuse", "default");
-            editor.putString("identification", "0");
             editor.putString("emailagain", "0");
+            editor.putString("description", "");
             editor.commit();
 
             Intent intentMain = new Intent(getApplicationContext(), MainActivity.class);

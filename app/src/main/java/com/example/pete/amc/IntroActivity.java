@@ -1,5 +1,8 @@
 package com.example.pete.amc;
 
+import android.content.Context;
+import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Handler;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -10,6 +13,9 @@ public class IntroActivity extends AppCompatActivity {
 
     Handler mHandler = new Handler();
 
+    SharedPreferences sharedPreferences;
+    String identification;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -17,12 +23,23 @@ public class IntroActivity extends AppCompatActivity {
 
         getSupportActionBar().hide();
 
+        sharedPreferences = getSharedPreferences("MyData", Context.MODE_PRIVATE);
+        identification = sharedPreferences.getString("identification", "default");
+
         mHandler.postDelayed(new Runnable()
         {
             @Override
             public void run()
             {
-                onBackPressed();
+                if(identification.equals("0"))
+                {
+                    Intent intentLogIn = new Intent(getApplicationContext(), IntroLogInActivity.class);
+                    startActivity(intentLogIn);
+                }
+                else
+                {
+                    onBackPressed();
+                }
             }
         }, 2500L);
 
@@ -32,15 +49,25 @@ public class IntroActivity extends AppCompatActivity {
             public void onClick(View view) {
 
                 mHandler.removeCallbacksAndMessages(null);
-                onBackPressed();
+                if(identification.equals("0"))
+                {
+                    Intent intentLogIn = new Intent(getApplicationContext(), IntroLogInActivity.class);
+                    startActivity(intentLogIn);
+                }
+                else
+                {
+                    onBackPressed();
+                }
             }
         });
     }
 
     @Override
     public void onBackPressed() {
-        super.onBackPressed();
 
-        mHandler.removeCallbacksAndMessages(null);
+        if(identification.equals("1"))
+        {
+            super.onBackPressed();
+        }
     }
 }

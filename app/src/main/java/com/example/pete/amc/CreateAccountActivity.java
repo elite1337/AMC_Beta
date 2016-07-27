@@ -46,8 +46,6 @@ public class CreateAccountActivity extends AppCompatActivity implements CreateAc
         Button button = (Button)findViewById(R.id.buttonCreateAcc);
 
         editTextUser.setFilters(new InputFilter[] {inputFilter});
-        editTextPw.setFilters(new InputFilter[] {inputFilter});
-        editTextRePw.setFilters(new InputFilter[] {inputFilter});
 
         button.getBackground().setColorFilter(0xFF3F51B5, PorterDuff.Mode.MULTIPLY);
         button.setOnClickListener(new View.OnClickListener() {

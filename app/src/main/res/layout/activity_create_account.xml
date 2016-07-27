@@ -39,7 +39,8 @@
         android:layout_alignLeft="@+id/editTextCreateEmail"
         android:layout_alignStart="@+id/editTextCreateEmail"
         android:layout_marginTop="5dp"
-        android:maxLength="20"/>
+        android:maxLength="20"
+        android:digits="1234567890qwertzuiopasdfghjklyxcvbnmQWERTYUIOPASDFGHJKLZXCVBNM" />
 
     <EditText
         android:layout_width="300dp"
@@ -52,7 +53,8 @@
         android:layout_below="@+id/editTextCreatePw"
         android:layout_alignLeft="@+id/editTextCreatePw"
         android:layout_alignStart="@+id/editTextCreatePw"
-        android:maxLength="20"/>
+        android:maxLength="20"
+        android:digits="1234567890qwertzuiopasdfghjklyxcvbnmQWERTYUIOPASDFGHJKLZXCVBNM" />
 
     <Button
         android:layout_width="match_parent"

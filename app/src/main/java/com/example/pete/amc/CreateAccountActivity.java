@@ -13,6 +13,12 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
 
+import android.os.AsyncTask;
+import android.util.Log;
+
+import javax.mail.AuthenticationFailedException;
+import javax.mail.MessagingException;
+
 public class CreateAccountActivity extends AppCompatActivity implements CreateAccountDialogFragment.OnCompleteListener {
 
     private EditText editTextUser, editTextEmail, editTextPw, editTextRePw;
@@ -100,10 +106,11 @@ public class CreateAccountActivity extends AppCompatActivity implements CreateAc
                     Bundle bundle = new Bundle();
                     bundle.putString("emailquestion", editTextEmail.getText().toString());
                     createAccountDialogFragment.setArguments(bundle);
+
+                    sendMessage();
                 }
             }
         });
-
     }
 
     @Override
@@ -117,6 +124,68 @@ public class CreateAccountActivity extends AppCompatActivity implements CreateAc
             return false;
         } else {
             return android.util.Patterns.EMAIL_ADDRESS.matcher(target).matches();
+        }
+    }
+
+
+
+    private void sendMessage() {
+        SharedPreferences sharedPreferences = getApplicationContext().getSharedPreferences("MyData", Context.MODE_PRIVATE);
+        String emailUser = sharedPreferences.getString("email", "default");
+        String user = sharedPreferences.getString("user", "default");
+
+        String[] recipients = {emailUser};
+        SendEmailAsyncTask email = new SendEmailAsyncTask();
+        email.activity = this;
+        email.m = new Mail("petealwayslovesu@gmail.com", "afgur6urtu08020802");
+        email.m.set_from("petealwayslovesu@gmail.com");
+        email.m.setBody("Hey " + user + ", welcome to AMC =] Here is your verification code: " + pinGenerator());
+        email.m.set_to(recipients);
+        email.m.set_subject("Hey " + user + ", welcome to AMC =]");
+        email.execute();
+    }
+
+    public String pinGenerator()
+    {
+        int x = (int)(Math.random() * 9);
+        x = x + 1;
+        String pin = (x +"") + (((int)(Math.random()*1000))+"");
+        return pin;
+    }
+}
+
+
+
+class SendEmailAsyncTask extends AsyncTask<Void, Void, Boolean> {
+    Mail m;
+    CreateAccountActivity activity;
+
+    public SendEmailAsyncTask() {}
+
+    @Override
+    protected Boolean doInBackground(Void... params) {
+        try {
+            if (m.send()) {
+                //Email sent.
+            } else {
+                //Email failed to send.
+            }
+
+            return true;
+        } catch (AuthenticationFailedException e) {
+            Log.e(SendEmailAsyncTask.class.getName(), "Bad account details");
+            e.printStackTrace();
+            //Authentication failed.
+            return false;
+        } catch (MessagingException e) {
+            Log.e(SendEmailAsyncTask.class.getName(), "Email failed");
+            e.printStackTrace();
+            //Email failed to send.
+            return false;
+        } catch (Exception e) {
+            e.printStackTrace();
+            //Unexpected error occured.
+            return false;
         }
     }
 }

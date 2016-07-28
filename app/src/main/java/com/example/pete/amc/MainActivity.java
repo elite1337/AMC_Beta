@@ -47,6 +47,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         {
             SharedPreferences.Editor editor = sharedPreferences.edit();
             editor.putString("firsttimeuse", "0");
+            editor.putString("identification", "0");
             editor.commit();
 
             Intent intentIntro = new Intent(this, IntroActivity.class);

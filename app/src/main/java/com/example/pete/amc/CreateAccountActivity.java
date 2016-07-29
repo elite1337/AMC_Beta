@@ -5,12 +5,15 @@ import android.content.SharedPreferences;
 import android.graphics.PorterDuff;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.text.Editable;
 import android.text.InputFilter;
 import android.text.Spanned;
+import android.text.TextWatcher;
 import android.view.View;
 import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ScrollView;
 import android.widget.Toast;
 
 import android.os.AsyncTask;
@@ -45,6 +48,7 @@ public class CreateAccountActivity extends AppCompatActivity implements CreateAc
 
         this.getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_VISIBLE|WindowManager.LayoutParams.SOFT_INPUT_ADJUST_RESIZE);
 
+        final ScrollView scrollView = (ScrollView)findViewById(R.id.scrollViewCreate);
         editTextUser = (EditText)findViewById(R.id.editTextCreateUser);
         editTextEmail = (EditText)findViewById(R.id.editTextCreateEmail);
         editTextPw = (EditText)findViewById(R.id.editTextCreatePw);
@@ -52,6 +56,24 @@ public class CreateAccountActivity extends AppCompatActivity implements CreateAc
         Button button = (Button)findViewById(R.id.buttonCreateAcc);
 
         editTextUser.setFilters(new InputFilter[] {inputFilter});
+
+        editTextPw.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+
+            }
+
+            @Override
+            public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+
+            }
+
+            @Override
+            public void afterTextChanged(Editable editable) {
+
+                scrollView.scrollTo(0, scrollView.getBottom());
+            }
+        });
 
         button.getBackground().setColorFilter(0xFF3F51B5, PorterDuff.Mode.MULTIPLY);
         button.setOnClickListener(new View.OnClickListener() {
@@ -94,7 +116,7 @@ public class CreateAccountActivity extends AppCompatActivity implements CreateAc
                     SharedPreferences.Editor editor = sharedPreferences.edit();
                     editor.putString("user", editTextUser.getText().toString());
                     editor.putString("email", editTextEmail.getText().toString());
-                    editor.putString("descriptio", "");
+                    editor.putString("description", "");
                     editor.putString("identification", "1");
                     editor.putString("emailverification", "0");
                     editor.putString("emailagain", "0");
@@ -137,8 +159,8 @@ public class CreateAccountActivity extends AppCompatActivity implements CreateAc
         String[] recipients = {emailUser};
         SendEmailAsyncTask email = new SendEmailAsyncTask();
         email.activity = this;
-        email.m = new Mail("petealwayslovesu@gmail.com", "afgur6urtu08020802");
-        email.m.set_from("petealwayslovesu@gmail.com");
+        email.m = new Mail("amcverifier@gmail.com", "amcverifier7777777");
+        email.m.set_from("amcverifier@gmail.com");
         email.m.setBody("Hey " + user + ", welcome to AMC =] Here is your verification code: " + pinGenerator());
         email.m.set_to(recipients);
         email.m.set_subject("Hey " + user + ", welcome to AMC =]");
@@ -150,6 +172,12 @@ public class CreateAccountActivity extends AppCompatActivity implements CreateAc
         int x = (int)(Math.random() * 9);
         x = x + 1;
         String pin = (x +"") + (((int)(Math.random()*1000))+"");
+
+        SharedPreferences sharedPreferences = getApplicationContext().getSharedPreferences("MyData", Context.MODE_PRIVATE);
+        SharedPreferences.Editor editor = sharedPreferences.edit();
+        editor.putString("pin", pin);
+        editor.commit();
+
         return pin;
     }
 }

@@ -296,7 +296,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
             SharedPreferences sharedPreferences = getApplicationContext().getSharedPreferences("MyData", Context.MODE_PRIVATE);
             SharedPreferences.Editor editor = sharedPreferences.edit();
             editor.putString("identification", "0");
-
+            editor.putString("emailverification", "0");
             editor.commit();
 
             Toast.makeText(getApplicationContext(), "Hope to see you again!", Toast.LENGTH_LONG).show();

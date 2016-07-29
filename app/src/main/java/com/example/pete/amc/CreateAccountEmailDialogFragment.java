@@ -34,8 +34,8 @@ public class CreateAccountEmailDialogFragment extends DialogFragment {
                     @Override
                     public void onClick(View view) {
 
-                        Intent intent = new Intent(getActivity(), MainActivity.class);
-                        startActivity(intent);
+                        CreateAccountVerificationDialogFragment createAccountVerificationDialogFragment = new CreateAccountVerificationDialogFragment();
+                        createAccountVerificationDialogFragment.show(getFragmentManager(), "DialogFragmentShit");
                     }
                 });
             }

@@ -109,6 +109,7 @@ public class EditProfileActivity extends AppCompatActivity {
                     {
                         SharedPreferences.Editor editor = sharedPreferences.edit();
                         editor.putString("email", editTextEmail.getText().toString());
+                        editor.putString("emailverification", "0");
                         editor.commit();
                         Intent intent = new Intent(getApplicationContext(), ManageAccountActivity.class);
                         startActivity(intent);

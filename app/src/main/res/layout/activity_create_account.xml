@@ -1,67 +1,75 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:id="@+id/scrollViewCreate"
     tools:context=".CreateAccountActivity">
 
-    <EditText
-        android:layout_width="300dp"
-        android:layout_height="wrap_content"
-        android:inputType="textPersonName"
-        android:ems="10"
-        android:id="@+id/editTextCreateUser"
-        android:layout_alignParentTop="true"
-        android:layout_alignLeft="@+id/editTextCreateEmail"
-        android:layout_alignStart="@+id/editTextCreateEmail"
-        android:layout_marginTop="16dp"
-        android:hint="User Name"/>
-
-    <EditText
-        android:layout_width="300dp"
-        android:layout_height="wrap_content"
-        android:inputType="textEmailAddress"
-        android:ems="10"
-        android:id="@+id/editTextCreateEmail"
-        android:hint="Email Address"
-        android:layout_below="@+id/editTextCreateUser"
-        android:layout_centerHorizontal="true"
-        android:layout_marginTop="5dp" />
-
-    <EditText
-        android:layout_width="300dp"
-        android:layout_height="wrap_content"
-        android:inputType="textPassword"
-        android:ems="10"
-        android:id="@+id/editTextCreatePw"
-        android:hint="Password"
-        android:layout_below="@+id/editTextCreateEmail"
-        android:layout_alignLeft="@+id/editTextCreateEmail"
-        android:layout_alignStart="@+id/editTextCreateEmail"
-        android:layout_marginTop="5dp"
-        android:maxLength="20"
-        android:digits="1234567890qwertzuiopasdfghjklyxcvbnmQWERTYUIOPASDFGHJKLZXCVBNM" />
-
-    <EditText
-        android:layout_width="300dp"
-        android:layout_height="wrap_content"
-        android:inputType="textPassword"
-        android:ems="10"
-        android:id="@+id/editTextRePw"
-        android:hint="Re-enter Password"
-        android:layout_marginTop="5dp"
-        android:layout_below="@+id/editTextCreatePw"
-        android:layout_alignLeft="@+id/editTextCreatePw"
-        android:layout_alignStart="@+id/editTextCreatePw"
-        android:maxLength="20"
-        android:digits="1234567890qwertzuiopasdfghjklyxcvbnmQWERTYUIOPASDFGHJKLZXCVBNM" />
-
-    <Button
+    <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="CREATE AN ACCOUNT"
-        android:id="@+id/buttonCreateAcc"
-        android:layout_alignParentBottom="true"
-        android:layout_centerHorizontal="true"
-        android:textColor="#FFFFFF"/>
-</RelativeLayout>
+        android:layout_height="wrap_content">
+
+        <EditText
+            android:layout_width="300dp"
+            android:layout_height="wrap_content"
+            android:inputType="textPersonName"
+            android:ems="10"
+            android:id="@+id/editTextCreateUser"
+            android:layout_alignParentTop="true"
+            android:layout_alignLeft="@+id/editTextCreateEmail"
+            android:layout_alignStart="@+id/editTextCreateEmail"
+            android:layout_marginTop="16dp"
+            android:hint="User Name"/>
+
+        <EditText
+            android:layout_width="300dp"
+            android:layout_height="wrap_content"
+            android:inputType="textEmailAddress"
+            android:ems="10"
+            android:id="@+id/editTextCreateEmail"
+            android:hint="Email Address"
+            android:layout_below="@+id/editTextCreateUser"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="8dp" />
+
+        <EditText
+            android:layout_width="300dp"
+            android:layout_height="wrap_content"
+            android:inputType="textPassword"
+            android:ems="10"
+            android:id="@+id/editTextCreatePw"
+            android:hint="Password"
+            android:layout_below="@+id/editTextCreateEmail"
+            android:layout_alignLeft="@+id/editTextCreateEmail"
+            android:layout_alignStart="@+id/editTextCreateEmail"
+            android:layout_marginTop="8dp"
+            android:maxLength="20"
+            android:digits="1234567890qwertzuiopasdfghjklyxcvbnmQWERTYUIOPASDFGHJKLZXCVBNM" />
+
+        <EditText
+            android:layout_width="300dp"
+            android:layout_height="wrap_content"
+            android:inputType="textPassword"
+            android:ems="10"
+            android:id="@+id/editTextRePw"
+            android:hint="Re-enter Password"
+            android:layout_marginTop="8dp"
+            android:layout_below="@+id/editTextCreatePw"
+            android:layout_alignLeft="@+id/editTextCreatePw"
+            android:layout_alignStart="@+id/editTextCreatePw"
+            android:maxLength="20"
+            android:digits="1234567890qwertzuiopasdfghjklyxcvbnmQWERTYUIOPASDFGHJKLZXCVBNM" />
+
+        <Button
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="CREATE AN ACCOUNT"
+            android:id="@+id/buttonCreateAcc"
+            android:textColor="#FFFFFF"
+            android:layout_below="@+id/editTextRePw"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentStart="true"
+            android:layout_marginTop="16dp"/>
+    </RelativeLayout>
+</ScrollView>

@@ -1,70 +1,62 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="@dimen/nav_header_height"
     android:background="@drawable/side_nav_bar"
-    android:gravity="bottom"
-    android:orientation="vertical"
-    android:paddingBottom="@dimen/activity_vertical_margin"
     android:paddingLeft="@dimen/activity_horizontal_margin"
-    android:paddingRight="@dimen/activity_horizontal_margin"
     android:paddingTop="@dimen/activity_vertical_margin"
     android:theme="@style/ThemeOverlay.AppCompat.Dark"
     android:id="@+id/navHeaderMain">
 
     <ImageView
         android:id="@+id/imageViewHeader"
-        android:layout_width="60dp"
-        android:layout_height="60dp"
-        android:adjustViewBounds="true"
-        android:scaleType="fitCenter"
-        android:paddingTop="@dimen/nav_header_vertical_spacing"
-        android:src="@mipmap/ic_account_circle_black_24dp" />
+        android:layout_width="64dp"
+        android:layout_height="64dp"
+        android:src="@mipmap/ic_account_circle_black_24dp"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        android:layout_marginTop="8dp"/>
 
-    <RelativeLayout
+    <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:orientation="horizontal">
+        android:text="Guest"
+        android:id="@+id/textViewHeaderUser"
+        android:textAppearance="@style/TextAppearance.AppCompat.Body1"
+        android:layout_above="@+id/textViewHeaderEmail"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        android:layout_marginBottom="4dp"/>
 
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:paddingTop="@dimen/nav_header_vertical_spacing"
-            android:text="Guest"
-            android:id="@+id/textViewHeaderUser"
-            android:textAppearance="@style/TextAppearance.AppCompat.Body1" />
+    <ImageView
+        android:id="@+id/imageViewHeaderCheck"
+        android:layout_width="20dp"
+        android:layout_height="20dp"
+        android:src="@mipmap/ic_check_circle_black_24dp"
+        android:layout_above="@+id/textViewHeaderEmail"
+        android:layout_alignRight="@+id/imageViewHeader"
+        android:layout_alignEnd="@+id/imageViewHeader"
+        android:layout_marginBottom="4dp"/>
 
-        <ImageView
-            android:id="@+id/imageViewHeaderCheck"
-            android:layout_width="20dp"
-            android:layout_height="20dp"
-            android:src="@mipmap/ic_check_circle_black_24dp"
-            android:layout_marginLeft="10dp"
-            android:layout_marginTop="18dp"
-            android:layout_toRightOf="@+id/textViewHeaderUser"
-            android:layout_toEndOf="@+id/textViewHeaderUser" />
-
-    </RelativeLayout>
-
-    <RelativeLayout
-        android:layout_width="match_parent"
+    <TextView
+        android:id="@+id/textViewHeaderEmail"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:orientation="horizontal">
+        android:text="Log in or sign up"
+        android:layout_alignBottom="@+id/imageViewHeaderDown"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        android:layout_marginBottom="16dp"/>
 
-        <TextView
-            android:id="@+id/textViewHeaderEmail"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Log in or sign up" />
-
-        <ImageView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:id="@+id/imageViewHeaderDown"
-            android:src="@mipmap/ic_arrow_drop_down_white_24dp"
-            android:layout_alignParentTop="true"
-            android:layout_alignParentRight="true"
-            android:layout_alignParentEnd="true" />
-    </RelativeLayout>
-
-</LinearLayout>
+    <ImageView
+        android:layout_width="48dp"
+        android:layout_height="48dp"
+        android:id="@+id/imageViewHeaderDown"
+        android:src="@mipmap/ic_arrow_drop_down_white_24dp"
+        android:scaleType="center"
+        android:paddingTop="24dp"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentEnd="true" />
+</RelativeLayout>

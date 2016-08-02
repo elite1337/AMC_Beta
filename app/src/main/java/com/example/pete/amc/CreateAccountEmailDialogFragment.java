@@ -3,9 +3,12 @@ package com.example.pete.amc;
 import android.app.AlertDialog;
 import android.app.Dialog;
 import android.app.DialogFragment;
+import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.os.Handler;
 import android.support.annotation.Nullable;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -13,6 +16,8 @@ import android.view.ViewGroup;
 import android.widget.Button;
 
 public class CreateAccountEmailDialogFragment extends DialogFragment {
+
+    Handler mHandler = new Handler();
 
     @Override
     public Dialog onCreateDialog(Bundle savedInstanceState) {
@@ -28,14 +33,34 @@ public class CreateAccountEmailDialogFragment extends DialogFragment {
             @Override
             public void onShow(DialogInterface dialogInterface) {
 
-                Button buttonYes = builder.getButton(AlertDialog.BUTTON_POSITIVE);
+                final Button button = builder.getButton(AlertDialog.BUTTON_POSITIVE);
+                button.setEnabled(false);
+                mHandler.postDelayed(new Runnable()
+                {
+                    @Override
+                    public void run()
+                    {
 
-                buttonYes.setOnClickListener(new View.OnClickListener() {
+                        button.setEnabled(true);
+                    }
+                }, 2500L);
+
+                button.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View view) {
 
-                        CreateAccountVerificationDialogFragment createAccountVerificationDialogFragment = new CreateAccountVerificationDialogFragment();
-                        createAccountVerificationDialogFragment.show(getFragmentManager(), "DialogFragmentShit");
+                        SharedPreferences sharedPreferences = getActivity().getApplicationContext().getSharedPreferences("MyData", Context.MODE_PRIVATE);
+                        String sent = sharedPreferences.getString("sent", "default");
+                        if(sent.equals("0"))
+                        {
+                            Intent intent = new Intent(getActivity().getApplicationContext(), MainActivity.class);
+                            startActivity(intent);
+                        }
+                        else
+                        {
+                            CreateAccountVerificationDialogFragment createAccountVerificationDialogFragment = new CreateAccountVerificationDialogFragment();
+                            createAccountVerificationDialogFragment.show(getFragmentManager(), "DialogFragmentShit");
+                        }
                     }
                 });
             }

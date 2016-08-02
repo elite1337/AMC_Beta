@@ -9,7 +9,6 @@ import android.content.SharedPreferences;
 import android.graphics.PorterDuff;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
-import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -18,6 +17,16 @@ import android.widget.EditText;
 import android.widget.Toast;
 
 public class CreateAccountVerificationDialogFragment extends DialogFragment {
+
+    int b;
+
+    public int getB() {
+        return b;
+    }
+
+    public void setB(int b) {
+        this.b = b;
+    }
 
     @Override
     public Dialog onCreateDialog(Bundle savedInstanceState) {
@@ -33,13 +42,13 @@ public class CreateAccountVerificationDialogFragment extends DialogFragment {
         Button buttonEmail = (Button)view.findViewById(R.id.buttonVerifyEmail);
         Button buttonLater = (Button)view.findViewById(R.id.buttonVerifyLater);
 
-        editText.setGravity(Gravity.CENTER_HORIZONTAL);
         buttonEmail.getBackground().setColorFilter(0xFFFFFFF, PorterDuff.Mode.MULTIPLY);
         buttonLater.getBackground().setColorFilter(0xFFFFFFF, PorterDuff.Mode.MULTIPLY);
 
         final SharedPreferences sharedPreferences = getActivity().getSharedPreferences("MyData", Context.MODE_PRIVATE);
         final String pin = sharedPreferences.getString("pin", "default");
 
+        setB(3);
         buttonEmail.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -55,9 +64,20 @@ public class CreateAccountVerificationDialogFragment extends DialogFragment {
                     Intent intent = new Intent(getActivity(), MainActivity.class);
                     startActivity(intent);
                 }
+                else if(getB() > 1)
+                {
+                    setB(getB() - 1);
+                    Toast.makeText(getActivity().getApplicationContext(), "Invalid Code! You have " + getB() + " chance(s) left before the code is unavailable.", Toast.LENGTH_LONG).show();
+                    editText.setText("");
+                }
                 else
                 {
-                    Toast.makeText(getActivity().getApplicationContext(), "Invalid Pin!", Toast.LENGTH_LONG).show();
+                    SharedPreferences.Editor editor = sharedPreferences.edit();
+                    editor.putString("pin", "尻");
+                    editor.commit();
+
+                    Intent intent = new Intent(getActivity(), MainActivity.class);
+                    startActivity(intent);
                 }
             }
         });

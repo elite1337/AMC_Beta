@@ -29,6 +29,7 @@
         android:layout_width="190dp"
         android:layout_height="wrap_content"
         android:hint="Verification Code"
+        android:gravity="center_horizontal"
         android:inputType="number"
         android:id="@+id/editTextVerification"
         android:layout_below="@+id/textView"

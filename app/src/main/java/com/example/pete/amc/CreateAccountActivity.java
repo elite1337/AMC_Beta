@@ -61,17 +61,15 @@ public class CreateAccountActivity extends AppCompatActivity implements CreateAc
             @Override
             public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
 
+                scrollView.scrollTo(0, scrollView.getBottom());
             }
 
             @Override
             public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
-
             }
 
             @Override
             public void afterTextChanged(Editable editable) {
-
-                scrollView.scrollTo(0, scrollView.getBottom());
             }
         });
 
@@ -194,26 +192,45 @@ class SendEmailAsyncTask extends AsyncTask<Void, Void, Boolean> {
     protected Boolean doInBackground(Void... params) {
         try {
             if (m.send()) {
-                //Email sent.
+                Log.d("message", "Email sent.");
             } else {
-                //Email failed to send.
+                Log.d("message", "Email failed to send.");
             }
 
             return true;
         } catch (AuthenticationFailedException e) {
             Log.e(SendEmailAsyncTask.class.getName(), "Bad account details");
             e.printStackTrace();
-            //Authentication failed.
+            Log.d("message", "Authentication failed.");
             return false;
         } catch (MessagingException e) {
             Log.e(SendEmailAsyncTask.class.getName(), "Email failed");
             e.printStackTrace();
-            //Email failed to send.
+            Log.d("message", "Email failed to send.");
             return false;
         } catch (Exception e) {
             e.printStackTrace();
-            //Unexpected error occured.
+            Log.d("message", "Unexpected error occurred.");
             return false;
         }
+    }
+
+    @Override
+    protected void onPostExecute(Boolean aBoolean) {
+
+        SharedPreferences sharedPreferences = activity.getApplicationContext().getSharedPreferences("MyData", Context.MODE_PRIVATE);
+        SharedPreferences.Editor editor = sharedPreferences.edit();
+        if(aBoolean.equals(false))
+        {
+            Toast.makeText(activity.getApplicationContext(), "Email failed to send.", Toast.LENGTH_LONG).show();
+
+            editor.putString("sent", "0");
+            editor.commit();
+        }
+        if(aBoolean.equals(true))
+        {
+            editor.putString("sent", "1");
+            editor.commit();
+         }
     }
 }

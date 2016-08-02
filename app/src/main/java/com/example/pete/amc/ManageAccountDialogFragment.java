@@ -1,5 +1,6 @@
 package com.example.pete.amc;
 
+import android.app.Activity;
 import android.app.AlertDialog;
 import android.app.Dialog;
 import android.app.DialogFragment;
@@ -15,11 +16,14 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.CheckBox;
+import android.widget.Toast;
 
 import javax.mail.AuthenticationFailedException;
 import javax.mail.MessagingException;
 
 public class ManageAccountDialogFragment extends DialogFragment {
+
+    Activity activityShit;
 
     @Override
     public Dialog onCreateDialog(Bundle savedInstanceState) {
@@ -79,6 +83,13 @@ public class ManageAccountDialogFragment extends DialogFragment {
         return builder;
     }
 
+    @Override
+    public void onActivityCreated(Bundle savedInstanceState) {
+        super.onActivityCreated(savedInstanceState);
+
+        activityShit = ManageAccountDialogFragment.this.getActivity();
+    }
+
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -88,8 +99,6 @@ public class ManageAccountDialogFragment extends DialogFragment {
         return super.onCreateView(inflater, container, savedInstanceState);
     }
 
-
-
     private void sendMessage() {
         SharedPreferences sharedPreferences = getActivity().getSharedPreferences("MyData", Context.MODE_PRIVATE);
         String emailUser = sharedPreferences.getString("email", "default");
@@ -97,7 +106,7 @@ public class ManageAccountDialogFragment extends DialogFragment {
 
         String[] recipients = {emailUser};
         SendEmailAsyncTaskManage email = new SendEmailAsyncTaskManage();
-        email.activity = this;
+        email.manageAccountDialogFragment = this;
         email.m = new Mail("amcverifier@gmail.com", "amcverifier7777777");
         email.m.set_from("amcverifier@gmail.com");
         email.m.setBody("Hey " + user + ", welcome to AMC =] Here is your verification code: " + pinGenerator());
@@ -124,8 +133,9 @@ public class ManageAccountDialogFragment extends DialogFragment {
 
 
 class SendEmailAsyncTaskManage extends AsyncTask<Void, Void, Boolean> {
+
     Mail m;
-    ManageAccountDialogFragment activity;
+    ManageAccountDialogFragment manageAccountDialogFragment;
 
     public SendEmailAsyncTaskManage() {}
 
@@ -133,26 +143,45 @@ class SendEmailAsyncTaskManage extends AsyncTask<Void, Void, Boolean> {
     protected Boolean doInBackground(Void... params) {
         try {
             if (m.send()) {
-                //Email sent.
+                Log.d("message", "Email sent.");
             } else {
-                //Email failed to send.
+                Log.d("message", "Email failed to send.");
             }
 
             return true;
         } catch (AuthenticationFailedException e) {
             Log.e(SendEmailAsyncTask.class.getName(), "Bad account details");
             e.printStackTrace();
-            //Authentication failed.
+            Log.d("message", "Authentication failed.");
             return false;
         } catch (MessagingException e) {
             Log.e(SendEmailAsyncTask.class.getName(), "Email failed");
             e.printStackTrace();
-            //Email failed to send.
+            Log.d("message", "Email failed to send.");
             return false;
         } catch (Exception e) {
             e.printStackTrace();
-            //Unexpected error occured.
+            Log.d("message", "Unexpected error occurred.");
             return false;
+        }
+    }
+
+    @Override
+    protected void onPostExecute(Boolean aBoolean) {
+
+        SharedPreferences sharedPreferences = manageAccountDialogFragment.activityShit.getSharedPreferences("MyData", Context.MODE_PRIVATE);
+        SharedPreferences.Editor editor = sharedPreferences.edit();
+        if(aBoolean.equals(false))
+        {
+            Toast.makeText(manageAccountDialogFragment.activityShit, "Email failed to send.", Toast.LENGTH_LONG).show();
+
+            editor.putString("sent", "0");
+            editor.commit();
+        }
+        if(aBoolean.equals(true))
+        {
+            editor.putString("sent", "1");
+            editor.commit();
         }
     }
 }

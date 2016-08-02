@@ -16,6 +16,8 @@ import android.widget.TextView;
 
 public class ManageAccountActivity extends AppCompatActivity {
 
+    int[] images = {R.mipmap.ic_account_circle_black_24dp, R.mipmap.ic_account_circle_red_24dp, R.mipmap.ic_account_circle_orange_24dp, R.mipmap.ic_account_circle_yellow_24dp, R.mipmap.ic_account_circle_green_24dp, R.mipmap.ic_account_circle_blue_24dp, R.mipmap.ic_account_circle_violet_24dp};
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -33,12 +35,15 @@ public class ManageAccountActivity extends AppCompatActivity {
         button.getBackground().setColorFilter(0xFF3F51B5, PorterDuff.Mode.MULTIPLY);
 
         SharedPreferences sharedPreferences = getSharedPreferences("MyData", Context.MODE_PRIVATE);
+        String portrait = sharedPreferences.getString("portrait", "default");
+        int portraitToInt = Integer.parseInt(portrait);
         String user = sharedPreferences.getString("user", "default");
         final String email = sharedPreferences.getString("email", "default");
         String description = sharedPreferences.getString("description", "default");
         String emailverification = sharedPreferences.getString("emailverification", "default");
         String emailagain = sharedPreferences.getString("emailagain", "default");
 
+        imageViewProfile.setImageResource(images[portraitToInt]);
         textViewUser.setText(user);
         textViewEmail.setText(email);
         textViewDescription.setText(description);

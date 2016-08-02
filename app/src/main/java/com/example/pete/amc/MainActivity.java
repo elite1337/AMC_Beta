@@ -21,10 +21,14 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
-public class MainActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener {
+public class MainActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener, NavHeaderDialogFragment.OnCompleteListener {
 
     FragmentManager mFragmentManager;
     FragmentTransaction mFragmentTransaction;
+
+    ImageView imageViewHeader;
+
+    int[] images = {R.mipmap.ic_account_circle_black_24dp, R.mipmap.ic_account_circle_red_24dp, R.mipmap.ic_account_circle_orange_24dp, R.mipmap.ic_account_circle_yellow_24dp, R.mipmap.ic_account_circle_green_24dp, R.mipmap.ic_account_circle_blue_24dp, R.mipmap.ic_account_circle_violet_24dp};
 
     int a;
 
@@ -87,7 +91,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
 
         setA(0);
         View view = navigationView.inflateHeaderView(R.layout.nav_header_main);
-        ImageView imageViewHeader = (ImageView)view.findViewById(R.id.imageViewHeader);
+        imageViewHeader = (ImageView)view.findViewById(R.id.imageViewHeader);
         ImageView imageViewCheck = (ImageView)view.findViewById(R.id.imageViewHeaderCheck);
         final ImageView imageViewDown = (ImageView)view.findViewById(R.id.imageViewHeaderDown);
         TextView textViewUser = (TextView)view.findViewById(R.id.textViewHeaderUser);
@@ -95,6 +99,22 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
 
         final String identification = sharedPreferences.getString("identification", "default");
         final String emailverification = sharedPreferences.getString("emailverification", "default");
+
+        imageViewHeader.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+
+                if(identification.equals("0"))
+                {
+                    Toast.makeText(getApplicationContext(), "Please sign up!", Toast.LENGTH_LONG).show();
+                }
+                else
+                {
+                    NavHeaderDialogFragment navHeaderDialogFragment = new NavHeaderDialogFragment();
+                    navHeaderDialogFragment.show(getFragmentManager(), "DialogFragmentShit");
+                }
+            }
+        });
 
         imageViewDown.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -132,8 +152,11 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
 
         if(identification.equals("1"))
         {
-            String email = sharedPreferences.getString("email", "default");
+            String portrait = sharedPreferences.getString("portrait", "default");
+            int timeToInt = Integer.parseInt(portrait);
             String user = sharedPreferences.getString("user", "default");
+            String email = sharedPreferences.getString("email", "default");
+            imageViewHeader.setImageResource(images[timeToInt]);
             textViewUser.setText(user);
             textViewEmail.setText(email);
 
@@ -148,6 +171,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         }
         else
         {
+            imageViewHeader.setImageResource(images[0]);
             textViewEmail.setText("Log in or sign up");
 
             imageViewCheck.setVisibility(View.GONE);
@@ -155,6 +179,13 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
 
 
         getSupportActionBar().setTitle("AMC");
+    }
+
+    @Override
+    public void onComplete(String time) {
+
+        int timeToInt = Integer.parseInt(time);
+        imageViewHeader.setImageResource(images[timeToInt]);
     }
 
     @Override

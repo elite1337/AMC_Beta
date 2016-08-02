@@ -85,5 +85,4 @@ public class CreateAccountDialogFragment extends DialogFragment {
         }
     }
 
-
 }

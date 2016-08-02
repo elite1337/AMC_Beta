@@ -1,0 +1,11 @@
+<com.example.pete.amc.NavHeaderSquare xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/imageViewHeaderRow"
+    android:layout_width="72dp"
+    android:layout_height="72dp"
+    android:paddingBottom="8dp"
+    android:paddingLeft="8dp"
+    android:paddingRight="8dp"
+    android:paddingTop="8dp"
+    android:scaleType="centerCrop"
+    android:src="@mipmap/ic_account_circle_black_24dp" >
+</com.example.pete.amc.NavHeaderSquare>

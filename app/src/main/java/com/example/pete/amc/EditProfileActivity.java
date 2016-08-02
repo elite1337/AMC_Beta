@@ -14,9 +14,12 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.Toast;
 
 public class EditProfileActivity extends AppCompatActivity {
+
+    int[] images = {R.mipmap.ic_account_circle_black_24dp, R.mipmap.ic_account_circle_red_24dp, R.mipmap.ic_account_circle_orange_24dp, R.mipmap.ic_account_circle_yellow_24dp, R.mipmap.ic_account_circle_green_24dp, R.mipmap.ic_account_circle_blue_24dp, R.mipmap.ic_account_circle_violet_24dp};
 
     EditText editTextUser, editTextEmail, editTextDescription;
 
@@ -40,6 +43,7 @@ public class EditProfileActivity extends AppCompatActivity {
 
         getSupportActionBar().setTitle("AMC");
 
+        ImageView imageView = (ImageView)findViewById(R.id.imageViewEditProfile);
         editTextUser = (EditText)findViewById(R.id.editTextEditUser);
         editTextEmail = (EditText)findViewById(R.id.editTextEditEmail);
         editTextDescription = (EditText)findViewById(R.id.editTextEditDescription);
@@ -50,10 +54,13 @@ public class EditProfileActivity extends AppCompatActivity {
         editTextUser.setFilters(new InputFilter[] {inputFilter});
 
         SharedPreferences sharedPreferences = getSharedPreferences("MyData", Context.MODE_PRIVATE);
+        String portrait = sharedPreferences.getString("portrait", "default");
+        int portraitToInt = Integer.parseInt(portrait);
         String user = sharedPreferences.getString("user", "default");
         String email = sharedPreferences.getString("email", "default");
         String description = sharedPreferences.getString("description", "default");
 
+        imageView.setImageResource(images[portraitToInt]);
         editTextUser.setText(user);
         editTextEmail.setText(email);
         editTextDescription.setText(description);

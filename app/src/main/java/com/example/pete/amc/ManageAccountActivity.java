@@ -1,5 +1,6 @@
 package com.example.pete.amc;
 
+import android.app.DialogFragment;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
@@ -106,9 +107,5 @@ public class ManageAccountActivity extends AppCompatActivity {
             default:
                 return super.onOptionsItemSelected(item);
         }
-    }
-
-    @Override
-    public void onBackPressed() {
     }
 }

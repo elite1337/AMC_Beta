@@ -31,7 +31,12 @@ public class IntroActivity extends AppCompatActivity {
             @Override
             public void run()
             {
-                if(identification.equals("0"))
+                if (identification.equals("0"))
+                {
+                    Intent intentLogIn = new Intent(getApplicationContext(), IntroLogInActivity.class);
+                    startActivity(intentLogIn);
+                }
+                else if (identification.equals("default"))
                 {
                     Intent intentLogIn = new Intent(getApplicationContext(), IntroLogInActivity.class);
                     startActivity(intentLogIn);
@@ -50,6 +55,11 @@ public class IntroActivity extends AppCompatActivity {
 
                 mHandler.removeCallbacksAndMessages(null);
                 if(identification.equals("0"))
+                {
+                    Intent intentLogIn = new Intent(getApplicationContext(), IntroLogInActivity.class);
+                    startActivity(intentLogIn);
+                }
+                else if (identification.equals("default"))
                 {
                     Intent intentLogIn = new Intent(getApplicationContext(), IntroLogInActivity.class);
                     startActivity(intentLogIn);

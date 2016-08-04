@@ -54,11 +54,11 @@ public class EditProfileActivity extends AppCompatActivity {
         editTextUser.setFilters(new InputFilter[] {inputFilter});
 
         SharedPreferences sharedPreferences = getSharedPreferences("MyData", Context.MODE_PRIVATE);
-        String portrait = sharedPreferences.getString("portrait", "default");
+        String portrait = sharedPreferences.getString("portrait", "0");
         int portraitToInt = Integer.parseInt(portrait);
         String user = sharedPreferences.getString("user", "default");
         String email = sharedPreferences.getString("email", "default");
-        String description = sharedPreferences.getString("description", "default");
+        String description = sharedPreferences.getString("description", "");
 
         imageView.setImageResource(images[portraitToInt]);
         editTextUser.setText(user);

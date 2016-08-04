@@ -17,10 +17,29 @@ import android.widget.Button;
 
 public class CreateAccountEmailDialogFragment extends DialogFragment {
 
+    int b;
+
+    public int getB() {
+        return b;
+    }
+
+    public void setB(int b) {
+        this.b = b;
+    }
+
     Handler mHandler = new Handler();
 
     @Override
-    public Dialog onCreateDialog(Bundle savedInstanceState) {
+    public Dialog onCreateDialog(final Bundle savedInstanceState) {
+
+        if (savedInstanceState == null)
+        {
+            setB(0);
+        }
+        else
+        {
+            setB(savedInstanceState.getInt("b"));
+        }
 
         final AlertDialog builder = new AlertDialog.Builder(getActivity())
                 .setIcon(R.drawable.ic_email_black_24dp)
@@ -34,13 +53,16 @@ public class CreateAccountEmailDialogFragment extends DialogFragment {
             public void onShow(DialogInterface dialogInterface) {
 
                 final Button button = builder.getButton(AlertDialog.BUTTON_POSITIVE);
-                button.setEnabled(false);
+                if (getB() == 0)
+                {
+                    button.setEnabled(false);
+                }
                 mHandler.postDelayed(new Runnable()
                 {
                     @Override
                     public void run()
                     {
-
+                        setB(1);
                         button.setEnabled(true);
                     }
                 }, 2500L);
@@ -76,5 +98,12 @@ public class CreateAccountEmailDialogFragment extends DialogFragment {
         setCancelable(false);
 
         return super.onCreateView(inflater, container, savedInstanceState);
+    }
+
+    @Override
+    public void onSaveInstanceState(Bundle outState) {
+        super.onSaveInstanceState(outState);
+
+        outState.putInt("b", getB());
     }
 }

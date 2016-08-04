@@ -51,7 +51,6 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         {
             SharedPreferences.Editor editor = sharedPreferences.edit();
             editor.putString("firsttimeuse", "0");
-            editor.putString("identification", "0");
             editor.commit();
 
             Intent intentIntro = new Intent(this, IntroActivity.class);
@@ -152,7 +151,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
 
         if(identification.equals("1"))
         {
-            String portrait = sharedPreferences.getString("portrait", "default");
+            String portrait = sharedPreferences.getString("portrait", "0");
             int timeToInt = Integer.parseInt(portrait);
             String user = sharedPreferences.getString("user", "default");
             String email = sharedPreferences.getString("email", "default");

@@ -1,6 +1,5 @@
 package com.example.pete.amc;
 
-import android.app.DialogFragment;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
@@ -17,12 +16,31 @@ import android.widget.TextView;
 
 public class ManageAccountActivity extends AppCompatActivity {
 
+    int b;
+
+    public int getB() {
+        return b;
+    }
+
+    public void setB(int b) {
+        this.b = b;
+    }
+
     int[] images = {R.mipmap.ic_account_circle_black_24dp, R.mipmap.ic_account_circle_red_24dp, R.mipmap.ic_account_circle_orange_24dp, R.mipmap.ic_account_circle_yellow_24dp, R.mipmap.ic_account_circle_green_24dp, R.mipmap.ic_account_circle_blue_24dp, R.mipmap.ic_account_circle_violet_24dp};
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_manage_account);
+
+        if (savedInstanceState == null)
+        {
+            setB(0);
+        }
+        else
+        {
+            setB(savedInstanceState.getInt("b"));
+        }
 
         getSupportActionBar().setTitle("Profile");
 
@@ -36,11 +54,11 @@ public class ManageAccountActivity extends AppCompatActivity {
         button.getBackground().setColorFilter(0xFF3F51B5, PorterDuff.Mode.MULTIPLY);
 
         SharedPreferences sharedPreferences = getSharedPreferences("MyData", Context.MODE_PRIVATE);
-        String portrait = sharedPreferences.getString("portrait", "default");
+        String portrait = sharedPreferences.getString("portrait", "0");
         int portraitToInt = Integer.parseInt(portrait);
         String user = sharedPreferences.getString("user", "default");
         final String email = sharedPreferences.getString("email", "default");
-        String description = sharedPreferences.getString("description", "default");
+        String description = sharedPreferences.getString("description", "");
         String emailverification = sharedPreferences.getString("emailverification", "default");
         String emailagain = sharedPreferences.getString("emailagain", "default");
 
@@ -59,8 +77,10 @@ public class ManageAccountActivity extends AppCompatActivity {
             imageViewCheck.setVisibility(View.GONE);
             button.setVisibility(View.VISIBLE);
 
-            if(emailagain.equals("0"))
+            if(getB() == 0 && emailagain.equals("0"))
             {
+                setB(1);
+
                 ManageAccountDialogFragment manageAccountDialogFragment = new ManageAccountDialogFragment();
                 manageAccountDialogFragment.show(getFragmentManager(), "DialogFragmentShit");
 
@@ -107,5 +127,12 @@ public class ManageAccountActivity extends AppCompatActivity {
             default:
                 return super.onOptionsItemSelected(item);
         }
+    }
+
+    @Override
+    public void onSaveInstanceState(Bundle outState) {
+        super.onSaveInstanceState(outState);
+
+        outState.putInt("b", getB());
     }
 }

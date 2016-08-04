@@ -45,9 +45,6 @@ public class ManageAccountDialogFragment extends DialogFragment {
         final SharedPreferences sharedPreferences = getActivity().getSharedPreferences("MyData", Context.MODE_PRIVATE);
         final SharedPreferences.Editor editor = sharedPreferences.edit();
 
-        editor.putString("emailagain", "1");
-        editor.commit();
-
         buttonSend.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {

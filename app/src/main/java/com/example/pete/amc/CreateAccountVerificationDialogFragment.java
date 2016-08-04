@@ -74,7 +74,6 @@ public class CreateAccountVerificationDialogFragment extends DialogFragment {
                 {
                     SharedPreferences.Editor editor = sharedPreferences.edit();
                     editor.putString("pin", "尻");
-                    editor.putString("emailagain", "0");
                     editor.commit();
 
                     Intent intent = new Intent(getActivity(), MainActivity.class);
@@ -86,10 +85,6 @@ public class CreateAccountVerificationDialogFragment extends DialogFragment {
         buttonLater.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                
-                SharedPreferences.Editor editor = sharedPreferences.edit();
-                editor.putString("emailagain", "0");
-                editor.commit();
 
                 Intent intent = new Intent(getActivity(), MainActivity.class);
                 startActivity(intent);

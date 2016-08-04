@@ -11,4 +11,13 @@
             android:icon="@mipmap/ic_person_add_black_24dp"
             android:title="Sign Up" />
     </group>
+
+    <item android:title="AMC v1.0">
+        <menu>
+            <item
+                android:title=""
+                android:id="@+id/nav_v"/>
+        </menu>
+    </item>
+
 </menu>

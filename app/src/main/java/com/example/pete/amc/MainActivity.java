@@ -80,7 +80,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
-        FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
+        final FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
         fab.show();
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -108,21 +108,21 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
             navigationView.getMenu().getItem(0).setChecked(true);
             navigationView.getMenu().performIdentifierAction(R.id.nav_book, 0);
         }
-        else if (savedInstanceState.getInt("b") == 1)
+        else if (savedInstanceState.getInt("b") == 0)
         {
             navigationView.getMenu().performIdentifierAction(R.id.nav_book, 0);
         }
-        else if (savedInstanceState.getInt("b") == 2)
+        else if (savedInstanceState.getInt("b") == 1)
         {
             getSupportActionBar().setTitle(getC());
             navigationView.getMenu().performIdentifierAction(R.id.nav_money, 0);
         }
-        else if (savedInstanceState.getInt("b") == 3)
+        else if (savedInstanceState.getInt("b") == 2)
         {
             getSupportActionBar().setTitle(getC());
             navigationView.getMenu().performIdentifierAction(R.id.nav_game, 0);
         }
-        else if (savedInstanceState.getInt("b") == 4)
+        else if (savedInstanceState.getInt("b") == 3)
         {
             getSupportActionBar().setTitle(getC());
             navigationView.getMenu().performIdentifierAction(R.id.nav_favorite, 0);
@@ -131,12 +131,14 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
 
 
         setA(0);
-        View view = navigationView.inflateHeaderView(R.layout.nav_header_main);
-        imageViewHeader = (ImageView)view.findViewById(R.id.imageViewHeader);
-        ImageView imageViewCheck = (ImageView)view.findViewById(R.id.imageViewHeaderCheck);
-        final ImageView imageViewDown = (ImageView)view.findViewById(R.id.imageViewHeaderDown);
-        TextView textViewUser = (TextView)view.findViewById(R.id.textViewHeaderUser);
-        TextView textViewEmail = (TextView)view.findViewById(R.id.textViewHeaderEmail);
+        View viewHeader = navigationView.inflateHeaderView(R.layout.nav_header_main);
+//        View viewFooter = navigationView.inflateHeaderView(R.layout.nav_footer_main);
+
+        imageViewHeader = (ImageView)viewHeader.findViewById(R.id.imageViewHeader);
+        ImageView imageViewCheck = (ImageView)viewHeader.findViewById(R.id.imageViewHeaderCheck);
+        final ImageView imageViewDown = (ImageView)viewHeader.findViewById(R.id.imageViewHeaderDown);
+        TextView textViewUser = (TextView)viewHeader.findViewById(R.id.textViewHeaderUser);
+        TextView textViewEmail = (TextView)viewHeader.findViewById(R.id.textViewHeaderEmail);
 
         final String identification = sharedPreferences.getString("identification", "default");
         final String emailverification = sharedPreferences.getString("emailverification", "default");
@@ -161,12 +163,17 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
             @Override
             public void onClick(View view) {
 
+                Menu menu = navigationView.getMenu();
+
                 if(getA() == 0)
                 {
                     if(identification.equals("1"))
                     {
                         navigationView.getMenu().clear();
                         navigationView.inflateMenu(R.menu.activity_main_drawer_user);
+
+                        MenuItem menuItem = menu.findItem(R.id.nav_v);
+                        menuItem.setEnabled(false);
 
                         imageViewDown.setImageResource(R.mipmap.ic_arrow_drop_up_white_24dp);
                         setA(1);
@@ -176,6 +183,9 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
                         navigationView.getMenu().clear();
                         navigationView.inflateMenu(R.menu.activity_main_drawer_guest);
 
+                        MenuItem menuItem = menu.findItem(R.id.nav_v);
+                        menuItem.setEnabled(false);
+
                         imageViewDown.setImageResource(R.mipmap.ic_arrow_drop_up_white_24dp);
                         setA(1);
                     }
@@ -184,6 +194,12 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
                 {
                     navigationView.getMenu().clear();
                     navigationView.inflateMenu(R.menu.activity_main_drawer);
+                    navigationView.getMenu().getItem(getB()).setChecked(true);
+                    if (getB() == 3)
+                    {
+                        MenuItem menuItem = menu.findItem(R.id.nav_favorite);
+                        menuItem.setChecked(true);
+                    }
 
                     imageViewDown.setImageResource(R.mipmap.ic_arrow_drop_down_white_24dp);
                     setA(0);
@@ -286,9 +302,17 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         {
             // Handle the camera action
 
-            setB(1);
+            setB(0);
 
             getSupportActionBar().setTitle("AMC");
+
+            NavigationView navigationView = (NavigationView)findViewById(R.id.nav_view);
+            Menu menu = navigationView.getMenu();
+            MenuItem menuItem = menu.findItem(R.id.nav_favorite);
+            if (menuItem.isChecked())
+            {
+                menuItem.setChecked(false);
+            }
 
             FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
             fab.show();
@@ -309,7 +333,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         }
         else if (id == R.id.nav_money)
         {
-            setB(2);
+            setB(1);
             setC("付費試題");
 
             getSupportActionBar().setTitle(getC());
@@ -332,7 +356,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         }
         else if (id == R.id.nav_game)
         {
-            setB(3);
+            setB(2);
             setC("字彙聯盟");
 
             getSupportActionBar().setTitle(getC());
@@ -346,7 +370,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         }
         else if (id == R.id.nav_favorite)
         {
-            setB(4);
+            setB(3);
             setC("Support");
 
             getSupportActionBar().setTitle(getC());

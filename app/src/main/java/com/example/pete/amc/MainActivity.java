@@ -24,13 +24,14 @@ import android.widget.Toast;
 public class MainActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener, NavHeaderDialogFragment.OnCompleteListener {
 
     FragmentManager mFragmentManager;
-    FragmentTransaction mFragmentTransaction;
 
     ImageView imageViewHeader;
 
     int[] images = {R.mipmap.ic_account_circle_black_24dp, R.mipmap.ic_account_circle_red_24dp, R.mipmap.ic_account_circle_orange_24dp, R.mipmap.ic_account_circle_yellow_24dp, R.mipmap.ic_account_circle_green_24dp, R.mipmap.ic_account_circle_blue_24dp, R.mipmap.ic_account_circle_violet_24dp};
 
     int a;
+    int b;
+    String c;
 
     public int getA() {
         return a;
@@ -39,6 +40,23 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
     public void setA(int a) {
         this.a = a;
     }
+
+    public int getB() {
+        return b;
+    }
+
+    public void setB(int b) {
+        this.b = b;
+    }
+
+    public String getC() {
+        return c;
+    }
+
+    public void setC(String c) {
+        this.c = c;
+    }
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -57,10 +75,6 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
             startActivity(intentIntro);
         }
 
-
-        mFragmentManager = getSupportFragmentManager();
-        mFragmentTransaction = mFragmentManager.beginTransaction();
-        mFragmentTransaction.replace(R.id.content_id,new TabFragment()).commit();
 
 
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
@@ -86,6 +100,33 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
 
         final NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
+
+
+
+        if (savedInstanceState == null) {
+            getSupportActionBar().setTitle("AMC");
+            navigationView.getMenu().performIdentifierAction(R.id.nav_book, 0);
+        }
+        else if (savedInstanceState.getInt("b") == 1)
+        {
+            navigationView.getMenu().performIdentifierAction(R.id.nav_book, 0);
+        }
+        else if (savedInstanceState.getInt("b") == 2)
+        {
+            getSupportActionBar().setTitle(getC());
+            navigationView.getMenu().performIdentifierAction(R.id.nav_money, 0);
+        }
+        else if (savedInstanceState.getInt("b") == 3)
+        {
+            getSupportActionBar().setTitle(getC());
+            navigationView.getMenu().performIdentifierAction(R.id.nav_game, 0);
+        }
+        else if (savedInstanceState.getInt("b") == 4)
+        {
+            getSupportActionBar().setTitle(getC());
+            navigationView.getMenu().performIdentifierAction(R.id.nav_favorite, 0);
+        }
+
 
 
         setA(0);
@@ -176,8 +217,6 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
             imageViewCheck.setVisibility(View.GONE);
         }
 
-
-        getSupportActionBar().setTitle("AMC");
     }
 
     @Override
@@ -246,6 +285,8 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         {
             // Handle the camera action
 
+            setB(1);
+
             getSupportActionBar().setTitle("AMC");
 
             FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
@@ -260,12 +301,17 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
                 }
             });
 
+
+            mFragmentManager = getSupportFragmentManager();
             FragmentTransaction xfragmentTransaction = mFragmentManager.beginTransaction();
             xfragmentTransaction.replace(R.id.content_id, new TabFragment()).commit();
         }
         else if (id == R.id.nav_money)
         {
-            getSupportActionBar().setTitle("付費試題");
+            setB(2);
+            setC("付費試題");
+
+            getSupportActionBar().setTitle(getC());
 
             FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
             fab.show();
@@ -279,26 +325,35 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
                 }
             });
 
+            mFragmentManager = getSupportFragmentManager();
             FragmentTransaction xfragmentTransaction = mFragmentManager.beginTransaction();
             xfragmentTransaction.replace(R.id.content_id, new MoneyTabFragment()).commit();
         }
         else if (id == R.id.nav_game)
         {
-            getSupportActionBar().setTitle("字彙聯盟");
+            setB(3);
+            setC("字彙聯盟");
+
+            getSupportActionBar().setTitle(getC());
 
             FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
             fab.hide();
 
+            mFragmentManager = getSupportFragmentManager();
             FragmentTransaction xfragmentTransaction = mFragmentManager.beginTransaction();
             xfragmentTransaction.replace(R.id.content_id, new GameTabFragment()).commit();
         }
         else if (id == R.id.nav_favorite)
         {
-            getSupportActionBar().setTitle("Support");
+            setB(4);
+            setC("Support");
+
+            getSupportActionBar().setTitle(getC());
 
             FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
             fab.hide();
 
+            mFragmentManager = getSupportFragmentManager();
             FavoriteFragment favoriteFragment = new FavoriteFragment();
             getSupportFragmentManager().beginTransaction().replace(R.id.content_id, favoriteFragment).commit();
         }
@@ -337,5 +392,13 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         drawer.closeDrawer(GravityCompat.START);
         return true;
+    }
+
+    @Override
+    public void onSaveInstanceState(Bundle outState) {
+        super.onSaveInstanceState(outState);
+
+        outState.putInt("b", getB());
+        outState.putString("c", getC());
     }
 }

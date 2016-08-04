@@ -18,10 +18,14 @@
 
     <item android:title="Communicate">
         <menu>
-            <item
-                android:id="@+id/nav_favorite"
-                android:icon="@mipmap/ic_favorite_border_black_24dp"
-                android:title="Support" />
+
+            <group android:checkableBehavior="single">
+                <item
+                    android:id="@+id/nav_favorite"
+                    android:icon="@mipmap/ic_favorite_border_black_24dp"
+                    android:title="Support" />
+            </group>
+
             <item
                 android:id="@+id/nav_star"
                 android:icon="@mipmap/ic_stars_black_24dp"

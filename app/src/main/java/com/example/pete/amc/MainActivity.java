@@ -105,6 +105,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
 
         if (savedInstanceState == null) {
             getSupportActionBar().setTitle("AMC");
+            navigationView.getMenu().getItem(0).setChecked(true);
             navigationView.getMenu().performIdentifierAction(R.id.nav_book, 0);
         }
         else if (savedInstanceState.getInt("b") == 1)

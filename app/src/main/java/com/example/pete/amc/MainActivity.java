@@ -281,7 +281,6 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
             editor.putString("firsttimeuse", "default");
             editor.putString("emailagain", "0");
             editor.putString("description", "");
-            editor.putString("sendfavorite", "1");
             editor.putString("subject", "");
             editor.putString("body", "");
             editor.commit();
@@ -410,7 +409,6 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
             SharedPreferences.Editor editor = sharedPreferences.edit();
             editor.putString("identification", "0");
             editor.putString("emailverification", "0");
-            editor.putString("sendfavorite", "1");
             editor.putString("subject", "");
             editor.putString("body", "");
             editor.commit();

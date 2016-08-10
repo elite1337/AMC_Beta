@@ -54,6 +54,8 @@ public class CreateAccountDialogFragment extends DialogFragment {
                         editor.putString("identification", "1");
                         editor.putString("emailverification", "0");
                         editor.putString("emailagain", "0");
+                        editor.putString("subject", "");
+                        editor.putString("body", "");
                         editor.commit();
 
                         sendMessage();

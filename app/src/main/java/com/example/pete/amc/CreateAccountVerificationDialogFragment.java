@@ -86,7 +86,7 @@ public class CreateAccountVerificationDialogFragment extends DialogFragment {
                 }
                 else
                 {
-                    Toast.makeText(getActivity().getApplicationContext(), "Please (re)send your verification email!", Toast.LENGTH_LONG).show();
+                    Toast.makeText(getActivity().getApplicationContext(), "Please (re)send the verification email!", Toast.LENGTH_LONG).show();
 
                     SharedPreferences.Editor editor = sharedPreferences.edit();
                     editor.putString("pin", "尻");

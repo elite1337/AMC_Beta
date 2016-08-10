@@ -71,6 +71,7 @@ public class FavoriteFragment extends Fragment {
         textView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+
                 Intent intent = new Intent(getActivity(), IntroActivity.class);
                 startActivity(intent);
             }

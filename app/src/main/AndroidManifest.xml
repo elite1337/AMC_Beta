@@ -20,9 +20,7 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity
-            android:name=".FavoriteFAQActivity"
-            android:parentActivityName=".MainActivity" />
+        <activity android:name=".FavoriteFAQActivity" />
         <activity android:name=".LogInActivity" />
         <activity android:name=".IntroActivity" />
         <activity android:name=".IntroLogInActivity" />
@@ -40,7 +38,8 @@
             android:parentActivityName=".ManageAccountActivity" />
         <activity
             android:name=".ForgotPwActivity"
-            android:parentActivityName=".LogInInfoActivity"></activity>
+            android:parentActivityName=".LogInInfoActivity" />
+        <activity android:name=".FavoriteEmailActivity"></activity>
     </application>
 
 </manifest>

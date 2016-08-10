@@ -9,5 +9,8 @@ public class FavoriteFAQActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_favorite_faq);
+
+        getSupportActionBar().setTitle("Frequently Asked Questions");
+
     }
 }

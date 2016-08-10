@@ -89,8 +89,9 @@ public class LogInInfoActivity extends AppCompatActivity {
                                         editor.putString("identification", "1");
                                         editor.putString("email", getEmail());
                                         editor.commit();
+                                        String user = sharedPreferences.getString("user", "default");
 
-                                        Toast.makeText(getApplicationContext(), "Welcome!", Toast.LENGTH_LONG).show();
+                                        Toast.makeText(getApplicationContext(), "Welcome" + user + "!", Toast.LENGTH_LONG).show();
 
                                         Intent intent = new Intent(getApplicationContext(), MainActivity.class);
                                         startActivity(intent);

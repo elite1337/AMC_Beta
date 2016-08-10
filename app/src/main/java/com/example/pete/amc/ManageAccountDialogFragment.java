@@ -4,6 +4,7 @@ import android.app.Activity;
 import android.app.AlertDialog;
 import android.app.Dialog;
 import android.app.DialogFragment;
+import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.SharedPreferences;
 import android.graphics.PorterDuff;
@@ -25,13 +26,15 @@ public class ManageAccountDialogFragment extends DialogFragment {
 
     Activity activityShit;
 
+    AlertDialog builder;
+
     @Override
     public Dialog onCreateDialog(Bundle savedInstanceState) {
 
         LayoutInflater layoutInflater = getActivity().getLayoutInflater();
         View view = layoutInflater.inflate(R.layout.dialog_fragment_manage_account, null);
 
-        final AlertDialog builder = new AlertDialog.Builder(getActivity())
+        builder = new AlertDialog.Builder(getActivity())
                 .setView(view)
                 .create();
 
@@ -56,13 +59,6 @@ public class ManageAccountDialogFragment extends DialogFragment {
                 }
 
                 sendMessage();
-
-                CreateAccountEmailDialogFragment createAccountEmailDialogFragment = new CreateAccountEmailDialogFragment();
-                createAccountEmailDialogFragment.show(getFragmentManager(), "DialogFragmentShit");
-
-                Bundle bundle = new Bundle();
-                bundle.putString("emailquestiontwo", getArguments().getString("emailquestion"));
-                createAccountEmailDialogFragment.setArguments(bundle);
             }
         });
 
@@ -119,7 +115,7 @@ public class ManageAccountDialogFragment extends DialogFragment {
     {
         int x = (int)(Math.random() * 9);
         x = x + 1;
-        String pin = (x +"") + (((int)(Math.random()*1000))+"");
+        String pin = (x+"") + (((int)(Math.random()*1000))+"");
 
         SharedPreferences sharedPreferences = getActivity().getSharedPreferences("MyData", Context.MODE_PRIVATE);
         SharedPreferences.Editor editor = sharedPreferences.edit();
@@ -137,7 +133,15 @@ class SendEmailAsyncTaskManage extends AsyncTask<Void, Void, Boolean> {
     Mail m;
     ManageAccountDialogFragment manageAccountDialogFragment;
 
+    ProgressDialog progressDialog;
+
     public SendEmailAsyncTaskManage() {}
+
+    @Override
+    protected void onPreExecute() {
+
+        progressDialog = ProgressDialog.show(manageAccountDialogFragment.activityShit, "", "Sending...");
+    }
 
     @Override
     protected Boolean doInBackground(Void... params) {
@@ -169,19 +173,25 @@ class SendEmailAsyncTaskManage extends AsyncTask<Void, Void, Boolean> {
     @Override
     protected void onPostExecute(Boolean aBoolean) {
 
-        SharedPreferences sharedPreferences = manageAccountDialogFragment.activityShit.getSharedPreferences("MyData", Context.MODE_PRIVATE);
-        SharedPreferences.Editor editor = sharedPreferences.edit();
+        progressDialog.dismiss();
+
         if(aBoolean.equals(false))
         {
             Toast.makeText(manageAccountDialogFragment.activityShit, "Email failed to send.", Toast.LENGTH_LONG).show();
-
-            editor.putString("sent", "0");
+            SharedPreferences sharedPreferences = manageAccountDialogFragment.activityShit.getSharedPreferences("MyData", Context.MODE_PRIVATE);
+            SharedPreferences.Editor editor = sharedPreferences.edit();
+            editor.putString("pin", "尻");
             editor.commit();
+            manageAccountDialogFragment.builder.dismiss();
         }
         if(aBoolean.equals(true))
         {
-            editor.putString("sent", "1");
-            editor.commit();
+            CreateAccountEmailDialogFragment createAccountEmailDialogFragment = new CreateAccountEmailDialogFragment();
+            createAccountEmailDialogFragment.show(manageAccountDialogFragment.getFragmentManager(), "DialogFragmentShit");
+
+            Bundle bundle = new Bundle();
+            bundle.putString("emailquestiontwo", manageAccountDialogFragment.getArguments().getString("emailquestion"));
+            createAccountEmailDialogFragment.setArguments(bundle);
         }
     }
 }

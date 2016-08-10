@@ -97,7 +97,7 @@ public class EditProfileActivity extends AppCompatActivity {
                 String email = sharedPreferences.getString("email", "default");
                 String description = sharedPreferences.getString("description", "default");
 
-                if(!editTextUser.equals(user))
+                if(!editTextUser.getText().toString().equals(user))
                 {
                     SharedPreferences.Editor editor = sharedPreferences.edit();
                     editor.putString("user", editTextUser.getText().toString());
@@ -105,7 +105,7 @@ public class EditProfileActivity extends AppCompatActivity {
                     Intent intent = new Intent(getApplicationContext(), ManageAccountActivity.class);
                     startActivity(intent);
                 }
-                if(!editTextEmail.equals(email))
+                if(!editTextEmail.getText().toString().equals(email))
                 {
                     if(!isValidEmail(editTextEmail.getText().toString()))
                     {
@@ -122,7 +122,7 @@ public class EditProfileActivity extends AppCompatActivity {
                         startActivity(intent);
                     }
                 }
-                if(!editTextDescription.equals(description))
+                if(!editTextDescription.getText().toString().equals(description))
                 {
                     SharedPreferences.Editor editor = sharedPreferences.edit();
                     editor.putString("description", editTextDescription.getText().toString());

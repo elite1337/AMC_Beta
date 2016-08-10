@@ -16,12 +16,6 @@ import android.widget.EditText;
 import android.widget.ScrollView;
 import android.widget.Toast;
 
-import android.os.AsyncTask;
-import android.util.Log;
-
-import javax.mail.AuthenticationFailedException;
-import javax.mail.MessagingException;
-
 public class CreateAccountActivity extends AppCompatActivity implements CreateAccountDialogFragment.OnCompleteListener {
 
     private EditText editTextUser, editTextEmail, editTextPw, editTextRePw;
@@ -95,7 +89,7 @@ public class CreateAccountActivity extends AppCompatActivity implements CreateAc
                 }
                 else if(editTextPw.getText().toString().length() < 4)
                 {
-                    Toast.makeText(getApplicationContext(), "Four characters required!", Toast.LENGTH_LONG).show();
+                    Toast.makeText(getApplicationContext(), "Password four characters required!", Toast.LENGTH_LONG).show();
                     return;
                 }
                 else if(editTextRePw.getText().toString().isEmpty())
@@ -114,10 +108,6 @@ public class CreateAccountActivity extends AppCompatActivity implements CreateAc
                     SharedPreferences.Editor editor = sharedPreferences.edit();
                     editor.putString("user", editTextUser.getText().toString());
                     editor.putString("email", editTextEmail.getText().toString());
-                    editor.putString("description", "");
-                    editor.putString("identification", "1");
-                    editor.putString("emailverification", "0");
-                    editor.putString("emailagain", "0");
                     editor.commit();
 
                     CreateAccountDialogFragment createAccountDialogFragment = new CreateAccountDialogFragment();
@@ -126,8 +116,6 @@ public class CreateAccountActivity extends AppCompatActivity implements CreateAc
                     Bundle bundle = new Bundle();
                     bundle.putString("emailquestion", editTextEmail.getText().toString());
                     createAccountDialogFragment.setArguments(bundle);
-
-                    sendMessage();
                 }
             }
         });
@@ -145,92 +133,5 @@ public class CreateAccountActivity extends AppCompatActivity implements CreateAc
         } else {
             return android.util.Patterns.EMAIL_ADDRESS.matcher(target).matches();
         }
-    }
-
-
-
-    private void sendMessage() {
-        SharedPreferences sharedPreferences = getApplicationContext().getSharedPreferences("MyData", Context.MODE_PRIVATE);
-        String emailUser = sharedPreferences.getString("email", "default");
-        String user = sharedPreferences.getString("user", "default");
-
-        String[] recipients = {emailUser};
-        SendEmailAsyncTask email = new SendEmailAsyncTask();
-        email.activity = this;
-        email.m = new Mail("amcverifier@gmail.com", "amcverifier7777777");
-        email.m.set_from("amcverifier@gmail.com");
-        email.m.setBody("Hey " + user + ", welcome to AMC =] Here is your verification code: " + pinGenerator());
-        email.m.set_to(recipients);
-        email.m.set_subject("Hey " + user + ", welcome to AMC =]");
-        email.execute();
-    }
-
-    public String pinGenerator()
-    {
-        int x = (int)(Math.random() * 9);
-        x = x + 1;
-        String pin = (x +"") + (((int)(Math.random()*1000))+"");
-
-        SharedPreferences sharedPreferences = getApplicationContext().getSharedPreferences("MyData", Context.MODE_PRIVATE);
-        SharedPreferences.Editor editor = sharedPreferences.edit();
-        editor.putString("pin", pin);
-        editor.commit();
-
-        return pin;
-    }
-}
-
-
-
-class SendEmailAsyncTask extends AsyncTask<Void, Void, Boolean> {
-    Mail m;
-    CreateAccountActivity activity;
-
-    public SendEmailAsyncTask() {}
-
-    @Override
-    protected Boolean doInBackground(Void... params) {
-        try {
-            if (m.send()) {
-                Log.d("message", "Email sent.");
-            } else {
-                Log.d("message", "Email failed to send.");
-            }
-
-            return true;
-        } catch (AuthenticationFailedException e) {
-            Log.e(SendEmailAsyncTask.class.getName(), "Bad account details");
-            e.printStackTrace();
-            Log.d("message", "Authentication failed.");
-            return false;
-        } catch (MessagingException e) {
-            Log.e(SendEmailAsyncTask.class.getName(), "Email failed");
-            e.printStackTrace();
-            Log.d("message", "Email failed to send.");
-            return false;
-        } catch (Exception e) {
-            e.printStackTrace();
-            Log.d("message", "Unexpected error occurred.");
-            return false;
-        }
-    }
-
-    @Override
-    protected void onPostExecute(Boolean aBoolean) {
-
-        SharedPreferences sharedPreferences = activity.getApplicationContext().getSharedPreferences("MyData", Context.MODE_PRIVATE);
-        SharedPreferences.Editor editor = sharedPreferences.edit();
-        if(aBoolean.equals(false))
-        {
-            Toast.makeText(activity.getApplicationContext(), "Email failed to send.", Toast.LENGTH_LONG).show();
-
-            editor.putString("sent", "0");
-            editor.commit();
-        }
-        if(aBoolean.equals(true))
-        {
-            editor.putString("sent", "1");
-            editor.commit();
-         }
     }
 }

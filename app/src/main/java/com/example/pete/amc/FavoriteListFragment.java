@@ -1,6 +1,8 @@
 package com.example.pete.amc;
 
+import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
@@ -8,6 +10,7 @@ import android.support.v4.app.ListFragment;
 import android.support.v4.content.ContextCompat;
 import android.view.View;
 import android.widget.ListView;
+import android.widget.Toast;
 
 import java.util.ArrayList;
 
@@ -40,6 +43,10 @@ public class FavoriteListFragment extends ListFragment {
     public void onListItemClick(ListView l, View v, int position, long id) {
         super.onListItemClick(l, v, position, id);
 
+        SharedPreferences sharedPreferences = getActivity().getSharedPreferences("MyData", Context.MODE_PRIVATE);
+        String identification = sharedPreferences.getString("identification", "default");
+        String emailverification = sharedPreferences.getString("emailverification", "default");
+
         switch (position)
         {
             case 0:
@@ -50,7 +57,21 @@ public class FavoriteListFragment extends ListFragment {
 
                 return;
             case 2:
-
+                if (!identification.equals("1"))
+                {
+                    Toast.makeText(getContext(), "Please sign up and verify your email!", Toast.LENGTH_LONG).show();
+                    return;
+                }
+                else if (!emailverification.equals("1"))
+                {
+                    Toast.makeText(getContext(), "Please sign up and verify your email!", Toast.LENGTH_LONG).show();
+                    return;
+                }
+                else
+                {
+                    Intent intentEmail = new Intent(getActivity(), FavoriteEmailActivity.class);
+                    startActivity(intentEmail);
+                }
                 return;
         }
     }

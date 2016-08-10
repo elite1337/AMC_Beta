@@ -249,10 +249,10 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         if (drawer.isDrawerOpen(GravityCompat.START)) {
             drawer.closeDrawer(GravityCompat.START);
         }
-//        else
-//        {
-//            super.onBackPressed();
-//        }
+        else
+        {
+            this.finishAffinity();
+        }
     }
 
     @Override
@@ -281,6 +281,9 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
             editor.putString("firsttimeuse", "default");
             editor.putString("emailagain", "0");
             editor.putString("description", "");
+            editor.putString("sendfavorite", "1");
+            editor.putString("subject", "");
+            editor.putString("body", "");
             editor.commit();
 
             Intent intentMain = new Intent(getApplicationContext(), MainActivity.class);
@@ -407,9 +410,13 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
             SharedPreferences.Editor editor = sharedPreferences.edit();
             editor.putString("identification", "0");
             editor.putString("emailverification", "0");
+            editor.putString("sendfavorite", "1");
+            editor.putString("subject", "");
+            editor.putString("body", "");
             editor.commit();
+            String user = sharedPreferences.getString("user", "default");
 
-            Toast.makeText(getApplicationContext(), "Hope to see you again!", Toast.LENGTH_LONG).show();
+            Toast.makeText(getApplicationContext(), "Hope to see you again " + user + "!", Toast.LENGTH_LONG).show();
             Intent intentLogIn = new Intent(getApplicationContext(), LogInActivity.class);
             startActivity(intentLogIn);
         }

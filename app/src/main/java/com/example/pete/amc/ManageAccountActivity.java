@@ -94,12 +94,8 @@ public class ManageAccountActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
 
-                CreateAccountEmailDialogFragment createAccountEmailDialogFragment = new CreateAccountEmailDialogFragment();
-                createAccountEmailDialogFragment.show(getFragmentManager(), "DialogFragmentShit");
-
-                Bundle bundle = new Bundle();
-                bundle.putString("emailquestiontwo", email);
-                createAccountEmailDialogFragment.setArguments(bundle);
+                CreateAccountVerificationDialogFragment createAccountVerificationDialogFragment = new CreateAccountVerificationDialogFragment();
+                createAccountVerificationDialogFragment.show(getFragmentManager(), "DialogFragmentShit");
             }
         });
 

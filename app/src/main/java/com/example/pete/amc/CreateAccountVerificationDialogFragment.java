@@ -31,6 +31,15 @@ public class CreateAccountVerificationDialogFragment extends DialogFragment {
     @Override
     public Dialog onCreateDialog(Bundle savedInstanceState) {
 
+        if (savedInstanceState == null)
+        {
+            setB(3);
+        }
+        else
+        {
+            setB(savedInstanceState.getInt("b"));
+        }
+
         LayoutInflater layoutInflater = getActivity().getLayoutInflater();
         View view = layoutInflater.inflate(R.layout.dialog_fragment_create_account_verification, null);
 
@@ -47,8 +56,8 @@ public class CreateAccountVerificationDialogFragment extends DialogFragment {
 
         final SharedPreferences sharedPreferences = getActivity().getSharedPreferences("MyData", Context.MODE_PRIVATE);
         final String pin = sharedPreferences.getString("pin", "default");
+        final String user = sharedPreferences.getString("user", "default");
 
-        setB(3);
         buttonEmail.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -59,10 +68,15 @@ public class CreateAccountVerificationDialogFragment extends DialogFragment {
                     editor.putString("emailverification", "1");
                     editor.commit();
 
-                    Toast.makeText(getActivity().getApplicationContext(), "Successfully Verified!", Toast.LENGTH_LONG).show();
+                    Toast.makeText(getActivity().getApplicationContext(), "Successfully Verified!\nWelcome " + user + "!", Toast.LENGTH_LONG).show();
 
                     Intent intent = new Intent(getActivity(), MainActivity.class);
                     startActivity(intent);
+                }
+                else if (pin.equals("尻"))
+                {
+                    Toast.makeText(getActivity().getApplicationContext(), "Please resend your verification email!", Toast.LENGTH_LONG).show();
+                    return;
                 }
                 else if(getB() > 1)
                 {
@@ -72,6 +86,8 @@ public class CreateAccountVerificationDialogFragment extends DialogFragment {
                 }
                 else
                 {
+                    Toast.makeText(getActivity().getApplicationContext(), "Please (re)send your verification email!", Toast.LENGTH_LONG).show();
+
                     SharedPreferences.Editor editor = sharedPreferences.edit();
                     editor.putString("pin", "尻");
                     editor.commit();
@@ -101,5 +117,12 @@ public class CreateAccountVerificationDialogFragment extends DialogFragment {
         setCancelable(false);
 
         return super.onCreateView(inflater, container, savedInstanceState);
+    }
+
+    @Override
+    public void onSaveInstanceState(Bundle outState) {
+        super.onSaveInstanceState(outState);
+
+        outState.putInt("b", getB());
     }
 }

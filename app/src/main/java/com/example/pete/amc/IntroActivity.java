@@ -33,12 +33,12 @@ public class IntroActivity extends AppCompatActivity {
             {
                 if (identification.equals("0"))
                 {
-                    Intent intentLogIn = new Intent(getApplicationContext(), IntroLogInActivity.class);
+                    Intent intentLogIn = new Intent(getApplicationContext(), LogInActivity.class);
                     startActivity(intentLogIn);
                 }
                 else if (identification.equals("default"))
                 {
-                    Intent intentLogIn = new Intent(getApplicationContext(), IntroLogInActivity.class);
+                    Intent intentLogIn = new Intent(getApplicationContext(), LogInActivity.class);
                     startActivity(intentLogIn);
                 }
                 else
@@ -56,12 +56,12 @@ public class IntroActivity extends AppCompatActivity {
                 mHandler.removeCallbacksAndMessages(null);
                 if(identification.equals("0"))
                 {
-                    Intent intentLogIn = new Intent(getApplicationContext(), IntroLogInActivity.class);
+                    Intent intentLogIn = new Intent(getApplicationContext(), LogInActivity.class);
                     startActivity(intentLogIn);
                 }
                 else if (identification.equals("default"))
                 {
-                    Intent intentLogIn = new Intent(getApplicationContext(), IntroLogInActivity.class);
+                    Intent intentLogIn = new Intent(getApplicationContext(), LogInActivity.class);
                     startActivity(intentLogIn);
                 }
                 else

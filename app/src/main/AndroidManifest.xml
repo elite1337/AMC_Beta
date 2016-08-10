@@ -23,7 +23,6 @@
         <activity android:name=".FavoriteFAQActivity" />
         <activity android:name=".LogInActivity" />
         <activity android:name=".IntroActivity" />
-        <activity android:name=".IntroLogInActivity" />
         <activity
             android:name=".LogInInfoActivity"
             android:parentActivityName=".LogInActivity" />

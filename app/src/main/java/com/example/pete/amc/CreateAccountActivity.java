@@ -1,6 +1,7 @@
 package com.example.pete.amc;
 
 import android.content.Context;
+import android.content.Intent;
 import android.content.SharedPreferences;
 import android.graphics.PorterDuff;
 import android.support.v7.app.AppCompatActivity;
@@ -133,5 +134,12 @@ public class CreateAccountActivity extends AppCompatActivity implements CreateAc
         } else {
             return android.util.Patterns.EMAIL_ADDRESS.matcher(target).matches();
         }
+    }
+
+    @Override
+    public void onBackPressed() {
+
+        Intent intentLogIn = new Intent(this, LogInActivity.class);
+        startActivity(intentLogIn);
     }
 }

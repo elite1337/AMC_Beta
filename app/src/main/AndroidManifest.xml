@@ -4,10 +4,14 @@
 
     <uses-permission android:name="android.permission.INTERNET" />
 
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE"/>
+    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE"/>
+
     <application
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"
+        android:name=".RealmConfig"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
         <activity
@@ -38,7 +42,10 @@
         <activity
             android:name=".ForgotPwActivity"
             android:parentActivityName=".LogInInfoActivity" />
-        <activity android:name=".FavoriteEmailActivity"></activity>
+        <activity android:name=".FavoriteEmailActivity" />
+        <activity
+            android:name=".GameRankActivity"
+            android:parentActivityName=".LogInInfoActivity"></activity>
     </application>
 
 </manifest>

@@ -7,4 +7,6 @@
     <color name="black">#000</color>
     <color name="orange">#FA0</color>
     <color name="white">#FFF</color>
+
+    <color name="timer_circle">#2ebfca</color>
 </resources>

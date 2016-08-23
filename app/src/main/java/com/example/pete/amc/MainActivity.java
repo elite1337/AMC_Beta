@@ -3,6 +3,7 @@ package com.example.pete.amc;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.os.Environment;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.NavigationView;
 import android.support.design.widget.Snackbar;
@@ -14,6 +15,7 @@ import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -21,13 +23,75 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import org.json.JSONArray;
+import org.json.JSONObject;
+
+import java.io.BufferedReader;
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+import java.io.IOException;
+import java.io.InputStreamReader;
+import java.util.Iterator;
+
+import io.realm.Realm;
+
 public class MainActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener, NavHeaderDialogFragment.OnCompleteListener {
 
     FragmentManager mFragmentManager;
 
     ImageView imageViewHeader;
-
     int[] images = {R.mipmap.ic_account_circle_black_24dp, R.mipmap.ic_account_circle_red_24dp, R.mipmap.ic_account_circle_orange_24dp, R.mipmap.ic_account_circle_yellow_24dp, R.mipmap.ic_account_circle_green_24dp, R.mipmap.ic_account_circle_blue_24dp, R.mipmap.ic_account_circle_violet_24dp};
+
+
+    Realm realm;
+    public String path = Environment.getExternalStorageDirectory().getAbsolutePath() + "/vocabDictionary";
+    String valueVocab;
+    String valueVocabPoS;
+    String valueVocabChi;
+    String valueVocabLv;
+    String valueVocabPt;
+
+    public String getValueVocab() {
+        return valueVocab;
+    }
+
+    public void setValueVocab(String valueVocab) {
+        this.valueVocab = valueVocab;
+    }
+
+    public String getValueVocabPoS() {
+        return valueVocabPoS;
+    }
+
+    public void setValueVocabPoS(String valueVocabPoS) {
+        this.valueVocabPoS = valueVocabPoS;
+    }
+
+    public String getValueVocabLv() {
+        return valueVocabLv;
+    }
+
+    public void setValueVocabLv(String valueVocabLv) {
+        this.valueVocabLv = valueVocabLv;
+    }
+
+    public String getValueVocabChi() {
+        return valueVocabChi;
+    }
+
+    public void setValueVocabChi(String valueVocabChi) {
+        this.valueVocabChi = valueVocabChi;
+    }
+
+    public String getValueVocabPt() {
+        return valueVocabPt;
+    }
+
+    public void setValueVocabPt(String valueVocabPt) {
+        this.valueVocabPt = valueVocabPt;
+    }
+
 
     int a;
     int b;
@@ -234,6 +298,72 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
             imageViewCheck.setVisibility(View.GONE);
         }
 
+
+
+        realm = Realm.getDefaultInstance();
+
+//        File dir = new File(path);
+//        dir.mkdirs();
+//
+//        File file = new File (path + "/vocabDictionary.txt");
+//        String [] loadText = Load(file);
+//
+//        String jsonArrayString = "";
+//
+//        for (int i = 0; i < loadText.length; i++)
+//        {
+//            jsonArrayString += loadText[i] + System.getProperty("line.separator");
+//        }
+//
+//        try
+//        {
+//            JSONObject jsonObject = new JSONObject(jsonArrayString);
+//
+//            JSONArray jsonArray = jsonObject.getJSONArray("vocabDictionary");
+//            for (int i = 0; i < jsonArray.length(); i++)
+//            {
+//                JSONObject jsonObjectInner = jsonArray.getJSONObject(i);
+//
+//                Iterator<String> iteratorInner = jsonObjectInner.keys();
+//                while (iteratorInner.hasNext())
+//                {
+//                    String keyInner = iteratorInner.next();
+//                    if (keyInner.equals("vocab"))
+//                    {
+//                        String valueVocab = jsonObjectInner.get(keyInner).toString();
+//                        setValueVocab(valueVocab);
+//                    }
+//                    if (keyInner.equals("vocabPoS"))
+//                    {
+//                        String valueVocabPoS = jsonObjectInner.get(keyInner).toString();
+//                        setValueVocabPoS(valueVocabPoS);
+//                    }
+//                    if (keyInner.equals("vocabChi"))
+//                    {
+//                        String valueVocabChi = jsonObjectInner.get(keyInner).toString();
+//                        setValueVocabChi(valueVocabChi);
+//                    }
+//                    if (keyInner.equals("vocabLv"))
+//                    {
+//                        String valueVocabLv = jsonObjectInner.get(keyInner).toString();
+//                        setValueVocabLv(valueVocabLv);
+//                    }
+//                    if (keyInner.equals("vocabPt"))
+//                    {
+//                        String valueVocabPt = jsonObjectInner.get(keyInner).toString();
+//                        setValueVocabPt(valueVocabPt);
+//                    }
+//                }
+//                int valueVocabLv2int = Integer.parseInt(getValueVocabLv());
+//                int valueVocabPt2int = Integer.parseInt(getValueVocabPt());
+////                save_into_database(getValueVocab(), getValueVocabPoS(), getValueVocabChi(), valueVocabLv2int, valueVocabPt2int);
+//            }
+//        }
+//        catch (Exception e)
+//        {
+//            Log.d("exception", e+"");
+//        }
+
     }
 
     @Override
@@ -430,5 +560,89 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
 
         outState.putInt("b", getB());
         outState.putString("c", getC());
+    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+
+        realm.close();
+    }
+
+    public static String[] Load(File file)
+    {
+        FileInputStream fis = null;
+        try
+        {
+            fis = new FileInputStream(file);
+        }
+        catch (FileNotFoundException e) {e.printStackTrace();}
+        InputStreamReader isr = new InputStreamReader(fis);
+        BufferedReader br = new BufferedReader(isr);
+
+        String test;
+        int anzahl=0;
+        try
+        {
+            while ((test=br.readLine()) != null)
+            {
+                anzahl++;
+            }
+        }
+        catch (IOException e) {e.printStackTrace();}
+
+        try
+        {
+            fis.getChannel().position(0);
+        }
+        catch (IOException e) {e.printStackTrace();}
+
+        String[] array = new String[anzahl];
+
+        String line;
+        int i = 0;
+        try
+        {
+            while((line=br.readLine())!=null)
+            {
+                array[i] = line;
+                i++;
+            }
+        }
+        catch (IOException e) {e.printStackTrace();}
+        return array;
+    }
+
+    private void save_into_database(final String vocab,
+                                    final String vocabPoS,
+                                    final String vocabChi,
+                                    final int vocabLv,
+                                    final int vocabPt)
+    {
+        realm.executeTransactionAsync(new Realm.Transaction() {
+            @Override
+            public void execute(Realm bgRealm) {
+
+                VocabDictionary vocabDictionary = bgRealm.createObject(VocabDictionary.class);
+                vocabDictionary.setVocab(vocab);
+                vocabDictionary.setVocabPoS(vocabPoS);
+                vocabDictionary.setVocabChi(vocabChi);
+                vocabDictionary.setVocabLv(vocabLv);
+                vocabDictionary.setVocabPt(vocabPt);
+            }
+        }, new Realm.Transaction.OnSuccess() {
+            @Override
+            public void onSuccess() {
+
+                Log.d("onsuccessthis", "success");
+            }
+        }, new Realm.Transaction.OnError() {
+            @Override
+            public void onError(Throwable error) {
+                // Transaction failed and was automatically canceled.
+
+                Log.d("onsuccessthis", error.getMessage());
+            }
+        });
     }
 }

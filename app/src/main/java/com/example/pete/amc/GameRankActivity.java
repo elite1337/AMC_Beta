@@ -14,6 +14,11 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
 
+import java.util.Random;
+
+import io.realm.Realm;
+import io.realm.RealmResults;
+
 public class GameRankActivity extends AppCompatActivity {
 
     CountDownTimer countDownTimer;
@@ -31,6 +36,8 @@ public class GameRankActivity extends AppCompatActivity {
 
     private GameRankTimer mTimerView;
 
+    Realm realm;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -38,6 +45,7 @@ public class GameRankActivity extends AppCompatActivity {
 
         getSupportActionBar().setTitle("單字積分");
 
+        textViewTimer = (TextView)findViewById(R.id.textViewRankTimer);
         TextView textViewVocab = (TextView)findViewById(R.id.textViewRankVocab);
         TextView textViewPoS = (TextView)findViewById(R.id.textViewRankPoS);
         TextView textViewA = (TextView)findViewById(R.id.textViewRankA);
@@ -55,7 +63,36 @@ public class GameRankActivity extends AppCompatActivity {
             }
         });
 
-        textViewTimer = (TextView)findViewById(R.id.textViewRankTimer);
+        realm = Realm.getDefaultInstance();
+        RealmResults<VocabDictionary> realmResultsQuestion = realm.where(VocabDictionary.class).lessThan("vocabLv", 4).findAll();
+
+        Random random = new Random(System.nanoTime());
+        int question = random.nextInt(realmResultsQuestion.size());
+        VocabDictionary vocabDictionaryQuestion = realmResultsQuestion.get(question);
+
+        RealmResults<VocabDictionary> realmResultsChoice = realm.where(VocabDictionary.class).equalTo("vocabPoS", vocabDictionaryQuestion.getVocabPoS()).findAll();
+        int choice = random.nextInt(realmResultsChoice.size());
+        VocabDictionary vocabDictionaryChoice = realmResultsChoice.get(choice);
+
+        textViewVocab.setText(vocabDictionaryQuestion.getVocab());
+        textViewPoS.setText(vocabDictionaryQuestion.getVocabPoS());
+
+        textViewA.setText(vocabDictionaryQuestion.getVocabChi());
+        textViewB.setText(vocabDictionaryChoice.getVocabChi());
+        textViewC.setText(vocabDictionaryChoice.getVocabChi());
+        textViewD.setText(vocabDictionaryChoice.getVocabChi());
+        textViewE.setText(vocabDictionaryChoice.getVocabChi());
+
+//        for (int i = 0; i < realmResultsQuestion.size(); i++)
+//        {
+//            VocabDictionary vocabDictionary = realmResultsQuestion.get(i);
+//            Log.d("popo", vocabDictionary.getVocab());
+//        }
+//
+//        for (VocabDictionary vocabDictionary: realmResultsQuestion)
+//        {
+//            Log.d("lala", vocabDictionary.getVocab());
+//        }
 
         startService(new Intent(this, GameRankService.class));
         Log.i("servicethis", "Started service");
@@ -170,10 +207,10 @@ public class GameRankActivity extends AppCompatActivity {
         }
     }
 
-//    @Override
-//    public void onSaveInstanceState(Bundle outState) {
-//        super.onSaveInstanceState(outState);
-//
+    @Override
+    public void onSaveInstanceState(Bundle outState) {
+        super.onSaveInstanceState(outState);
+
 //        outState.putInt("millisuntilfinished", getB());
-//    }
+    }
 }

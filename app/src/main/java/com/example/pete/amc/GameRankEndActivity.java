@@ -29,7 +29,6 @@ public class GameRankEndActivity extends AppCompatActivity {
         switch (item.getItemId())
         {
             case android.R.id.home:
-
                 Intent intent = new Intent(GameRankEndActivity.this, MainActivity.class);
                 intent.putExtra("gamerankend", "1");
                 startActivity(intent);

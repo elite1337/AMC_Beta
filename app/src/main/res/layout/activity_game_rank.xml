@@ -35,7 +35,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:textAppearance="?android:attr/textAppearanceLarge"
-                android:text="8"
+                android:text=""
                 android:id="@+id/textViewRankTimer"
                 android:layout_centerVertical="true"
                 android:layout_centerHorizontal="true" />
@@ -51,8 +51,8 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:textAppearance="?android:attr/textAppearanceLarge"
-                android:text="Apple"
-                android:id="@+id/textViewVocab" />
+                android:text="apple"
+                android:id="@+id/textViewRankVocab" />
 
             <TextView
                 android:layout_width="wrap_content"
@@ -60,7 +60,7 @@
                 android:layout_marginLeft="16dp"
                 android:textAppearance="?android:attr/textAppearanceLarge"
                 android:text="n."
-                android:id="@+id/textViewPoS" />
+                android:id="@+id/textViewRankPoS" />
 
         </LinearLayout>
     </RelativeLayout>

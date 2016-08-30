@@ -127,6 +127,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
+        //Check if first time use, if so go to IntroActivity
         final SharedPreferences sharedPreferences = getSharedPreferences("MyData", Context.MODE_PRIVATE);
         String initialization = sharedPreferences.getString("firsttimeuse", "default");
         if(initialization.equals("default"))
@@ -141,6 +142,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
 
 
 
+        //Floating Action Button
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
@@ -156,6 +158,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
             }
         });
 
+        //Navigation Drawer Tab
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
                 this, drawer, toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close);
@@ -167,6 +170,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
 
 
 
+        //Saving user experience on orientation change and after GameRankEndActivity
         if (savedInstanceState == null) {
             getSupportActionBar().setTitle("AMC");
             navigationView.getMenu().getItem(0).setChecked(true);
@@ -192,9 +196,23 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
             navigationView.getMenu().performIdentifierAction(R.id.nav_favorite, 0);
         }
 
+        Intent intent = getIntent();
+        String gamerankend = intent.getStringExtra("gamerankend");
+        if (gamerankend == null)
+        {
+            intent.putExtra("gamerankend", "0");
+        }
+        else if (intent.getStringExtra("gamerankend").equals("1"))
+        {
+            navigationView.getMenu().performIdentifierAction(R.id.nav_game, 0);
+            Menu menu = navigationView.getMenu();
+            MenuItem menuItem = menu.findItem(R.id.nav_game);
+            menuItem.setChecked(true);
+            intent.putExtra("gamerankend", "0");
+        }
 
 
-        setA(0);
+        //Navigation Drawer Header portrait
         View viewHeader = navigationView.inflateHeaderView(R.layout.nav_header_main);
 //        View viewFooter = navigationView.inflateHeaderView(R.layout.nav_footer_main);
 
@@ -211,18 +229,20 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
             @Override
             public void onClick(View view) {
 
-                if(identification.equals("0"))
-                {
-                    Toast.makeText(getApplicationContext(), "Please sign up!", Toast.LENGTH_LONG).show();
-                }
-                else
+                if(identification.equals("1"))
                 {
                     NavHeaderDialogFragment navHeaderDialogFragment = new NavHeaderDialogFragment();
                     navHeaderDialogFragment.show(getFragmentManager(), "DialogFragmentShit");
                 }
+                else
+                {
+                    Toast.makeText(getApplicationContext(), "Please sign up!", Toast.LENGTH_LONG).show();
+                }
             }
         });
 
+        //Navigation Drawer Body
+        setA(0);
         imageViewDown.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -271,6 +291,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
             }
         });
 
+        //Navigation Drawer Header info
         if(identification.equals("1"))
         {
             String portrait = sharedPreferences.getString("portrait", "0");
@@ -302,6 +323,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
 
         realm = Realm.getDefaultInstance();
 
+//        //GameRank DB
 //        File dir = new File(path);
 //        dir.mkdirs();
 //
@@ -356,16 +378,21 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
 //                }
 //                int valueVocabLv2int = Integer.parseInt(getValueVocabLv());
 //                int valueVocabPt2int = Integer.parseInt(getValueVocabPt());
-////                save_into_database(getValueVocab(), getValueVocabPoS(), getValueVocabChi(), valueVocabLv2int, valueVocabPt2int);
+//                save_into_database(getValueVocab(), getValueVocabPoS(), getValueVocabChi(), valueVocabLv2int, valueVocabPt2int);
 //            }
 //        }
 //        catch (Exception e)
 //        {
 //            Log.d("exception", e+"");
 //        }
+//        //GameRank DB till here
+
+
+
 
     }
 
+    //Navigation Drawer Header portrait
     @Override
     public void onComplete(String time) {
 
@@ -375,6 +402,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
 
     @Override
     public void onBackPressed() {
+
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         if (drawer.isDrawerOpen(GravityCompat.START)) {
             drawer.closeDrawer(GravityCompat.START);
@@ -569,6 +597,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         realm.close();
     }
 
+    //GameRank DB functions
     public static String[] Load(File file)
     {
         FileInputStream fis = null;
@@ -645,4 +674,5 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
             }
         });
     }
+    //GameRank DB functions till here
 }

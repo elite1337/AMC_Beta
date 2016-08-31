@@ -8,7 +8,6 @@ public class VocabDictionary extends RealmObject {
     String vocabPoS;
     String vocabChi;
     int vocabLv;
-    int vocabPt;
 
     @Override
     public String toString() {
@@ -17,16 +16,7 @@ public class VocabDictionary extends RealmObject {
                 ", vocabPoS='" + vocabPoS + '\'' +
                 ", vocabChi='" + vocabChi + '\'' +
                 ", vocabLv=" + vocabLv +
-                ", vocabPt=" + vocabPt +
                 '}';
-    }
-
-    public int getVocabPt() {
-        return vocabPt;
-    }
-
-    public void setVocabPt(int vocabPt) {
-        this.vocabPt = vocabPt;
     }
 
     public String getVocab() {

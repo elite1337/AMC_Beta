@@ -14,6 +14,7 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
 
+import java.util.ArrayList;
 import java.util.Random;
 
 import io.realm.Realm;
@@ -70,18 +71,40 @@ public class GameRankActivity extends AppCompatActivity {
         int question = random.nextInt(realmResultsQuestion.size());
         VocabDictionary vocabDictionaryQuestion = realmResultsQuestion.get(question);
 
-        RealmResults<VocabDictionary> realmResultsChoice = realm.where(VocabDictionary.class).equalTo("vocabPoS", vocabDictionaryQuestion.getVocabPoS()).findAll();
-        int choice = random.nextInt(realmResultsChoice.size());
-        VocabDictionary vocabDictionaryChoice = realmResultsChoice.get(choice);
-
         textViewVocab.setText(vocabDictionaryQuestion.getVocab());
         textViewPoS.setText(vocabDictionaryQuestion.getVocabPoS());
+        textViewA.setText("(A) " + vocabDictionaryQuestion.getVocabChi());
 
-        textViewA.setText(vocabDictionaryQuestion.getVocabChi());
-        textViewB.setText(vocabDictionaryChoice.getVocabChi());
-        textViewC.setText(vocabDictionaryChoice.getVocabChi());
-        textViewD.setText(vocabDictionaryChoice.getVocabChi());
-        textViewE.setText(vocabDictionaryChoice.getVocabChi());
+        RealmResults<VocabDictionary> realmResultsChoice = realm.where(VocabDictionary.class).equalTo("vocabPoS", vocabDictionaryQuestion.getVocabPoS()).findAll();
+        ArrayList<Integer> choices = new ArrayList<>();
+        while (choices.size() < 4)
+        {
+            int choice = random.nextInt(realmResultsChoice.size());
+            if (!choices.contains(choice))
+            {
+                VocabDictionary vocabDictionaryChoice = realmResultsChoice.get(choice);
+                if (!vocabDictionaryQuestion.getVocabChi().equals(vocabDictionaryChoice.getVocabChi()))
+                {
+                    choices.add(choice);
+                }
+            }
+        }
+        VocabDictionary vocabDictionaryChoice1 = realmResultsChoice.get(choices.get(0));
+        VocabDictionary vocabDictionaryChoice2 = realmResultsChoice.get(choices.get(1));
+        VocabDictionary vocabDictionaryChoice3 = realmResultsChoice.get(choices.get(2));
+        VocabDictionary vocabDictionaryChoice4 = realmResultsChoice.get(choices.get(3));
+
+        ArrayList<String> choicesChi = new ArrayList<>();
+        choicesChi.add(vocabDictionaryQuestion.getVocabChi());
+        choicesChi.add(vocabDictionaryChoice1.getVocabChi());
+        choicesChi.add(vocabDictionaryChoice2.getVocabChi());
+        choicesChi.add(vocabDictionaryChoice3.getVocabChi());
+        choicesChi.add(vocabDictionaryChoice4.getVocabChi());
+
+        textViewB.setText("(B) " + vocabDictionaryChoice1.getVocabChi());
+        textViewC.setText("(C) " + vocabDictionaryChoice2.getVocabChi());
+        textViewD.setText("(D) " + vocabDictionaryChoice3.getVocabChi());
+        textViewE.setText("(E) " + vocabDictionaryChoice4.getVocabChi());
 
 //        for (int i = 0; i < realmResultsQuestion.size(); i++)
 //        {

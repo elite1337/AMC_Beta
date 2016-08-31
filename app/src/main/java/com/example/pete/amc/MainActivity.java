@@ -50,7 +50,6 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
     String valueVocabPoS;
     String valueVocabChi;
     String valueVocabLv;
-    String valueVocabPt;
 
     public String getValueVocab() {
         return valueVocab;
@@ -82,14 +81,6 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
 
     public void setValueVocabChi(String valueVocabChi) {
         this.valueVocabChi = valueVocabChi;
-    }
-
-    public String getValueVocabPt() {
-        return valueVocabPt;
-    }
-
-    public void setValueVocabPt(String valueVocabPt) {
-        this.valueVocabPt = valueVocabPt;
     }
 
 
@@ -320,10 +311,9 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         }
 
 
-
-        realm = Realm.getDefaultInstance();
-
 //        //GameRank DB
+//        realm = Realm.getDefaultInstance();
+//
 //        File dir = new File(path);
 //        dir.mkdirs();
 //
@@ -370,15 +360,9 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
 //                        String valueVocabLv = jsonObjectInner.get(keyInner).toString();
 //                        setValueVocabLv(valueVocabLv);
 //                    }
-//                    if (keyInner.equals("vocabPt"))
-//                    {
-//                        String valueVocabPt = jsonObjectInner.get(keyInner).toString();
-//                        setValueVocabPt(valueVocabPt);
-//                    }
 //                }
 //                int valueVocabLv2int = Integer.parseInt(getValueVocabLv());
-//                int valueVocabPt2int = Integer.parseInt(getValueVocabPt());
-//                save_into_database(getValueVocab(), getValueVocabPoS(), getValueVocabChi(), valueVocabLv2int, valueVocabPt2int);
+//                save_into_database(getValueVocab(), getValueVocabPoS(), getValueVocabChi(), valueVocabLv2int);
 //            }
 //        }
 //        catch (Exception e)
@@ -644,8 +628,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
     private void save_into_database(final String vocab,
                                     final String vocabPoS,
                                     final String vocabChi,
-                                    final int vocabLv,
-                                    final int vocabPt)
+                                    final int vocabLv)
     {
         realm.executeTransactionAsync(new Realm.Transaction() {
             @Override
@@ -656,7 +639,6 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
                 vocabDictionary.setVocabPoS(vocabPoS);
                 vocabDictionary.setVocabChi(vocabChi);
                 vocabDictionary.setVocabLv(vocabLv);
-                vocabDictionary.setVocabPt(vocabPt);
             }
         }, new Realm.Transaction.OnSuccess() {
             @Override

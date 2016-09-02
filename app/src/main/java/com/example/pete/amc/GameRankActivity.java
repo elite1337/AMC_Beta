@@ -43,6 +43,11 @@ public class GameRankActivity extends AppCompatActivity {
     ArrayList<String> choicesChi = new ArrayList<>();
     ArrayList<Integer> choicesChiInt = new ArrayList<>();
 
+    ArrayList<String> rightVoc = new ArrayList<>();
+
+    int rightInt = 0;
+    int wrongInt = 0;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -69,61 +74,27 @@ public class GameRankActivity extends AppCompatActivity {
         });
 
         realm = Realm.getDefaultInstance();
-        RealmResults<VocabDictionary> realmResultsQuestion = realm.where(VocabDictionary.class).lessThan("vocabLv", 4).findAll();
-
-        Random random = new Random(System.nanoTime());
-        int question = random.nextInt(realmResultsQuestion.size());
-        VocabDictionary vocabDictionaryQuestion = realmResultsQuestion.get(question);
-
-        textViewVocab.setText(vocabDictionaryQuestion.getVocab());
-        textViewPoS.setText(vocabDictionaryQuestion.getVocabPoS());
-
-        RealmResults<VocabDictionary> realmResultsChoice = realm.where(VocabDictionary.class).equalTo("vocabPoS", vocabDictionaryQuestion.getVocabPoS()).findAll();
-        //choices
-        while (choices.size() < 4)
-        {
-            int choice = random.nextInt(realmResultsChoice.size());
-            if (!choices.contains(choice))
-            {
-                VocabDictionary vocabDictionaryChoice = realmResultsChoice.get(choice);
-                if (!vocabDictionaryQuestion.getVocabChi().equals(vocabDictionaryChoice.getVocabChi()))
-                {
-                    choices.add(choice);
-                }
-            }
-        }
-        VocabDictionary vocabDictionaryChoice1 = realmResultsChoice.get(choices.get(0));
-        VocabDictionary vocabDictionaryChoice2 = realmResultsChoice.get(choices.get(1));
-        VocabDictionary vocabDictionaryChoice3 = realmResultsChoice.get(choices.get(2));
-        VocabDictionary vocabDictionaryChoice4 = realmResultsChoice.get(choices.get(3));
-
-        //choicesChi
-        choicesChi.add(vocabDictionaryQuestion.getVocabChi());
-        choicesChi.add(vocabDictionaryChoice1.getVocabChi());
-        choicesChi.add(vocabDictionaryChoice2.getVocabChi());
-        choicesChi.add(vocabDictionaryChoice3.getVocabChi());
-        choicesChi.add(vocabDictionaryChoice4.getVocabChi());
-
-        //choicesChiInt
-        while (choicesChiInt.size() < 5)
-        {
-            int choice = random.nextInt(5);
-            if (!choicesChiInt.contains(choice))
-            {
-                choicesChiInt.add(choice);
-            }
-        }
-
-        textViewA.setText("(A) " + choicesChi.get(choicesChiInt.get(0)));
-        textViewB.setText("(B) " + choicesChi.get(choicesChiInt.get(1)));
-        textViewC.setText("(C) " + choicesChi.get(choicesChiInt.get(2)));
-        textViewD.setText("(D) " + choicesChi.get(choicesChiInt.get(3)));
-        textViewE.setText("(E) " + choicesChi.get(choicesChiInt.get(4)));
-
+        QuestionGenerator();
 
         textViewA.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+
+                RealmResults<VocabDictionary> realmResultsQA = realm.where(VocabDictionary.class).equalTo("vocab", textViewVocab.getText().toString()).findAll();
+                VocabDictionary vocabDictionaryQA = realmResultsQA.get(0);
+                if (textViewA.getText().toString().equals(vocabDictionaryQA.getVocabChi()))
+                {
+                    rightVoc.add(textViewVocab.getText().toString());
+                    rightInt++;
+                }
+                else
+                {
+                    if (rightVoc.contains(textViewVocab.getText().toString()))
+                    {
+                        rightVoc.remove(textViewVocab.getText().toString());
+                    }
+                    wrongInt++;
+                }
 
                 QuestionGenerator();
 
@@ -138,6 +109,22 @@ public class GameRankActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
 
+                RealmResults<VocabDictionary> realmResultsQA = realm.where(VocabDictionary.class).equalTo("vocab", textViewVocab.getText().toString()).findAll();
+                VocabDictionary vocabDictionaryQA = realmResultsQA.get(0);
+                if (textViewB.getText().toString().equals(vocabDictionaryQA.getVocabChi()))
+                {
+                    rightVoc.add(textViewVocab.getText().toString());
+                    rightInt++;
+                }
+                else
+                {
+                    if (rightVoc.contains(textViewVocab.getText().toString()))
+                    {
+                        rightVoc.remove(textViewVocab.getText().toString());
+                    }
+                    wrongInt++;
+                }
+
                 QuestionGenerator();
 
                 mTimerView.stop();
@@ -150,6 +137,22 @@ public class GameRankActivity extends AppCompatActivity {
         textViewC.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+
+                RealmResults<VocabDictionary> realmResultsQA = realm.where(VocabDictionary.class).equalTo("vocab", textViewVocab.getText().toString()).findAll();
+                VocabDictionary vocabDictionaryQA = realmResultsQA.get(0);
+                if (textViewC.getText().toString().equals(vocabDictionaryQA.getVocabChi()))
+                {
+                    rightVoc.add(textViewVocab.getText().toString());
+                    rightInt++;
+                }
+                else
+                {
+                    if (rightVoc.contains(textViewVocab.getText().toString()))
+                    {
+                        rightVoc.remove(textViewVocab.getText().toString());
+                    }
+                    wrongInt++;
+                }
 
                 QuestionGenerator();
 
@@ -164,6 +167,22 @@ public class GameRankActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
 
+                RealmResults<VocabDictionary> realmResultsQA = realm.where(VocabDictionary.class).equalTo("vocab", textViewVocab.getText().toString()).findAll();
+                VocabDictionary vocabDictionaryQA = realmResultsQA.get(0);
+                if (textViewD.getText().toString().equals(vocabDictionaryQA.getVocabChi()))
+                {
+                    rightVoc.add(textViewVocab.getText().toString());
+                    rightInt++;
+                }
+                else
+                {
+                    if (rightVoc.contains(textViewVocab.getText().toString()))
+                    {
+                        rightVoc.remove(textViewVocab.getText().toString());
+                    }
+                    wrongInt++;
+                }
+
                 QuestionGenerator();
 
                 mTimerView.stop();
@@ -176,6 +195,22 @@ public class GameRankActivity extends AppCompatActivity {
         textViewE.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+
+                RealmResults<VocabDictionary> realmResultsQA = realm.where(VocabDictionary.class).equalTo("vocab", textViewVocab.getText().toString()).findAll();
+                VocabDictionary vocabDictionaryQA = realmResultsQA.get(0);
+                if (textViewE.getText().toString().equals(vocabDictionaryQA.getVocabChi()))
+                {
+                    rightVoc.add(textViewVocab.getText().toString());
+                    rightInt++;
+                }
+                else
+                {
+                    if (rightVoc.contains(textViewVocab.getText().toString()))
+                    {
+                        rightVoc.remove(textViewVocab.getText().toString());
+                    }
+                    wrongInt++;
+                }
 
                 QuestionGenerator();
 
@@ -370,10 +405,10 @@ public class GameRankActivity extends AppCompatActivity {
             }
         }
 
-        textViewA.setText("(A) " + choicesChi.get(choicesChiInt.get(0)));
-        textViewB.setText("(B) " + choicesChi.get(choicesChiInt.get(1)));
-        textViewC.setText("(C) " + choicesChi.get(choicesChiInt.get(2)));
-        textViewD.setText("(D) " + choicesChi.get(choicesChiInt.get(3)));
-        textViewE.setText("(E) " + choicesChi.get(choicesChiInt.get(4)));
+        textViewA.setText(choicesChi.get(choicesChiInt.get(0)));
+        textViewB.setText(choicesChi.get(choicesChiInt.get(1)));
+        textViewC.setText(choicesChi.get(choicesChiInt.get(2)));
+        textViewD.setText(choicesChi.get(choicesChiInt.get(3)));
+        textViewE.setText(choicesChi.get(choicesChiInt.get(4)));
     }
 }

@@ -573,12 +573,12 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         outState.putString("c", getC());
     }
 
-    @Override
-    protected void onDestroy() {
-        super.onDestroy();
-
-        realm.close();
-    }
+//    @Override
+//    protected void onDestroy() {
+//        super.onDestroy();
+//
+//        realm.close();
+//    }
 
     //GameRank DB functions
     public static String[] Load(File file)

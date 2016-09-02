@@ -23,7 +23,7 @@ import io.realm.RealmResults;
 public class GameRankActivity extends AppCompatActivity {
 
     CountDownTimer countDownTimer;
-    TextView textViewTimer;
+    TextView textViewTimer, textViewVocab, textViewPoS, textViewA, textViewB, textViewC, textViewD, textViewE;
 
 //    int b;
 //
@@ -39,6 +39,10 @@ public class GameRankActivity extends AppCompatActivity {
 
     Realm realm;
 
+    ArrayList<Integer> choices = new ArrayList<>();
+    ArrayList<String> choicesChi = new ArrayList<>();
+    ArrayList<Integer> choicesChiInt = new ArrayList<>();
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -47,13 +51,13 @@ public class GameRankActivity extends AppCompatActivity {
         getSupportActionBar().setTitle("單字積分");
 
         textViewTimer = (TextView)findViewById(R.id.textViewRankTimer);
-        TextView textViewVocab = (TextView)findViewById(R.id.textViewRankVocab);
-        TextView textViewPoS = (TextView)findViewById(R.id.textViewRankPoS);
-        TextView textViewA = (TextView)findViewById(R.id.textViewRankA);
-        TextView textViewB = (TextView)findViewById(R.id.textViewRankB);
-        TextView textViewC = (TextView)findViewById(R.id.textViewRankC);
-        TextView textViewD = (TextView)findViewById(R.id.textViewRankD);
-        TextView textViewE = (TextView)findViewById(R.id.textViewRankE);
+        textViewVocab = (TextView)findViewById(R.id.textViewRankVocab);
+        textViewPoS = (TextView)findViewById(R.id.textViewRankPoS);
+        textViewA = (TextView)findViewById(R.id.textViewRankA);
+        textViewB = (TextView)findViewById(R.id.textViewRankB);
+        textViewC = (TextView)findViewById(R.id.textViewRankC);
+        textViewD = (TextView)findViewById(R.id.textViewRankD);
+        textViewE = (TextView)findViewById(R.id.textViewRankE);
         Button button = (Button)findViewById(R.id.buttonRankQuit);
         button.getBackground().setColorFilter(0xFF3F51B5, PorterDuff.Mode.MULTIPLY);
         button.setOnClickListener(new View.OnClickListener() {
@@ -73,10 +77,9 @@ public class GameRankActivity extends AppCompatActivity {
 
         textViewVocab.setText(vocabDictionaryQuestion.getVocab());
         textViewPoS.setText(vocabDictionaryQuestion.getVocabPoS());
-        textViewA.setText("(A) " + vocabDictionaryQuestion.getVocabChi());
 
         RealmResults<VocabDictionary> realmResultsChoice = realm.where(VocabDictionary.class).equalTo("vocabPoS", vocabDictionaryQuestion.getVocabPoS()).findAll();
-        ArrayList<Integer> choices = new ArrayList<>();
+        //choices
         while (choices.size() < 4)
         {
             int choice = random.nextInt(realmResultsChoice.size());
@@ -94,17 +97,95 @@ public class GameRankActivity extends AppCompatActivity {
         VocabDictionary vocabDictionaryChoice3 = realmResultsChoice.get(choices.get(2));
         VocabDictionary vocabDictionaryChoice4 = realmResultsChoice.get(choices.get(3));
 
-        ArrayList<String> choicesChi = new ArrayList<>();
+        //choicesChi
         choicesChi.add(vocabDictionaryQuestion.getVocabChi());
         choicesChi.add(vocabDictionaryChoice1.getVocabChi());
         choicesChi.add(vocabDictionaryChoice2.getVocabChi());
         choicesChi.add(vocabDictionaryChoice3.getVocabChi());
         choicesChi.add(vocabDictionaryChoice4.getVocabChi());
 
-        textViewB.setText("(B) " + vocabDictionaryChoice1.getVocabChi());
-        textViewC.setText("(C) " + vocabDictionaryChoice2.getVocabChi());
-        textViewD.setText("(D) " + vocabDictionaryChoice3.getVocabChi());
-        textViewE.setText("(E) " + vocabDictionaryChoice4.getVocabChi());
+        //choicesChiInt
+        while (choicesChiInt.size() < 5)
+        {
+            int choice = random.nextInt(5);
+            if (!choicesChiInt.contains(choice))
+            {
+                choicesChiInt.add(choice);
+            }
+        }
+
+        textViewA.setText("(A) " + choicesChi.get(choicesChiInt.get(0)));
+        textViewB.setText("(B) " + choicesChi.get(choicesChiInt.get(1)));
+        textViewC.setText("(C) " + choicesChi.get(choicesChiInt.get(2)));
+        textViewD.setText("(D) " + choicesChi.get(choicesChiInt.get(3)));
+        textViewE.setText("(E) " + choicesChi.get(choicesChiInt.get(4)));
+
+
+        textViewA.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+
+                QuestionGenerator();
+
+                mTimerView.stop();
+                mTimerView.start(8);
+                stopService(new Intent(GameRankActivity.this, GameRankService.class));
+                startService(new Intent(GameRankActivity.this, GameRankService.class));
+            }
+        });
+
+        textViewB.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+
+                QuestionGenerator();
+
+                mTimerView.stop();
+                mTimerView.start(8);
+                stopService(new Intent(GameRankActivity.this, GameRankService.class));
+                startService(new Intent(GameRankActivity.this, GameRankService.class));
+            }
+        });
+
+        textViewC.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+
+                QuestionGenerator();
+
+                mTimerView.stop();
+                mTimerView.start(8);
+                stopService(new Intent(GameRankActivity.this, GameRankService.class));
+                startService(new Intent(GameRankActivity.this, GameRankService.class));
+            }
+        });
+
+        textViewD.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+
+                QuestionGenerator();
+
+                mTimerView.stop();
+                mTimerView.start(8);
+                stopService(new Intent(GameRankActivity.this, GameRankService.class));
+                startService(new Intent(GameRankActivity.this, GameRankService.class));
+            }
+        });
+
+        textViewE.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+
+                QuestionGenerator();
+
+                mTimerView.stop();
+                mTimerView.start(8);
+                stopService(new Intent(GameRankActivity.this, GameRankService.class));
+                startService(new Intent(GameRankActivity.this, GameRankService.class));
+            }
+        });
+
 
 //        for (int i = 0; i < realmResultsQuestion.size(); i++)
 //        {
@@ -204,6 +285,8 @@ public class GameRankActivity extends AppCompatActivity {
 
 //        stopService(new Intent(this, GameRankService.class));
 //        Log.d("servicethis", "Stopped service");
+
+        realm.close();
         super.onDestroy();
     }
 
@@ -222,8 +305,7 @@ public class GameRankActivity extends AppCompatActivity {
         {
             case android.R.id.home:
                 mTimerView.stop();
-                Intent intent = new Intent(getApplicationContext(), GameRankEndActivity.class);
-                startActivity(intent);
+                onBackPressed();
                 return true;
             default:
                 return super.onOptionsItemSelected(item);
@@ -235,5 +317,63 @@ public class GameRankActivity extends AppCompatActivity {
         super.onSaveInstanceState(outState);
 
 //        outState.putInt("millisuntilfinished", getB());
+    }
+
+    void QuestionGenerator()
+    {
+        choices.clear();
+        choicesChi.clear();
+        choicesChiInt.clear();
+
+        RealmResults<VocabDictionary> realmResultsQuestion = realm.where(VocabDictionary.class).lessThan("vocabLv", 4).findAll();
+
+        Random random = new Random(System.nanoTime());
+        int question = random.nextInt(realmResultsQuestion.size());
+        VocabDictionary vocabDictionaryQuestion = realmResultsQuestion.get(question);
+
+        textViewVocab.setText(vocabDictionaryQuestion.getVocab());
+        textViewPoS.setText(vocabDictionaryQuestion.getVocabPoS());
+
+        RealmResults<VocabDictionary> realmResultsChoice = realm.where(VocabDictionary.class).equalTo("vocabPoS", vocabDictionaryQuestion.getVocabPoS()).findAll();
+        //choices
+        while (choices.size() < 4)
+        {
+            int choice = random.nextInt(realmResultsChoice.size());
+            if (!choices.contains(choice))
+            {
+                VocabDictionary vocabDictionaryChoice = realmResultsChoice.get(choice);
+                if (!vocabDictionaryQuestion.getVocabChi().equals(vocabDictionaryChoice.getVocabChi()))
+                {
+                    choices.add(choice);
+                }
+            }
+        }
+        VocabDictionary vocabDictionaryChoice1 = realmResultsChoice.get(choices.get(0));
+        VocabDictionary vocabDictionaryChoice2 = realmResultsChoice.get(choices.get(1));
+        VocabDictionary vocabDictionaryChoice3 = realmResultsChoice.get(choices.get(2));
+        VocabDictionary vocabDictionaryChoice4 = realmResultsChoice.get(choices.get(3));
+
+        //choicesChi
+        choicesChi.add(vocabDictionaryQuestion.getVocabChi());
+        choicesChi.add(vocabDictionaryChoice1.getVocabChi());
+        choicesChi.add(vocabDictionaryChoice2.getVocabChi());
+        choicesChi.add(vocabDictionaryChoice3.getVocabChi());
+        choicesChi.add(vocabDictionaryChoice4.getVocabChi());
+
+        //choicesChiInt
+        while (choicesChiInt.size() < 5)
+        {
+            int choice = random.nextInt(5);
+            if (!choicesChiInt.contains(choice))
+            {
+                choicesChiInt.add(choice);
+            }
+        }
+
+        textViewA.setText("(A) " + choicesChi.get(choicesChiInt.get(0)));
+        textViewB.setText("(B) " + choicesChi.get(choicesChiInt.get(1)));
+        textViewC.setText("(C) " + choicesChi.get(choicesChiInt.get(2)));
+        textViewD.setText("(D) " + choicesChi.get(choicesChiInt.get(3)));
+        textViewE.setText("(E) " + choicesChi.get(choicesChiInt.get(4)));
     }
 }

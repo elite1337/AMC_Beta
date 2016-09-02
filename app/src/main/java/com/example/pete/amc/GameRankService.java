@@ -51,6 +51,7 @@ public class GameRankService extends Service {
 
         countDownTimer.cancel();
         Log.d("servicethis", "Timer cancelled");
+        stopSelf();
         super.onDestroy();
     }
 

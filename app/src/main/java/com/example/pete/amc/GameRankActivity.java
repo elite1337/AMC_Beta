@@ -4,6 +4,7 @@ import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
+import android.content.res.ColorStateList;
 import android.graphics.PorterDuff;
 import android.os.CountDownTimer;
 import android.support.v7.app.AppCompatActivity;
@@ -24,6 +25,7 @@ public class GameRankActivity extends AppCompatActivity {
 
     CountDownTimer countDownTimer;
     TextView textViewTimer, textViewVocab, textViewPoS, textViewA, textViewB, textViewC, textViewD, textViewE;
+    Button button;
 
 //    int b;
 //
@@ -48,6 +50,72 @@ public class GameRankActivity extends AppCompatActivity {
     int rightInt = 0;
     int wrongInt = 0;
 
+    ColorStateList oldColor;
+
+    int pickA;
+    int pickB;
+    int pickC;
+    int pickD;
+    int pickE;
+    int pick;
+    int quit;
+
+    public int getPickE() {
+        return pickE;
+    }
+
+    public void setPickE(int pickE) {
+        this.pickE = pickE;
+    }
+
+    public int getPickD() {
+        return pickD;
+    }
+
+    public void setPickD(int pickD) {
+        this.pickD = pickD;
+    }
+
+    public int getPickC() {
+        return pickC;
+    }
+
+    public void setPickC(int pickC) {
+        this.pickC = pickC;
+    }
+
+    public int getPickB() {
+        return pickB;
+    }
+
+    public void setPickB(int pickB) {
+        this.pickB = pickB;
+    }
+
+    public int getPickA() {
+        return pickA;
+    }
+
+    public void setPickA(int pickA) {
+        this.pickA = pickA;
+    }
+
+    public int getPick() {
+        return pick;
+    }
+
+    public void setPick(int pick) {
+        this.pick = pick;
+    }
+
+    public int getQuit() {
+        return quit;
+    }
+
+    public void setQuit(int quit) {
+        this.quit = quit;
+    }
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -63,45 +131,88 @@ public class GameRankActivity extends AppCompatActivity {
         textViewC = (TextView)findViewById(R.id.textViewRankC);
         textViewD = (TextView)findViewById(R.id.textViewRankD);
         textViewE = (TextView)findViewById(R.id.textViewRankE);
-        Button button = (Button)findViewById(R.id.buttonRankQuit);
+        button = (Button)findViewById(R.id.buttonRankQuit);
+
+        setQuit(0);
         button.getBackground().setColorFilter(0xFF3F51B5, PorterDuff.Mode.MULTIPLY);
         button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
 
-                onBackPressed();
+                setQuit(1);
             }
         });
 
         realm = Realm.getDefaultInstance();
         QuestionGenerator();
 
+        setPickA(0);
+        setPickB(0);
+        setPickC(0);
+        setPickD(0);
+        setPickE(0);
+        setPick(0);
+
+        oldColor = textViewA.getTextColors();
+
+        Intent intent = new Intent(this, GameRankService.class);
+        intent.putExtra("pick", getPick());
+        startService(intent);
+        Log.i("servicethis", "Started service");
+
+        mTimerView = (GameRankTimer)findViewById(R.id.timer);
+        mTimerView.start(8);
+
         textViewA.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
 
-                RealmResults<VocabDictionary> realmResultsQA = realm.where(VocabDictionary.class).equalTo("vocab", textViewVocab.getText().toString()).findAll();
-                VocabDictionary vocabDictionaryQA = realmResultsQA.get(0);
-                if (textViewA.getText().toString().equals(vocabDictionaryQA.getVocabChi()))
+                if (getPickA() == 0)
                 {
-                    rightVoc.add(textViewVocab.getText().toString());
-                    rightInt++;
+                    textViewA.setTextColor(0xFF3F51B5);
+                    textViewB.setTextColor(oldColor);
+                    textViewC.setTextColor(oldColor);
+                    textViewD.setTextColor(oldColor);
+                    textViewE.setTextColor(oldColor);
+                    setPickA(1);
+                    setPickB(0);
+                    setPickC(0);
+                    setPickD(0);
+                    setPickE(0);
+
+                    setPick(1);
+                    Intent intent = new Intent(GameRankActivity.this, GameRankService.class);
+                    intent.putExtra("pick", getPick());
+                    startService(intent);
                 }
                 else
                 {
-                    if (rightVoc.contains(textViewVocab.getText().toString()))
+                    RealmResults<VocabDictionary> realmResultsQA = realm.where(VocabDictionary.class).equalTo("vocab", textViewVocab.getText().toString()).findAll();
+                    VocabDictionary vocabDictionaryQA = realmResultsQA.get(0);
+                    if (textViewA.getText().toString().equals(vocabDictionaryQA.getVocabChi()))
                     {
-                        rightVoc.remove(textViewVocab.getText().toString());
+                        rightVoc.add(textViewVocab.getText().toString());
+                        rightInt++;
                     }
-                    wrongInt++;
+                    else
+                    {
+                        if (rightVoc.contains(textViewVocab.getText().toString()))
+                        {
+                            rightVoc.remove(textViewVocab.getText().toString());
+                        }
+                        wrongInt++;
+                    }
+
+                    QuestionGenerator();
+
+                    mTimerView.stop();
+                    mTimerView.start(8);
+                    stopService(new Intent(GameRankActivity.this, GameRankService.class));
+                    startService(new Intent(GameRankActivity.this, GameRankService.class));
+
+                    textViewA.setTextColor(oldColor);
+                    setPickA(0);
                 }
-
-                QuestionGenerator();
-
-                mTimerView.stop();
-                mTimerView.start(8);
-                stopService(new Intent(GameRankActivity.this, GameRankService.class));
-                startService(new Intent(GameRankActivity.this, GameRankService.class));
             }
         });
 
@@ -109,28 +220,52 @@ public class GameRankActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
 
-                RealmResults<VocabDictionary> realmResultsQA = realm.where(VocabDictionary.class).equalTo("vocab", textViewVocab.getText().toString()).findAll();
-                VocabDictionary vocabDictionaryQA = realmResultsQA.get(0);
-                if (textViewB.getText().toString().equals(vocabDictionaryQA.getVocabChi()))
+                if (getPickB() == 0)
                 {
-                    rightVoc.add(textViewVocab.getText().toString());
-                    rightInt++;
+                    textViewA.setTextColor(oldColor);
+                    textViewB.setTextColor(0xFF3F51B5);
+                    textViewC.setTextColor(oldColor);
+                    textViewD.setTextColor(oldColor);
+                    textViewE.setTextColor(oldColor);
+                    setPickA(0);
+                    setPickB(1);
+                    setPickC(0);
+                    setPickD(0);
+                    setPickE(0);
+
+                    setPick(1);
+                    Intent intent = new Intent(GameRankActivity.this, GameRankService.class);
+                    intent.putExtra("pick", getPick());
+                    startService(intent);
                 }
                 else
                 {
-                    if (rightVoc.contains(textViewVocab.getText().toString()))
+                    RealmResults<VocabDictionary> realmResultsQA = realm.where(VocabDictionary.class).equalTo("vocab", textViewVocab.getText().toString()).findAll();
+                    VocabDictionary vocabDictionaryQA = realmResultsQA.get(0);
+                    if (textViewB.getText().toString().equals(vocabDictionaryQA.getVocabChi()))
                     {
-                        rightVoc.remove(textViewVocab.getText().toString());
+                        rightVoc.add(textViewVocab.getText().toString());
+                        rightInt++;
                     }
-                    wrongInt++;
+                    else
+                    {
+                        if (rightVoc.contains(textViewVocab.getText().toString()))
+                        {
+                            rightVoc.remove(textViewVocab.getText().toString());
+                        }
+                        wrongInt++;
+                    }
+
+                    QuestionGenerator();
+
+                    mTimerView.stop();
+                    mTimerView.start(8);
+                    stopService(new Intent(GameRankActivity.this, GameRankService.class));
+                    startService(new Intent(GameRankActivity.this, GameRankService.class));
+
+                    textViewB.setTextColor(oldColor);
+                    setPickB(0);
                 }
-
-                QuestionGenerator();
-
-                mTimerView.stop();
-                mTimerView.start(8);
-                stopService(new Intent(GameRankActivity.this, GameRankService.class));
-                startService(new Intent(GameRankActivity.this, GameRankService.class));
             }
         });
 
@@ -138,28 +273,52 @@ public class GameRankActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
 
-                RealmResults<VocabDictionary> realmResultsQA = realm.where(VocabDictionary.class).equalTo("vocab", textViewVocab.getText().toString()).findAll();
-                VocabDictionary vocabDictionaryQA = realmResultsQA.get(0);
-                if (textViewC.getText().toString().equals(vocabDictionaryQA.getVocabChi()))
+                if (getPickC() == 0)
                 {
-                    rightVoc.add(textViewVocab.getText().toString());
-                    rightInt++;
+                    textViewA.setTextColor(oldColor);
+                    textViewB.setTextColor(oldColor);
+                    textViewC.setTextColor(0xFF3F51B5);
+                    textViewD.setTextColor(oldColor);
+                    textViewE.setTextColor(oldColor);
+                    setPickA(0);
+                    setPickB(0);
+                    setPickC(1);
+                    setPickD(0);
+                    setPickE(0);
+
+                    setPick(1);
+                    Intent intent = new Intent(GameRankActivity.this, GameRankService.class);
+                    intent.putExtra("pick", getPick());
+                    startService(intent);
                 }
                 else
                 {
-                    if (rightVoc.contains(textViewVocab.getText().toString()))
+                    RealmResults<VocabDictionary> realmResultsQA = realm.where(VocabDictionary.class).equalTo("vocab", textViewVocab.getText().toString()).findAll();
+                    VocabDictionary vocabDictionaryQA = realmResultsQA.get(0);
+                    if (textViewC.getText().toString().equals(vocabDictionaryQA.getVocabChi()))
                     {
-                        rightVoc.remove(textViewVocab.getText().toString());
+                        rightVoc.add(textViewVocab.getText().toString());
+                        rightInt++;
                     }
-                    wrongInt++;
+                    else
+                    {
+                        if (rightVoc.contains(textViewVocab.getText().toString()))
+                        {
+                            rightVoc.remove(textViewVocab.getText().toString());
+                        }
+                        wrongInt++;
+                    }
+
+                    QuestionGenerator();
+
+                    mTimerView.stop();
+                    mTimerView.start(8);
+                    stopService(new Intent(GameRankActivity.this, GameRankService.class));
+                    startService(new Intent(GameRankActivity.this, GameRankService.class));
+
+                    textViewC.setTextColor(oldColor);
+                    setPickC(0);
                 }
-
-                QuestionGenerator();
-
-                mTimerView.stop();
-                mTimerView.start(8);
-                stopService(new Intent(GameRankActivity.this, GameRankService.class));
-                startService(new Intent(GameRankActivity.this, GameRankService.class));
             }
         });
 
@@ -167,28 +326,52 @@ public class GameRankActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
 
-                RealmResults<VocabDictionary> realmResultsQA = realm.where(VocabDictionary.class).equalTo("vocab", textViewVocab.getText().toString()).findAll();
-                VocabDictionary vocabDictionaryQA = realmResultsQA.get(0);
-                if (textViewD.getText().toString().equals(vocabDictionaryQA.getVocabChi()))
+                if (getPickD() == 0)
                 {
-                    rightVoc.add(textViewVocab.getText().toString());
-                    rightInt++;
+                    textViewA.setTextColor(oldColor);
+                    textViewB.setTextColor(oldColor);
+                    textViewC.setTextColor(oldColor);
+                    textViewD.setTextColor(0xFF3F51B5);
+                    textViewE.setTextColor(oldColor);
+                    setPickA(0);
+                    setPickB(0);
+                    setPickC(0);
+                    setPickD(1);
+                    setPickE(0);
+
+                    setPick(1);
+                    Intent intent = new Intent(GameRankActivity.this, GameRankService.class);
+                    intent.putExtra("pick", getPick());
+                    startService(intent);
                 }
                 else
                 {
-                    if (rightVoc.contains(textViewVocab.getText().toString()))
+                    RealmResults<VocabDictionary> realmResultsQA = realm.where(VocabDictionary.class).equalTo("vocab", textViewVocab.getText().toString()).findAll();
+                    VocabDictionary vocabDictionaryQA = realmResultsQA.get(0);
+                    if (textViewD.getText().toString().equals(vocabDictionaryQA.getVocabChi()))
                     {
-                        rightVoc.remove(textViewVocab.getText().toString());
+                        rightVoc.add(textViewVocab.getText().toString());
+                        rightInt++;
                     }
-                    wrongInt++;
+                    else
+                    {
+                        if (rightVoc.contains(textViewVocab.getText().toString()))
+                        {
+                            rightVoc.remove(textViewVocab.getText().toString());
+                        }
+                        wrongInt++;
+                    }
+
+                    QuestionGenerator();
+
+                    mTimerView.stop();
+                    mTimerView.start(8);
+                    stopService(new Intent(GameRankActivity.this, GameRankService.class));
+                    startService(new Intent(GameRankActivity.this, GameRankService.class));
+
+                    textViewD.setTextColor(oldColor);
+                    setPickD(0);
                 }
-
-                QuestionGenerator();
-
-                mTimerView.stop();
-                mTimerView.start(8);
-                stopService(new Intent(GameRankActivity.this, GameRankService.class));
-                startService(new Intent(GameRankActivity.this, GameRankService.class));
             }
         });
 
@@ -196,32 +379,55 @@ public class GameRankActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
 
-                RealmResults<VocabDictionary> realmResultsQA = realm.where(VocabDictionary.class).equalTo("vocab", textViewVocab.getText().toString()).findAll();
-                VocabDictionary vocabDictionaryQA = realmResultsQA.get(0);
-                if (textViewE.getText().toString().equals(vocabDictionaryQA.getVocabChi()))
+                if (getPickE() == 0)
                 {
-                    rightVoc.add(textViewVocab.getText().toString());
-                    rightInt++;
+                    textViewA.setTextColor(oldColor);
+                    textViewB.setTextColor(oldColor);
+                    textViewC.setTextColor(oldColor);
+                    textViewD.setTextColor(oldColor);
+                    textViewE.setTextColor(0xFF3F51B5);
+                    setPickA(0);
+                    setPickB(0);
+                    setPickC(0);
+                    setPickD(0);
+                    setPickE(1);
+
+                    setPick(1);
+                    Intent intent = new Intent(GameRankActivity.this, GameRankService.class);
+                    intent.putExtra("pick", getPick());
+                    startService(intent);
                 }
                 else
                 {
-                    if (rightVoc.contains(textViewVocab.getText().toString()))
+                    RealmResults<VocabDictionary> realmResultsQA = realm.where(VocabDictionary.class).equalTo("vocab", textViewVocab.getText().toString()).findAll();
+                    VocabDictionary vocabDictionaryQA = realmResultsQA.get(0);
+                    if (textViewE.getText().toString().equals(vocabDictionaryQA.getVocabChi()))
                     {
-                        rightVoc.remove(textViewVocab.getText().toString());
+                        rightVoc.add(textViewVocab.getText().toString());
+                        rightInt++;
                     }
-                    wrongInt++;
+                    else
+                    {
+                        if (rightVoc.contains(textViewVocab.getText().toString()))
+                        {
+                            rightVoc.remove(textViewVocab.getText().toString());
+                        }
+                        wrongInt++;
+                    }
+
+                    QuestionGenerator();
+
+                    mTimerView.stop();
+                    mTimerView.start(8);
+                    stopService(new Intent(GameRankActivity.this, GameRankService.class));
+                    startService(new Intent(GameRankActivity.this, GameRankService.class));
+
+                    textViewE.setTextColor(oldColor);
+                    setPickE(0);
                 }
-
-                QuestionGenerator();
-
-                mTimerView.stop();
-                mTimerView.start(8);
-                stopService(new Intent(GameRankActivity.this, GameRankService.class));
-                startService(new Intent(GameRankActivity.this, GameRankService.class));
             }
         });
-
-
+        
 //        for (int i = 0; i < realmResultsQuestion.size(); i++)
 //        {
 //            VocabDictionary vocabDictionary = realmResultsQuestion.get(i);
@@ -232,10 +438,6 @@ public class GameRankActivity extends AppCompatActivity {
 //        {
 //            Log.d("lala", vocabDictionary.getVocab());
 //        }
-
-        startService(new Intent(this, GameRankService.class));
-        Log.i("servicethis", "Started service");
-
 
 //        if (savedInstanceState == null)
 //        {
@@ -259,9 +461,6 @@ public class GameRankActivity extends AppCompatActivity {
 //                onBackPressed();
 //            }
 //        }.start();
-
-        mTimerView = (GameRankTimer)findViewById(R.id.timer);
-        mTimerView.start(8);
     }
 
 //    @Override
@@ -271,19 +470,50 @@ public class GameRankActivity extends AppCompatActivity {
 //        countDownTimer.cancel();
 //    }
 
-    private BroadcastReceiver br = new BroadcastReceiver() {
+    private BroadcastReceiver broadcastReceiver = new BroadcastReceiver() {
         @Override
         public void onReceive(Context context, Intent intent) {
+
             updateGUI(intent); // or whatever method used to update your GUI fields
         }
     };
 
     private void updateGUI(Intent intent) {
+
         if (intent.getExtras() != null) {
             long millisUntilFinished = intent.getLongExtra("countdown", 0);
             Log.d("servicethis", "Countdown seconds remaining: " +  millisUntilFinished / 1000);
 
             textViewTimer.setText(String.valueOf((int) millisUntilFinished / 1000));
+            if (getQuit() == 1)
+            {
+                button.setText("Quit in " + String.valueOf((int) millisUntilFinished / 1000) + " sec(s)...");
+                if (millisUntilFinished == 0)
+                {
+                    stopService(new Intent(this, GameRankService.class));
+                    Intent intentGameRankEndActivity = new Intent(getApplicationContext(), GameRankEndActivity.class);
+                    startActivity(intentGameRankEndActivity);
+                }
+            }
+
+            setPick(intent.getIntExtra("pick", 0));
+            if (getPick() == 2)
+            {
+                if (getQuit() != 1)
+                {
+                    QuestionGenerator();
+
+                    mTimerView.stop();
+                    mTimerView.start(8);
+                    stopService(new Intent(GameRankActivity.this, GameRankService.class));
+                    startService(new Intent(GameRankActivity.this, GameRankService.class));
+                    textViewA.setTextColor(oldColor);
+                    textViewB.setTextColor(oldColor);
+                    textViewC.setTextColor(oldColor);
+                    textViewD.setTextColor(oldColor);
+                    textViewE.setTextColor(oldColor);
+                }
+            }
         }
     }
 
@@ -291,7 +521,7 @@ public class GameRankActivity extends AppCompatActivity {
     public void onResume() {
         super.onResume();
 
-        registerReceiver(br, new IntentFilter(GameRankService.COUNTDOWN_BR));
+        registerReceiver(broadcastReceiver, new IntentFilter(GameRankService.COUNTDOWN_BR));
         Log.d("servicethis", "Registered broacast receiver");
     }
 
@@ -301,14 +531,14 @@ public class GameRankActivity extends AppCompatActivity {
 
         mTimerView.stop();
 
-        unregisterReceiver(br);
+        unregisterReceiver(broadcastReceiver);
         Log.d("servicethis", "Unregistered broacast receiver");
     }
 
     @Override
     public void onStop() {
         try {
-            unregisterReceiver(br);
+            unregisterReceiver(broadcastReceiver);
         } catch (Exception e) {
             // Receiver was probably already stopped in onPause()
         }
@@ -328,9 +558,7 @@ public class GameRankActivity extends AppCompatActivity {
     @Override
     public void onBackPressed() {
 
-        stopService(new Intent(this, GameRankService.class));
-        Intent intent = new Intent(getApplicationContext(), GameRankEndActivity.class);
-        startActivity(intent);
+        setQuit(1);
     }
 
     @Override
@@ -339,8 +567,7 @@ public class GameRankActivity extends AppCompatActivity {
         switch (item.getItemId())
         {
             case android.R.id.home:
-                mTimerView.stop();
-                onBackPressed();
+                setQuit(1);
                 return true;
             default:
                 return super.onOptionsItemSelected(item);

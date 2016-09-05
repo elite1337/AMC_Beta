@@ -185,9 +185,10 @@
     <Button
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Quit"
+        android:text="QUIT"
         android:id="@+id/buttonRankQuit"
         android:layout_alignParentBottom="true"
         android:layout_centerHorizontal="true"
-        android:textColor="@color/white"/>
+        android:textColor="@color/white"
+        android:textAllCaps="false"/>
 </RelativeLayout>

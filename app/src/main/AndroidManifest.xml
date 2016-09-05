@@ -46,7 +46,9 @@
             android:name=".GameRankActivity"
             android:parentActivityName=".LogInInfoActivity" />
 
-        <service android:name=".GameRankService" />
+        <service
+            android:name=".GameRankService"
+            android:exported="false" />
 
         <activity android:name=".GameRankEndActivity"
             android:parentActivityName=".MainActivity">

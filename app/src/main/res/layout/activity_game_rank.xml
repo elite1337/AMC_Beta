@@ -77,8 +77,8 @@
     <LinearLayout
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:id="@+id/linearLayoutA"
-        android:layout_above="@+id/linearLayoutB"
+        android:id="@+id/linearLayoutRankA"
+        android:layout_above="@+id/linearLayoutRankB"
         android:layout_centerHorizontal="true"
         android:layout_marginBottom="16dp">
 
@@ -99,8 +99,8 @@
     <LinearLayout
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:id="@+id/linearLayoutB"
-        android:layout_above="@+id/linearLayoutC"
+        android:id="@+id/linearLayoutRankB"
+        android:layout_above="@+id/linearLayoutRankC"
         android:layout_centerHorizontal="true"
         android:layout_marginBottom="16dp">
 
@@ -123,7 +123,7 @@
         android:layout_height="wrap_content"
         android:layout_centerVertical="true"
         android:layout_centerHorizontal="true"
-        android:id="@+id/linearLayoutC">
+        android:id="@+id/linearLayoutRankC">
 
         <TextView
             android:layout_width="wrap_content"
@@ -143,9 +143,9 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="16dp"
-        android:layout_below="@+id/linearLayoutC"
+        android:layout_below="@+id/linearLayoutRankC"
         android:layout_centerHorizontal="true"
-        android:id="@+id/linearLayoutD">
+        android:id="@+id/linearLayoutRankD">
 
         <TextView
             android:layout_width="wrap_content"
@@ -165,8 +165,9 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="16dp"
-        android:layout_below="@+id/linearLayoutD"
-        android:layout_centerHorizontal="true">
+        android:layout_below="@+id/linearLayoutRankD"
+        android:layout_centerHorizontal="true"
+        android:id="@+id/linearLayoutRankE">
 
         <TextView
             android:layout_width="wrap_content"

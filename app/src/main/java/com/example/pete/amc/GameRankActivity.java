@@ -18,7 +18,10 @@ import android.widget.TextView;
 
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.Iterator;
+import java.util.Map;
 import java.util.Random;
+import java.util.Set;
 
 import io.realm.Realm;
 import io.realm.RealmResults;
@@ -49,7 +52,8 @@ public class GameRankActivity extends AppCompatActivity {
     ArrayList<Integer> choicesChiInt = new ArrayList<>();
 
     ArrayList<HashMap<String, String>> sumVoc = new ArrayList<>();
-    HashMap<String, String> hashMap;
+    HashMap<String, String> hashMap = new HashMap<>();
+    ArrayList<String> arrayListVoc = new ArrayList<>();
 
     public ArrayList<HashMap<String, String>> getSumVoc() {
         return sumVoc;
@@ -204,10 +208,12 @@ public class GameRankActivity extends AppCompatActivity {
                 }
                 else
                 {
-                    if (!sumVoc.contains(textViewVocab.getText().toString()))
+                    if (!arrayListVoc.contains(textViewVocab.getText().toString()))
                     {
                         hashMap = new HashMap<>();
                         hashMap.put("voc", textViewVocab.getText().toString());
+
+                        arrayListVoc.add(textViewVocab.getText().toString());
 
                         RealmResults<VocabDictionary> realmResultsQA = realm.where(VocabDictionary.class).equalTo("vocab", textViewVocab.getText().toString()).findAll();
                         VocabDictionary vocabDictionaryQA = realmResultsQA.get(0);
@@ -231,7 +237,13 @@ public class GameRankActivity extends AppCompatActivity {
                         VocabDictionary vocabDictionaryQA = realmResultsQA.get(0);
                         if (!textViewA.getText().toString().equals(vocabDictionaryQA.getVocabChi()))
                         {
-                            hashMap.put(vocabDictionaryQA.getVocab(), "0");
+                            for (int i = 0; i < sumVoc.size(); i++)
+                            {
+                                if (sumVoc.get(i).get("voc").equals(textViewVocab.getText().toString()))
+                                {
+                                    sumVoc.get(i).put("status", "0");
+                                }
+                            }
                         }
                     }
                     setSumVoc(sumVoc);
@@ -273,10 +285,12 @@ public class GameRankActivity extends AppCompatActivity {
                 }
                 else
                 {
-                    if (!sumVoc.contains(textViewVocab.getText().toString()))
+                    if (!arrayListVoc.contains(textViewVocab.getText().toString()))
                     {
                         hashMap = new HashMap<>();
                         hashMap.put("voc", textViewVocab.getText().toString());
+
+                        arrayListVoc.add(textViewVocab.getText().toString());
 
                         RealmResults<VocabDictionary> realmResultsQA = realm.where(VocabDictionary.class).equalTo("vocab", textViewVocab.getText().toString()).findAll();
                         VocabDictionary vocabDictionaryQA = realmResultsQA.get(0);
@@ -298,9 +312,15 @@ public class GameRankActivity extends AppCompatActivity {
                     {
                         RealmResults<VocabDictionary> realmResultsQA = realm.where(VocabDictionary.class).equalTo("vocab", textViewVocab.getText().toString()).findAll();
                         VocabDictionary vocabDictionaryQA = realmResultsQA.get(0);
-                        if (!textViewB.getText().toString().equals(vocabDictionaryQA.getVocabChi()))
+                        if (!textViewA.getText().toString().equals(vocabDictionaryQA.getVocabChi()))
                         {
-                            hashMap.put(vocabDictionaryQA.getVocab(), "0");
+                            for (int i = 0; i < sumVoc.size(); i++)
+                            {
+                                if (sumVoc.get(i).get("voc").equals(textViewVocab.getText().toString()))
+                                {
+                                    sumVoc.get(i).put("status", "0");
+                                }
+                            }
                         }
                     }
                     setSumVoc(sumVoc);
@@ -342,10 +362,12 @@ public class GameRankActivity extends AppCompatActivity {
                 }
                 else
                 {
-                    if (!sumVoc.contains(textViewVocab.getText().toString()))
+                    if (!arrayListVoc.contains(textViewVocab.getText().toString()))
                     {
                         hashMap = new HashMap<>();
                         hashMap.put("voc", textViewVocab.getText().toString());
+
+                        arrayListVoc.add(textViewVocab.getText().toString());
 
                         RealmResults<VocabDictionary> realmResultsQA = realm.where(VocabDictionary.class).equalTo("vocab", textViewVocab.getText().toString()).findAll();
                         VocabDictionary vocabDictionaryQA = realmResultsQA.get(0);
@@ -367,9 +389,15 @@ public class GameRankActivity extends AppCompatActivity {
                     {
                         RealmResults<VocabDictionary> realmResultsQA = realm.where(VocabDictionary.class).equalTo("vocab", textViewVocab.getText().toString()).findAll();
                         VocabDictionary vocabDictionaryQA = realmResultsQA.get(0);
-                        if (!textViewC.getText().toString().equals(vocabDictionaryQA.getVocabChi()))
+                        if (!textViewA.getText().toString().equals(vocabDictionaryQA.getVocabChi()))
                         {
-                            hashMap.put(vocabDictionaryQA.getVocab(), "0");
+                            for (int i = 0; i < sumVoc.size(); i++)
+                            {
+                                if (sumVoc.get(i).get("voc").equals(textViewVocab.getText().toString()))
+                                {
+                                    sumVoc.get(i).put("status", "0");
+                                }
+                            }
                         }
                     }
                     setSumVoc(sumVoc);
@@ -411,10 +439,12 @@ public class GameRankActivity extends AppCompatActivity {
                 }
                 else
                 {
-                    if (!sumVoc.contains(textViewVocab.getText().toString()))
+                    if (!arrayListVoc.contains(textViewVocab.getText().toString()))
                     {
                         hashMap = new HashMap<>();
                         hashMap.put("voc", textViewVocab.getText().toString());
+
+                        arrayListVoc.add(textViewVocab.getText().toString());
 
                         RealmResults<VocabDictionary> realmResultsQA = realm.where(VocabDictionary.class).equalTo("vocab", textViewVocab.getText().toString()).findAll();
                         VocabDictionary vocabDictionaryQA = realmResultsQA.get(0);
@@ -436,9 +466,15 @@ public class GameRankActivity extends AppCompatActivity {
                     {
                         RealmResults<VocabDictionary> realmResultsQA = realm.where(VocabDictionary.class).equalTo("vocab", textViewVocab.getText().toString()).findAll();
                         VocabDictionary vocabDictionaryQA = realmResultsQA.get(0);
-                        if (!textViewD.getText().toString().equals(vocabDictionaryQA.getVocabChi()))
+                        if (!textViewA.getText().toString().equals(vocabDictionaryQA.getVocabChi()))
                         {
-                            hashMap.put(vocabDictionaryQA.getVocab(), "0");
+                            for (int i = 0; i < sumVoc.size(); i++)
+                            {
+                                if (sumVoc.get(i).get("voc").equals(textViewVocab.getText().toString()))
+                                {
+                                    sumVoc.get(i).put("status", "0");
+                                }
+                            }
                         }
                     }
                     setSumVoc(sumVoc);
@@ -480,10 +516,12 @@ public class GameRankActivity extends AppCompatActivity {
                 }
                 else
                 {
-                    if (!sumVoc.contains(textViewVocab.getText().toString()))
+                    if (!arrayListVoc.contains(textViewVocab.getText().toString()))
                     {
                         hashMap = new HashMap<>();
                         hashMap.put("voc", textViewVocab.getText().toString());
+
+                        arrayListVoc.add(textViewVocab.getText().toString());
 
                         RealmResults<VocabDictionary> realmResultsQA = realm.where(VocabDictionary.class).equalTo("vocab", textViewVocab.getText().toString()).findAll();
                         VocabDictionary vocabDictionaryQA = realmResultsQA.get(0);
@@ -505,9 +543,15 @@ public class GameRankActivity extends AppCompatActivity {
                     {
                         RealmResults<VocabDictionary> realmResultsQA = realm.where(VocabDictionary.class).equalTo("vocab", textViewVocab.getText().toString()).findAll();
                         VocabDictionary vocabDictionaryQA = realmResultsQA.get(0);
-                        if (!textViewE.getText().toString().equals(vocabDictionaryQA.getVocabChi()))
+                        if (!textViewA.getText().toString().equals(vocabDictionaryQA.getVocabChi()))
                         {
-                            hashMap.put(vocabDictionaryQA.getVocab(), "0");
+                            for (int i = 0; i < sumVoc.size(); i++)
+                            {
+                                if (sumVoc.get(i).get("voc").equals(textViewVocab.getText().toString()))
+                                {
+                                    sumVoc.get(i).put("status", "0");
+                                }
+                            }
                         }
                     }
                     setSumVoc(sumVoc);

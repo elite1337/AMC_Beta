@@ -12,6 +12,15 @@
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceLarge"
+        android:text="Vocab"
+        android:id="@+id/textView6"
+        android:layout_above="@+id/relativeLayout3"
+        android:layout_centerHorizontal="true" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
         android:text=""
         android:id="@+id/textView4"
         android:layout_alignParentTop="true"
@@ -24,7 +33,8 @@
         android:layout_alignParentBottom="true"
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true"
-        android:layout_alignTop="@+id/textView4">
+        android:layout_alignTop="@+id/textView4"
+        android:id="@+id/relativeLayout3">
 
         <ListView
             android:layout_width="wrap_content"
@@ -33,4 +43,40 @@
             android:layout_alignParentTop="true"
             android:layout_centerHorizontal="true" />
     </RelativeLayout>
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceLarge"
+        android:text="Rank Points"
+        android:id="@+id/textView7"
+        android:layout_alignParentTop="true"
+        android:layout_centerHorizontal="true" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceLarge"
+        android:text="Counter/ Correct Rate"
+        android:id="@+id/textView8"
+        android:layout_below="@+id/textViewRankEndPt"
+        android:layout_centerHorizontal="true" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceMedium"
+        android:text="777"
+        android:id="@+id/textViewRankEndPt"
+        android:layout_below="@+id/textView7"
+        android:layout_centerHorizontal="true" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceMedium"
+        android:text="777/ 100%"
+        android:id="@+id/textViewRankEndCC"
+        android:layout_below="@+id/textView8"
+        android:layout_centerHorizontal="true" />
 </RelativeLayout>

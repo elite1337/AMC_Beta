@@ -18,10 +18,7 @@ import android.widget.TextView;
 
 import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.Iterator;
-import java.util.Map;
 import java.util.Random;
-import java.util.Set;
 
 import io.realm.Realm;
 import io.realm.RealmResults;
@@ -63,8 +60,8 @@ public class GameRankActivity extends AppCompatActivity {
         this.sumVoc = sumVoc;
     }
 
-    int rightInt = 0;
-    int wrongInt = 0;
+    double right = 0;
+    double counter = 0;
 
     ColorStateList oldColor;
 
@@ -219,13 +216,13 @@ public class GameRankActivity extends AppCompatActivity {
                         VocabDictionary vocabDictionaryQA = realmResultsQA.get(0);
                         if (textViewA.getText().toString().equals(vocabDictionaryQA.getVocabChi()))
                         {
-                            rightInt++;
+                            right++;
 
                             hashMap.put("status", "1");
                         }
                         else
                         {
-                            wrongInt++;
+                            right--;
 
                             hashMap.put("status", "0");
                         }
@@ -296,13 +293,13 @@ public class GameRankActivity extends AppCompatActivity {
                         VocabDictionary vocabDictionaryQA = realmResultsQA.get(0);
                         if (textViewB.getText().toString().equals(vocabDictionaryQA.getVocabChi()))
                         {
-                            rightInt++;
+                            right++;
 
                             hashMap.put("status", "1");
                         }
                         else
                         {
-                            wrongInt++;
+                            right--;
 
                             hashMap.put("status", "0");
                         }
@@ -373,13 +370,13 @@ public class GameRankActivity extends AppCompatActivity {
                         VocabDictionary vocabDictionaryQA = realmResultsQA.get(0);
                         if (textViewC.getText().toString().equals(vocabDictionaryQA.getVocabChi()))
                         {
-                            rightInt++;
+                            right++;
 
                             hashMap.put("status", "1");
                         }
                         else
                         {
-                            wrongInt++;
+                            right--;
 
                             hashMap.put("status", "0");
                         }
@@ -450,13 +447,13 @@ public class GameRankActivity extends AppCompatActivity {
                         VocabDictionary vocabDictionaryQA = realmResultsQA.get(0);
                         if (textViewD.getText().toString().equals(vocabDictionaryQA.getVocabChi()))
                         {
-                            rightInt++;
+                            right++;
 
                             hashMap.put("status", "1");
                         }
                         else
                         {
-                            wrongInt++;
+                            right--;
 
                             hashMap.put("status", "0");
                         }
@@ -527,13 +524,13 @@ public class GameRankActivity extends AppCompatActivity {
                         VocabDictionary vocabDictionaryQA = realmResultsQA.get(0);
                         if (textViewE.getText().toString().equals(vocabDictionaryQA.getVocabChi()))
                         {
-                            rightInt++;
+                            right++;
 
                             hashMap.put("status", "1");
                         }
                         else
                         {
-                            wrongInt++;
+                            right--;
 
                             hashMap.put("status", "0");
                         }
@@ -634,6 +631,8 @@ public class GameRankActivity extends AppCompatActivity {
                     stopService(new Intent(this, GameRankService.class));
                     Intent intentGameRankEndActivity = new Intent(getApplicationContext(), GameRankEndActivity.class);
                     intentGameRankEndActivity.putExtra("sumvoc", getSumVoc());
+                    intentGameRankEndActivity.putExtra("counter", counter);
+                    intentGameRankEndActivity.putExtra("right", right);
                     startActivity(intentGameRankEndActivity);
                 }
             }
@@ -712,6 +711,8 @@ public class GameRankActivity extends AppCompatActivity {
                 stopService(new Intent(this, GameRankService.class));
                 Intent intentGameRankEndActivity = new Intent(getApplicationContext(), GameRankEndActivity.class);
                 intentGameRankEndActivity.putExtra("sumvoc", getSumVoc());
+                intentGameRankEndActivity.putExtra("counter", counter);
+                intentGameRankEndActivity.putExtra("right", right);
                 startActivity(intentGameRankEndActivity);
                 return true;
             default:
@@ -728,6 +729,8 @@ public class GameRankActivity extends AppCompatActivity {
 
     void QuestionGenerator()
     {
+        counter++;
+
         choices.clear();
         choicesChi.clear();
         choicesChiInt.clear();

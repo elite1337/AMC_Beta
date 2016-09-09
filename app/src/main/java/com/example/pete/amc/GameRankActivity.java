@@ -175,10 +175,8 @@ public class GameRankActivity extends AppCompatActivity {
         oldColor = textViewA.getTextColors();
 
         Intent intent = new Intent(this, GameRankService.class);
-        intent.putExtra("pick", getPick());
         startService(intent);
         Log.i("servicethis", "Started service");
-
         mTimerView = (GameRankTimer)findViewById(R.id.timer);
         mTimerView.start(8);
 
@@ -307,7 +305,7 @@ public class GameRankActivity extends AppCompatActivity {
                     {
                         RealmResults<VocabDictionary> realmResultsQA = realm.where(VocabDictionary.class).equalTo("vocab", textViewVocab.getText().toString()).findAll();
                         VocabDictionary vocabDictionaryQA = realmResultsQA.get(0);
-                        if (!textViewA.getText().toString().equals(vocabDictionaryQA.getVocabChi()))
+                        if (!textViewB.getText().toString().equals(vocabDictionaryQA.getVocabChi()))
                         {
                             for (int i = 0; i < sumVoc.size(); i++)
                             {
@@ -387,7 +385,7 @@ public class GameRankActivity extends AppCompatActivity {
                     {
                         RealmResults<VocabDictionary> realmResultsQA = realm.where(VocabDictionary.class).equalTo("vocab", textViewVocab.getText().toString()).findAll();
                         VocabDictionary vocabDictionaryQA = realmResultsQA.get(0);
-                        if (!textViewA.getText().toString().equals(vocabDictionaryQA.getVocabChi()))
+                        if (!textViewC.getText().toString().equals(vocabDictionaryQA.getVocabChi()))
                         {
                             for (int i = 0; i < sumVoc.size(); i++)
                             {
@@ -467,7 +465,7 @@ public class GameRankActivity extends AppCompatActivity {
                     {
                         RealmResults<VocabDictionary> realmResultsQA = realm.where(VocabDictionary.class).equalTo("vocab", textViewVocab.getText().toString()).findAll();
                         VocabDictionary vocabDictionaryQA = realmResultsQA.get(0);
-                        if (!textViewA.getText().toString().equals(vocabDictionaryQA.getVocabChi()))
+                        if (!textViewD.getText().toString().equals(vocabDictionaryQA.getVocabChi()))
                         {
                             for (int i = 0; i < sumVoc.size(); i++)
                             {
@@ -547,7 +545,7 @@ public class GameRankActivity extends AppCompatActivity {
                     {
                         RealmResults<VocabDictionary> realmResultsQA = realm.where(VocabDictionary.class).equalTo("vocab", textViewVocab.getText().toString()).findAll();
                         VocabDictionary vocabDictionaryQA = realmResultsQA.get(0);
-                        if (!textViewA.getText().toString().equals(vocabDictionaryQA.getVocabChi()))
+                        if (!textViewE.getText().toString().equals(vocabDictionaryQA.getVocabChi()))
                         {
                             for (int i = 0; i < sumVoc.size(); i++)
                             {
@@ -643,6 +641,37 @@ public class GameRankActivity extends AppCompatActivity {
             //Quit when time out
             if (millisUntilFinished == 0 & getPick() == 0)
             {
+                if (!arrayListVoc.contains(textViewVocab.getText().toString()))
+                {
+                    hashMap = new HashMap<>();
+                    hashMap.put("voc", textViewVocab.getText().toString());
+
+                    arrayListVoc.add(textViewVocab.getText().toString());
+
+                    hashMap.put("status", "0");
+                    sumVoc.add(hashMap);
+                }
+                else
+                {
+                    RealmResults<VocabDictionary> realmResultsQA = realm.where(VocabDictionary.class).equalTo("vocab", textViewVocab.getText().toString()).findAll();
+                    VocabDictionary vocabDictionaryQA = realmResultsQA.get(0);
+                    if (!textViewA.getText().toString().equals(vocabDictionaryQA.getVocabChi()))
+                    {
+                        for (int i = 0; i < sumVoc.size(); i++)
+                        {
+                            if (sumVoc.get(i).get("voc").equals(textViewVocab.getText().toString()))
+                            {
+                                if (!sumVoc.get(i).get("status").equals("0"))
+                                {
+                                    point--;
+                                }
+                                sumVoc.get(i).put("status", "0");
+                            }
+                        }
+                    }
+                }
+                setSumVoc(sumVoc);
+
                 stopService(new Intent(this, GameRankService.class));
                 Intent intentGameRankEndActivity = new Intent(getApplicationContext(), GameRankEndActivity.class);
                 intentGameRankEndActivity.putExtra("sumvoc", getSumVoc());
@@ -656,9 +685,208 @@ public class GameRankActivity extends AppCompatActivity {
             if (getQuit() == 1)
             {
                 button.setText("Quit in " + String.valueOf((int) millisUntilFinished / 1000) + " sec(s)...");
-                //Quit when time out
+
                 if (millisUntilFinished == 0)
                 {
+                    if (!arrayListVoc.contains(textViewVocab.getText().toString()))
+                    {
+                        hashMap = new HashMap<>();
+                        hashMap.put("voc", textViewVocab.getText().toString());
+
+                        arrayListVoc.add(textViewVocab.getText().toString());
+
+                        RealmResults<VocabDictionary> realmResultsQA = realm.where(VocabDictionary.class).equalTo("vocab", textViewVocab.getText().toString()).findAll();
+                        VocabDictionary vocabDictionaryQA = realmResultsQA.get(0);
+
+                        if (getPickA() == 1)
+                        {
+                            if (textViewA.getText().toString().equals(vocabDictionaryQA.getVocabChi()))
+                            {
+                                point++;
+                                right++;
+                                hashMap.put("status", "1");
+                            }
+                            else
+                            {
+                                hashMap.put("status", "0");
+                            }
+                        }
+
+                        if (getPickB() == 1)
+                        {
+                            if (textViewB.getText().toString().equals(vocabDictionaryQA.getVocabChi()))
+                            {
+                                point++;
+                                right++;
+                                hashMap.put("status", "1");
+                            }
+                            else
+                            {
+                                hashMap.put("status", "0");
+                            }
+                        }
+
+                        if (getPickC() == 1)
+                        {
+                            if (textViewC.getText().toString().equals(vocabDictionaryQA.getVocabChi()))
+                            {
+                                point++;
+                                right++;
+                                hashMap.put("status", "1");
+                            }
+                            else
+                            {
+                                hashMap.put("status", "0");
+                            }
+                        }
+
+                        if (getPickD() == 1)
+                        {
+                            if (textViewD.getText().toString().equals(vocabDictionaryQA.getVocabChi()))
+                            {
+                                point++;
+                                right++;
+                                hashMap.put("status", "1");
+                            }
+                            else
+                            {
+                                hashMap.put("status", "0");
+                            }
+                        }
+
+                        if (getPickE() == 1)
+                        {
+                            if (textViewE.getText().toString().equals(vocabDictionaryQA.getVocabChi()))
+                            {
+                                point++;
+                                right++;
+                                hashMap.put("status", "1");
+                            }
+                            else
+                            {
+                                hashMap.put("status", "0");
+                            }
+                        }
+
+                        sumVoc.add(hashMap);
+                    }
+                    else
+                    {
+                        RealmResults<VocabDictionary> realmResultsQA = realm.where(VocabDictionary.class).equalTo("vocab", textViewVocab.getText().toString()).findAll();
+                        VocabDictionary vocabDictionaryQA = realmResultsQA.get(0);
+
+                        if (getPickA() == 1)
+                        {
+                            if (!textViewA.getText().toString().equals(vocabDictionaryQA.getVocabChi()))
+                            {
+                                for (int i = 0; i < sumVoc.size(); i++)
+                                {
+                                    if (sumVoc.get(i).get("voc").equals(textViewVocab.getText().toString()))
+                                    {
+                                        if (!sumVoc.get(i).get("status").equals("0"))
+                                        {
+                                            point--;
+                                        }
+                                        sumVoc.get(i).put("status", "0");
+                                    }
+                                }
+                            }
+                            else
+                            {
+                                right++;
+                            }
+                        }
+
+                        if (getPickB() == 1)
+                        {
+                            if (!textViewB.getText().toString().equals(vocabDictionaryQA.getVocabChi()))
+                            {
+                                for (int i = 0; i < sumVoc.size(); i++)
+                                {
+                                    if (sumVoc.get(i).get("voc").equals(textViewVocab.getText().toString()))
+                                    {
+                                        if (!sumVoc.get(i).get("status").equals("0"))
+                                        {
+                                            point--;
+                                        }
+                                        sumVoc.get(i).put("status", "0");
+                                    }
+                                }
+                            }
+                            else
+                            {
+                                right++;
+                            }
+                        }
+
+                        if (getPickC() == 1)
+                        {
+                            if (!textViewC.getText().toString().equals(vocabDictionaryQA.getVocabChi()))
+                            {
+                                for (int i = 0; i < sumVoc.size(); i++)
+                                {
+                                    if (sumVoc.get(i).get("voc").equals(textViewVocab.getText().toString()))
+                                    {
+                                        if (!sumVoc.get(i).get("status").equals("0"))
+                                        {
+                                            point--;
+                                        }
+                                        sumVoc.get(i).put("status", "0");
+                                    }
+                                }
+                            }
+                            else
+                            {
+                                right++;
+                            }
+                        }
+
+                        if (getPickD() == 1)
+                        {
+                            if (!textViewD.getText().toString().equals(vocabDictionaryQA.getVocabChi()))
+                            {
+                                for (int i = 0; i < sumVoc.size(); i++)
+                                {
+                                    if (sumVoc.get(i).get("voc").equals(textViewVocab.getText().toString()))
+                                    {
+                                        if (!sumVoc.get(i).get("status").equals("0"))
+                                        {
+                                            point--;
+                                        }
+                                        sumVoc.get(i).put("status", "0");
+                                    }
+                                }
+                            }
+                            else
+                            {
+                                right++;
+                            }
+                        }
+
+                        if (getPickE() == 1)
+                        {
+                            if (!textViewE.getText().toString().equals(vocabDictionaryQA.getVocabChi()))
+                            {
+                                for (int i = 0; i < sumVoc.size(); i++)
+                                {
+                                    if (sumVoc.get(i).get("voc").equals(textViewVocab.getText().toString()))
+                                    {
+                                        if (!sumVoc.get(i).get("status").equals("0"))
+                                        {
+                                            point--;
+                                        }
+                                        sumVoc.get(i).put("status", "0");
+                                    }
+                                }
+                            }
+                            else
+                            {
+                                right++;
+                            }
+                        }
+                    }
+                    setSumVoc(sumVoc);
+
                     stopService(new Intent(this, GameRankService.class));
                     Intent intentGameRankEndActivity = new Intent(getApplicationContext(), GameRankEndActivity.class);
                     intentGameRankEndActivity.putExtra("sumvoc", getSumVoc());
@@ -672,6 +900,205 @@ public class GameRankActivity extends AppCompatActivity {
             //Picked and time out
             if (getPick() == 1 & millisUntilFinished == 0 & getQuit() != 1)
             {
+                if (!arrayListVoc.contains(textViewVocab.getText().toString()))
+                {
+                    hashMap = new HashMap<>();
+                    hashMap.put("voc", textViewVocab.getText().toString());
+
+                    arrayListVoc.add(textViewVocab.getText().toString());
+
+                    RealmResults<VocabDictionary> realmResultsQA = realm.where(VocabDictionary.class).equalTo("vocab", textViewVocab.getText().toString()).findAll();
+                    VocabDictionary vocabDictionaryQA = realmResultsQA.get(0);
+
+                    if (getPickA() == 1)
+                    {
+                        if (textViewA.getText().toString().equals(vocabDictionaryQA.getVocabChi()))
+                        {
+                            point++;
+                            right++;
+                            hashMap.put("status", "1");
+                        }
+                        else
+                        {
+                            hashMap.put("status", "0");
+                        }
+                    }
+
+                    if (getPickB() == 1)
+                    {
+                        if (textViewB.getText().toString().equals(vocabDictionaryQA.getVocabChi()))
+                        {
+                            point++;
+                            right++;
+                            hashMap.put("status", "1");
+                        }
+                        else
+                        {
+                            hashMap.put("status", "0");
+                        }
+                    }
+
+                    if (getPickC() == 1)
+                    {
+                        if (textViewC.getText().toString().equals(vocabDictionaryQA.getVocabChi()))
+                        {
+                            point++;
+                            right++;
+                            hashMap.put("status", "1");
+                        }
+                        else
+                        {
+                            hashMap.put("status", "0");
+                        }
+                    }
+
+                    if (getPickD() == 1)
+                    {
+                        if (textViewD.getText().toString().equals(vocabDictionaryQA.getVocabChi()))
+                        {
+                            point++;
+                            right++;
+                            hashMap.put("status", "1");
+                        }
+                        else
+                        {
+                            hashMap.put("status", "0");
+                        }
+                    }
+
+                    if (getPickE() == 1)
+                    {
+                        if (textViewE.getText().toString().equals(vocabDictionaryQA.getVocabChi()))
+                        {
+                            point++;
+                            right++;
+                            hashMap.put("status", "1");
+                        }
+                        else
+                        {
+                            hashMap.put("status", "0");
+                        }
+                    }
+
+                    sumVoc.add(hashMap);
+                }
+                else
+                {
+                    RealmResults<VocabDictionary> realmResultsQA = realm.where(VocabDictionary.class).equalTo("vocab", textViewVocab.getText().toString()).findAll();
+                    VocabDictionary vocabDictionaryQA = realmResultsQA.get(0);
+
+                    if (getPickA() == 1)
+                    {
+                        if (!textViewA.getText().toString().equals(vocabDictionaryQA.getVocabChi()))
+                        {
+                            for (int i = 0; i < sumVoc.size(); i++)
+                            {
+                                if (sumVoc.get(i).get("voc").equals(textViewVocab.getText().toString()))
+                                {
+                                    if (!sumVoc.get(i).get("status").equals("0"))
+                                    {
+                                        point--;
+                                    }
+                                    sumVoc.get(i).put("status", "0");
+                                }
+                            }
+                        }
+                        else
+                        {
+                            right++;
+                        }
+                    }
+
+                    if (getPickB() == 1)
+                    {
+                        if (!textViewB.getText().toString().equals(vocabDictionaryQA.getVocabChi()))
+                        {
+                            for (int i = 0; i < sumVoc.size(); i++)
+                            {
+                                if (sumVoc.get(i).get("voc").equals(textViewVocab.getText().toString()))
+                                {
+                                    if (!sumVoc.get(i).get("status").equals("0"))
+                                    {
+                                        point--;
+                                    }
+                                    sumVoc.get(i).put("status", "0");
+                                }
+                            }
+                        }
+                        else
+                        {
+                            right++;
+                        }
+                    }
+
+                    if (getPickC() == 1)
+                    {
+                        if (!textViewC.getText().toString().equals(vocabDictionaryQA.getVocabChi()))
+                        {
+                            for (int i = 0; i < sumVoc.size(); i++)
+                            {
+                                if (sumVoc.get(i).get("voc").equals(textViewVocab.getText().toString()))
+                                {
+                                    if (!sumVoc.get(i).get("status").equals("0"))
+                                    {
+                                        point--;
+                                    }
+                                    sumVoc.get(i).put("status", "0");
+                                }
+                            }
+                        }
+                        else
+                        {
+                            right++;
+                        }
+                    }
+
+                    if (getPickD() == 1)
+                    {
+                        if (!textViewD.getText().toString().equals(vocabDictionaryQA.getVocabChi()))
+                        {
+                            for (int i = 0; i < sumVoc.size(); i++)
+                            {
+                                if (sumVoc.get(i).get("voc").equals(textViewVocab.getText().toString()))
+                                {
+                                    if (!sumVoc.get(i).get("status").equals("0"))
+                                    {
+                                        point--;
+                                    }
+                                    sumVoc.get(i).put("status", "0");
+                                }
+                            }
+                        }
+                        else
+                        {
+                            right++;
+                        }
+                    }
+
+                    if (getPickE() == 1)
+                    {
+                        if (!textViewE.getText().toString().equals(vocabDictionaryQA.getVocabChi()))
+                        {
+                            for (int i = 0; i < sumVoc.size(); i++)
+                            {
+                                if (sumVoc.get(i).get("voc").equals(textViewVocab.getText().toString()))
+                                {
+                                    if (!sumVoc.get(i).get("status").equals("0"))
+                                    {
+                                        point--;
+                                    }
+                                    sumVoc.get(i).put("status", "0");
+                                }
+                            }
+                        }
+                        else
+                        {
+                            right++;
+                        }
+                    }
+                }
+                setSumVoc(sumVoc);
+
                 QuestionGenerator();
 
                 mTimerView.stop();
@@ -743,6 +1170,241 @@ public class GameRankActivity extends AppCompatActivity {
         switch (item.getItemId())
         {
             case android.R.id.home:
+
+                if (getPickA() == 0 & getPickB() == 0 & getPickC() == 0 & getPickD() == 0 & getPickE() == 0)
+                {
+                    if (!arrayListVoc.contains(textViewVocab.getText().toString()))
+                    {
+                        hashMap = new HashMap<>();
+                        hashMap.put("voc", textViewVocab.getText().toString());
+
+                        arrayListVoc.add(textViewVocab.getText().toString());
+
+                        hashMap.put("status", "0");
+                        sumVoc.add(hashMap);
+                    }
+                    else
+                    {
+                        RealmResults<VocabDictionary> realmResultsQA = realm.where(VocabDictionary.class).equalTo("vocab", textViewVocab.getText().toString()).findAll();
+                        VocabDictionary vocabDictionaryQA = realmResultsQA.get(0);
+                        if (!textViewA.getText().toString().equals(vocabDictionaryQA.getVocabChi()))
+                        {
+                            for (int i = 0; i < sumVoc.size(); i++)
+                            {
+                                if (sumVoc.get(i).get("voc").equals(textViewVocab.getText().toString()))
+                                {
+                                    if (!sumVoc.get(i).get("status").equals("0"))
+                                    {
+                                        point--;
+                                    }
+                                    sumVoc.get(i).put("status", "0");
+                                }
+                            }
+                        }
+                    }
+                }
+                else
+                {
+                    if (!arrayListVoc.contains(textViewVocab.getText().toString()))
+                    {
+                        hashMap = new HashMap<>();
+                        hashMap.put("voc", textViewVocab.getText().toString());
+
+                        arrayListVoc.add(textViewVocab.getText().toString());
+
+                        RealmResults<VocabDictionary> realmResultsQA = realm.where(VocabDictionary.class).equalTo("vocab", textViewVocab.getText().toString()).findAll();
+                        VocabDictionary vocabDictionaryQA = realmResultsQA.get(0);
+
+                        if (getPickA() == 1)
+                        {
+                            if (textViewA.getText().toString().equals(vocabDictionaryQA.getVocabChi()))
+                            {
+                                point++;
+                                right++;
+                                hashMap.put("status", "1");
+                            }
+                            else
+                            {
+                                hashMap.put("status", "0");
+                            }
+                        }
+
+                        if (getPickB() == 1)
+                        {
+                            if (textViewB.getText().toString().equals(vocabDictionaryQA.getVocabChi()))
+                            {
+                                point++;
+                                right++;
+                                hashMap.put("status", "1");
+                            }
+                            else
+                            {
+                                hashMap.put("status", "0");
+                            }
+                        }
+
+                        if (getPickC() == 1)
+                        {
+                            if (textViewC.getText().toString().equals(vocabDictionaryQA.getVocabChi()))
+                            {
+                                point++;
+                                right++;
+                                hashMap.put("status", "1");
+                            }
+                            else
+                            {
+                                hashMap.put("status", "0");
+                            }
+                        }
+
+                        if (getPickD() == 1)
+                        {
+                            if (textViewD.getText().toString().equals(vocabDictionaryQA.getVocabChi()))
+                            {
+                                point++;
+                                right++;
+                                hashMap.put("status", "1");
+                            }
+                            else
+                            {
+                                hashMap.put("status", "0");
+                            }
+                        }
+
+                        if (getPickE() == 1)
+                        {
+                            if (textViewE.getText().toString().equals(vocabDictionaryQA.getVocabChi()))
+                            {
+                                point++;
+                                right++;
+                                hashMap.put("status", "1");
+                            }
+                            else
+                            {
+                                hashMap.put("status", "0");
+                            }
+                        }
+
+                        sumVoc.add(hashMap);
+                    }
+                    else
+                    {
+                        RealmResults<VocabDictionary> realmResultsQA = realm.where(VocabDictionary.class).equalTo("vocab", textViewVocab.getText().toString()).findAll();
+                        VocabDictionary vocabDictionaryQA = realmResultsQA.get(0);
+
+                        if (getPickA() == 1)
+                        {
+                            if (!textViewA.getText().toString().equals(vocabDictionaryQA.getVocabChi()))
+                            {
+                                for (int i = 0; i < sumVoc.size(); i++)
+                                {
+                                    if (sumVoc.get(i).get("voc").equals(textViewVocab.getText().toString()))
+                                    {
+                                        if (!sumVoc.get(i).get("status").equals("0"))
+                                        {
+                                            point--;
+                                        }
+                                        sumVoc.get(i).put("status", "0");
+                                    }
+                                }
+                            }
+                            else
+                            {
+                                right++;
+                            }
+                        }
+
+                        if (getPickB() == 1)
+                        {
+                            if (!textViewB.getText().toString().equals(vocabDictionaryQA.getVocabChi()))
+                            {
+                                for (int i = 0; i < sumVoc.size(); i++)
+                                {
+                                    if (sumVoc.get(i).get("voc").equals(textViewVocab.getText().toString()))
+                                    {
+                                        if (!sumVoc.get(i).get("status").equals("0"))
+                                        {
+                                            point--;
+                                        }
+                                        sumVoc.get(i).put("status", "0");
+                                    }
+                                }
+                            }
+                            else
+                            {
+                                right++;
+                            }
+                        }
+
+                        if (getPickC() == 1)
+                        {
+                            if (!textViewC.getText().toString().equals(vocabDictionaryQA.getVocabChi()))
+                            {
+                                for (int i = 0; i < sumVoc.size(); i++)
+                                {
+                                    if (sumVoc.get(i).get("voc").equals(textViewVocab.getText().toString()))
+                                    {
+                                        if (!sumVoc.get(i).get("status").equals("0"))
+                                        {
+                                            point--;
+                                        }
+                                        sumVoc.get(i).put("status", "0");
+                                    }
+                                }
+                            }
+                            else
+                            {
+                                right++;
+                            }
+                        }
+
+                        if (getPickD() == 1)
+                        {
+                            if (!textViewD.getText().toString().equals(vocabDictionaryQA.getVocabChi()))
+                            {
+                                for (int i = 0; i < sumVoc.size(); i++)
+                                {
+                                    if (sumVoc.get(i).get("voc").equals(textViewVocab.getText().toString()))
+                                    {
+                                        if (!sumVoc.get(i).get("status").equals("0"))
+                                        {
+                                            point--;
+                                        }
+                                        sumVoc.get(i).put("status", "0");
+                                    }
+                                }
+                            }
+                            else
+                            {
+                                right++;
+                            }
+                        }
+
+                        if (getPickE() == 1)
+                        {
+                            if (!textViewE.getText().toString().equals(vocabDictionaryQA.getVocabChi()))
+                            {
+                                for (int i = 0; i < sumVoc.size(); i++)
+                                {
+                                    if (sumVoc.get(i).get("voc").equals(textViewVocab.getText().toString()))
+                                    {
+                                        if (!sumVoc.get(i).get("status").equals("0"))
+                                        {
+                                            point--;
+                                        }
+                                        sumVoc.get(i).put("status", "0");
+                                    }
+                                }
+                            }
+                            else
+                            {
+                                right++;
+                            }
+                        }
+                    }
+                }
+                setSumVoc(sumVoc);
+
                 stopService(new Intent(this, GameRankService.class));
                 Intent intentGameRankEndActivity = new Intent(getApplicationContext(), GameRankEndActivity.class);
                 intentGameRankEndActivity.putExtra("sumvoc", getSumVoc());

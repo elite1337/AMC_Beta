@@ -198,11 +198,7 @@ public class GameRankActivity extends AppCompatActivity {
                     setPickC(0);
                     setPickD(0);
                     setPickE(0);
-
                     setPick(1);
-                    Intent intent = new Intent(GameRankActivity.this, GameRankService.class);
-                    intent.putExtra("pick", getPick());
-                    startService(intent);
                 }
                 else
                 {
@@ -261,6 +257,7 @@ public class GameRankActivity extends AppCompatActivity {
 
                     textViewA.setTextColor(oldColor);
                     setPickA(0);
+                    setPick(0);
                 }
             }
         });
@@ -281,11 +278,7 @@ public class GameRankActivity extends AppCompatActivity {
                     setPickC(0);
                     setPickD(0);
                     setPickE(0);
-
                     setPick(1);
-                    Intent intent = new Intent(GameRankActivity.this, GameRankService.class);
-                    intent.putExtra("pick", getPick());
-                    startService(intent);
                 }
                 else
                 {
@@ -344,6 +337,7 @@ public class GameRankActivity extends AppCompatActivity {
 
                     textViewB.setTextColor(oldColor);
                     setPickB(0);
+                    setPick(0);
                 }
             }
         });
@@ -364,11 +358,7 @@ public class GameRankActivity extends AppCompatActivity {
                     setPickC(1);
                     setPickD(0);
                     setPickE(0);
-
                     setPick(1);
-                    Intent intent = new Intent(GameRankActivity.this, GameRankService.class);
-                    intent.putExtra("pick", getPick());
-                    startService(intent);
                 }
                 else
                 {
@@ -427,6 +417,7 @@ public class GameRankActivity extends AppCompatActivity {
 
                     textViewC.setTextColor(oldColor);
                     setPickC(0);
+                    setPick(0);
                 }
             }
         });
@@ -447,11 +438,7 @@ public class GameRankActivity extends AppCompatActivity {
                     setPickC(0);
                     setPickD(1);
                     setPickE(0);
-
                     setPick(1);
-                    Intent intent = new Intent(GameRankActivity.this, GameRankService.class);
-                    intent.putExtra("pick", getPick());
-                    startService(intent);
                 }
                 else
                 {
@@ -510,6 +497,7 @@ public class GameRankActivity extends AppCompatActivity {
 
                     textViewD.setTextColor(oldColor);
                     setPickD(0);
+                    setPick(0);
                 }
             }
         });
@@ -530,11 +518,7 @@ public class GameRankActivity extends AppCompatActivity {
                     setPickC(0);
                     setPickD(0);
                     setPickE(1);
-
                     setPick(1);
-                    Intent intent = new Intent(GameRankActivity.this, GameRankService.class);
-                    intent.putExtra("pick", getPick());
-                    startService(intent);
                 }
                 else
                 {
@@ -593,6 +577,7 @@ public class GameRankActivity extends AppCompatActivity {
 
                     textViewE.setTextColor(oldColor);
                     setPickE(0);
+                    setPick(0);
                 }
             }
         });
@@ -654,9 +639,24 @@ public class GameRankActivity extends AppCompatActivity {
             Log.d("servicethis", "Countdown seconds remaining: " +  millisUntilFinished / 1000);
 
             textViewTimer.setText(String.valueOf((int) millisUntilFinished / 1000));
+
+            //Quit when time out
+            if (millisUntilFinished == 0 & getPick() == 0)
+            {
+                stopService(new Intent(this, GameRankService.class));
+                Intent intentGameRankEndActivity = new Intent(getApplicationContext(), GameRankEndActivity.class);
+                intentGameRankEndActivity.putExtra("sumvoc", getSumVoc());
+                intentGameRankEndActivity.putExtra("point", point);
+                intentGameRankEndActivity.putExtra("counter", counter);
+                intentGameRankEndActivity.putExtra("right", right);
+                startActivity(intentGameRankEndActivity);
+            }
+
+            //Quit
             if (getQuit() == 1)
             {
                 button.setText("Quit in " + String.valueOf((int) millisUntilFinished / 1000) + " sec(s)...");
+                //Quit when time out
                 if (millisUntilFinished == 0)
                 {
                     stopService(new Intent(this, GameRankService.class));
@@ -669,23 +669,26 @@ public class GameRankActivity extends AppCompatActivity {
                 }
             }
 
-            setPick(intent.getIntExtra("pick", 0));
-            if (getPick() == 2)
+            //Picked and time out
+            if (getPick() == 1 & millisUntilFinished == 0 & getQuit() != 1)
             {
-                if (getQuit() != 1)
-                {
-                    QuestionGenerator();
+                QuestionGenerator();
 
-                    mTimerView.stop();
-                    mTimerView.start(8);
-                    stopService(new Intent(GameRankActivity.this, GameRankService.class));
-                    startService(new Intent(GameRankActivity.this, GameRankService.class));
-                    textViewA.setTextColor(oldColor);
-                    textViewB.setTextColor(oldColor);
-                    textViewC.setTextColor(oldColor);
-                    textViewD.setTextColor(oldColor);
-                    textViewE.setTextColor(oldColor);
-                }
+                mTimerView.stop();
+                mTimerView.start(8);
+                stopService(new Intent(GameRankActivity.this, GameRankService.class));
+                startService(new Intent(GameRankActivity.this, GameRankService.class));
+                textViewA.setTextColor(oldColor);
+                textViewB.setTextColor(oldColor);
+                textViewC.setTextColor(oldColor);
+                textViewD.setTextColor(oldColor);
+                textViewE.setTextColor(oldColor);
+                setPickA(0);
+                setPickB(0);
+                setPickC(0);
+                setPickD(0);
+                setPickE(0);
+                setPick(0);
             }
         }
     }

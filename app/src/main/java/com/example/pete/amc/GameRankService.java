@@ -13,16 +13,6 @@ public class GameRankService extends Service {
 
     CountDownTimer countDownTimer = null;
 
-    int pick;
-
-    public int getPick() {
-        return pick;
-    }
-
-    public void setPick(int pick) {
-        this.pick = pick;
-    }
-
     @Override
     public void onCreate() {
         super.onCreate();
@@ -44,22 +34,8 @@ public class GameRankService extends Service {
                 intent.putExtra("countdown", 0);
                 sendBroadcast(intent);
                 Log.d("servicethis", "Timer finished");
-
-                if (getPick() != 1)
-                {
-                    Intent intent = new Intent(getApplicationContext(), GameRankEndActivity.class);
-                    intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-                    startActivity(intent);
-                    stopSelf();
-                }
-                else
-                {
-                    intent.putExtra("pick", 2);
-                    sendBroadcast(intent);
-                }
             }
         };
-
         countDownTimer.start();
     }
 
@@ -69,16 +45,6 @@ public class GameRankService extends Service {
         countDownTimer.cancel();
         Log.d("servicethis", "Timer cancelled");
         super.onDestroy();
-    }
-
-    @Override
-    public int onStartCommand(Intent intent, int flags, int startId) {
-
-//        Bundle bundle = intent.getExtras();
-//        setPick(bundle.getInt("pick"));
-        intent.getExtras();
-        setPick(intent.getIntExtra("pick", 0));
-        return START_STICKY;
     }
 
     @Override

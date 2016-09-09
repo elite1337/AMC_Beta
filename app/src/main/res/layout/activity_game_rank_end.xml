@@ -48,7 +48,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:textAppearance="?android:attr/textAppearanceLarge"
-        android:text="Rank Points"
+        android:text="Rank Point"
         android:id="@+id/textView7"
         android:layout_alignParentTop="true"
         android:layout_centerHorizontal="true" />
@@ -57,7 +57,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:textAppearance="?android:attr/textAppearanceLarge"
-        android:text="Counter(s)/ Correct Rate"
+        android:text="Encounter/ Correct Rate"
         android:id="@+id/textView8"
         android:layout_below="@+id/textViewRankEndPt"
         android:layout_centerHorizontal="true" />

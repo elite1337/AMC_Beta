@@ -29,8 +29,16 @@ public class GameRankEndActivity extends AppCompatActivity {
         ArrayList<HashMap<String, String>> arrayList = (ArrayList<HashMap<String,String>>) intent.getSerializableExtra("sumvoc");
         GameRankEndBaseAdapter historyAdapter = new GameRankEndBaseAdapter(this, arrayList, gameRankActivity);
 
-        textViewPt.setText(intent.getDoubleExtra("right", 0)+"");
-        textViewCC.setText(intent.getDoubleExtra("counter", 0) + "/ " + intent.getDoubleExtra("right", 0)/intent.getDoubleExtra("counter", 0)*100+ "%");
+        double pt = intent.getDoubleExtra("point", 0);
+        double counter = intent.getDoubleExtra("counter", 0);
+        double right = intent.getDoubleExtra("right", 0);
+        int pt2Int = (int) pt;
+        int counter2Int = (int) counter;
+
+        double rate = Math.round(right/counter*10000.00)/100.00;
+
+        textViewPt.setText(Point(pt2Int));
+        textViewCC.setText(counter2Int + "/ " + rate + "%");
 
         listView.setAdapter(historyAdapter);
     }
@@ -56,5 +64,29 @@ public class GameRankEndActivity extends AppCompatActivity {
             default:
                 return super.onOptionsItemSelected(item);
         }
+    }
+
+    String point;
+
+    public String getPoint() {
+        return point;
+    }
+
+    public void setPoint(String point) {
+        this.point = point;
+    }
+
+    String Point(int i)
+    {
+        if (i > 0)
+        {
+            setPoint("+" + i);
+        }
+        else
+        {
+            setPoint(i+"");
+        }
+
+        return getPoint();
     }
 }

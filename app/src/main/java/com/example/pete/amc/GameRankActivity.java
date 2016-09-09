@@ -60,8 +60,9 @@ public class GameRankActivity extends AppCompatActivity {
         this.sumVoc = sumVoc;
     }
 
-    double right = 0;
+    double point = 0;
     double counter = 0;
+    double right = 0;
 
     ColorStateList oldColor;
 
@@ -216,14 +217,12 @@ public class GameRankActivity extends AppCompatActivity {
                         VocabDictionary vocabDictionaryQA = realmResultsQA.get(0);
                         if (textViewA.getText().toString().equals(vocabDictionaryQA.getVocabChi()))
                         {
+                            point++;
                             right++;
-
                             hashMap.put("status", "1");
                         }
                         else
                         {
-                            right--;
-
                             hashMap.put("status", "0");
                         }
                         sumVoc.add(hashMap);
@@ -238,9 +237,17 @@ public class GameRankActivity extends AppCompatActivity {
                             {
                                 if (sumVoc.get(i).get("voc").equals(textViewVocab.getText().toString()))
                                 {
+                                    if (!sumVoc.get(i).get("status").equals("0"))
+                                    {
+                                        point--;
+                                    }
                                     sumVoc.get(i).put("status", "0");
                                 }
                             }
+                        }
+                        else
+                        {
+                            right++;
                         }
                     }
                     setSumVoc(sumVoc);
@@ -293,14 +300,12 @@ public class GameRankActivity extends AppCompatActivity {
                         VocabDictionary vocabDictionaryQA = realmResultsQA.get(0);
                         if (textViewB.getText().toString().equals(vocabDictionaryQA.getVocabChi()))
                         {
+                            point++;
                             right++;
-
                             hashMap.put("status", "1");
                         }
                         else
                         {
-                            right--;
-
                             hashMap.put("status", "0");
                         }
                         sumVoc.add(hashMap);
@@ -315,9 +320,17 @@ public class GameRankActivity extends AppCompatActivity {
                             {
                                 if (sumVoc.get(i).get("voc").equals(textViewVocab.getText().toString()))
                                 {
+                                    if (!sumVoc.get(i).get("status").equals("0"))
+                                    {
+                                        point--;
+                                    }
                                     sumVoc.get(i).put("status", "0");
                                 }
                             }
+                        }
+                        else
+                        {
+                            right++;
                         }
                     }
                     setSumVoc(sumVoc);
@@ -370,14 +383,12 @@ public class GameRankActivity extends AppCompatActivity {
                         VocabDictionary vocabDictionaryQA = realmResultsQA.get(0);
                         if (textViewC.getText().toString().equals(vocabDictionaryQA.getVocabChi()))
                         {
+                            point++;
                             right++;
-
                             hashMap.put("status", "1");
                         }
                         else
                         {
-                            right--;
-
                             hashMap.put("status", "0");
                         }
                         sumVoc.add(hashMap);
@@ -392,9 +403,17 @@ public class GameRankActivity extends AppCompatActivity {
                             {
                                 if (sumVoc.get(i).get("voc").equals(textViewVocab.getText().toString()))
                                 {
+                                    if (!sumVoc.get(i).get("status").equals("0"))
+                                    {
+                                        point--;
+                                    }
                                     sumVoc.get(i).put("status", "0");
                                 }
                             }
+                        }
+                        else
+                        {
+                            right++;
                         }
                     }
                     setSumVoc(sumVoc);
@@ -447,14 +466,12 @@ public class GameRankActivity extends AppCompatActivity {
                         VocabDictionary vocabDictionaryQA = realmResultsQA.get(0);
                         if (textViewD.getText().toString().equals(vocabDictionaryQA.getVocabChi()))
                         {
+                            point++;
                             right++;
-
                             hashMap.put("status", "1");
                         }
                         else
                         {
-                            right--;
-
                             hashMap.put("status", "0");
                         }
                         sumVoc.add(hashMap);
@@ -469,9 +486,17 @@ public class GameRankActivity extends AppCompatActivity {
                             {
                                 if (sumVoc.get(i).get("voc").equals(textViewVocab.getText().toString()))
                                 {
+                                    if (!sumVoc.get(i).get("status").equals("0"))
+                                    {
+                                        point--;
+                                    }
                                     sumVoc.get(i).put("status", "0");
                                 }
                             }
+                        }
+                        else
+                        {
+                            right++;
                         }
                     }
                     setSumVoc(sumVoc);
@@ -524,14 +549,12 @@ public class GameRankActivity extends AppCompatActivity {
                         VocabDictionary vocabDictionaryQA = realmResultsQA.get(0);
                         if (textViewE.getText().toString().equals(vocabDictionaryQA.getVocabChi()))
                         {
+                            point++;
                             right++;
-
                             hashMap.put("status", "1");
                         }
                         else
                         {
-                            right--;
-
                             hashMap.put("status", "0");
                         }
                         sumVoc.add(hashMap);
@@ -546,9 +569,17 @@ public class GameRankActivity extends AppCompatActivity {
                             {
                                 if (sumVoc.get(i).get("voc").equals(textViewVocab.getText().toString()))
                                 {
+                                    if (!sumVoc.get(i).get("status").equals("0"))
+                                    {
+                                        point--;
+                                    }
                                     sumVoc.get(i).put("status", "0");
                                 }
                             }
+                        }
+                        else
+                        {
+                            right++;
                         }
                     }
                     setSumVoc(sumVoc);
@@ -631,6 +662,7 @@ public class GameRankActivity extends AppCompatActivity {
                     stopService(new Intent(this, GameRankService.class));
                     Intent intentGameRankEndActivity = new Intent(getApplicationContext(), GameRankEndActivity.class);
                     intentGameRankEndActivity.putExtra("sumvoc", getSumVoc());
+                    intentGameRankEndActivity.putExtra("point", point);
                     intentGameRankEndActivity.putExtra("counter", counter);
                     intentGameRankEndActivity.putExtra("right", right);
                     startActivity(intentGameRankEndActivity);
@@ -711,6 +743,7 @@ public class GameRankActivity extends AppCompatActivity {
                 stopService(new Intent(this, GameRankService.class));
                 Intent intentGameRankEndActivity = new Intent(getApplicationContext(), GameRankEndActivity.class);
                 intentGameRankEndActivity.putExtra("sumvoc", getSumVoc());
+                intentGameRankEndActivity.putExtra("point", point);
                 intentGameRankEndActivity.putExtra("counter", counter);
                 intentGameRankEndActivity.putExtra("right", right);
                 startActivity(intentGameRankEndActivity);

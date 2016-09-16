@@ -61,6 +61,7 @@ public class GameRankActivity extends AppCompatActivity {
     ArrayList<HashMap<String, String>> sumVoc = new ArrayList<>();
     HashMap<String, String> hashMap = new HashMap<>();
     ArrayList<String> arrayListVoc = new ArrayList<>();
+    ArrayList<String> arrayListRightVoc = new ArrayList<>();
 
     public ArrayList<HashMap<String, String>> getSumVoc() {
         return sumVoc;
@@ -225,7 +226,7 @@ public class GameRankActivity extends AppCompatActivity {
                             point++;
                             right++;
                             hashMap.put("status", "1");
-                            setWrongCount(0);
+                            arrayListRightVoc.add(textViewVocab.getText().toString());
                         }
                         else
                         {
@@ -250,6 +251,7 @@ public class GameRankActivity extends AppCompatActivity {
                                         setWrongCount(getWrongCount()+1);
                                     }
                                     sumVoc.get(i).put("status", "0");
+                                    arrayListRightVoc.remove(textViewVocab.getText().toString());
                                 }
                             }
                         }
@@ -309,6 +311,7 @@ public class GameRankActivity extends AppCompatActivity {
                             point++;
                             right++;
                             hashMap.put("status", "1");
+                            arrayListRightVoc.add(textViewVocab.getText().toString());
                         }
                         else
                         {
@@ -333,12 +336,14 @@ public class GameRankActivity extends AppCompatActivity {
                                         setWrongCount(getWrongCount()+1);
                                     }
                                     sumVoc.get(i).put("status", "0");
+                                    arrayListRightVoc.remove(textViewVocab.getText().toString());
                                 }
                             }
                         }
                         else
                         {
                             right++;
+                            setWrongCount(0);
                         }
                     }
                     setSumVoc(sumVoc);
@@ -391,6 +396,7 @@ public class GameRankActivity extends AppCompatActivity {
                             point++;
                             right++;
                             hashMap.put("status", "1");
+                            arrayListRightVoc.add(textViewVocab.getText().toString());
                         }
                         else
                         {
@@ -415,12 +421,14 @@ public class GameRankActivity extends AppCompatActivity {
                                         setWrongCount(getWrongCount()+1);
                                     }
                                     sumVoc.get(i).put("status", "0");
+                                    arrayListRightVoc.remove(textViewVocab.getText().toString());
                                 }
                             }
                         }
                         else
                         {
                             right++;
+                            setWrongCount(0);
                         }
                     }
                     setSumVoc(sumVoc);
@@ -473,6 +481,7 @@ public class GameRankActivity extends AppCompatActivity {
                             point++;
                             right++;
                             hashMap.put("status", "1");
+                            arrayListRightVoc.add(textViewVocab.getText().toString());
                         }
                         else
                         {
@@ -497,12 +506,14 @@ public class GameRankActivity extends AppCompatActivity {
                                         setWrongCount(getWrongCount()+1);
                                     }
                                     sumVoc.get(i).put("status", "0");
+                                    arrayListRightVoc.remove(textViewVocab.getText().toString());
                                 }
                             }
                         }
                         else
                         {
                             right++;
+                            setWrongCount(0);
                         }
                     }
                     setSumVoc(sumVoc);
@@ -555,6 +566,7 @@ public class GameRankActivity extends AppCompatActivity {
                             point++;
                             right++;
                             hashMap.put("status", "1");
+                            arrayListRightVoc.add(textViewVocab.getText().toString());
                         }
                         else
                         {
@@ -579,12 +591,14 @@ public class GameRankActivity extends AppCompatActivity {
                                         setWrongCount(getWrongCount()+1);
                                     }
                                     sumVoc.get(i).put("status", "0");
+                                    arrayListRightVoc.remove(textViewVocab.getText().toString());
                                 }
                             }
                         }
                         else
                         {
                             right++;
+                            setWrongCount(0);
                         }
                     }
                     setSumVoc(sumVoc);
@@ -940,6 +954,7 @@ public class GameRankActivity extends AppCompatActivity {
                             point++;
                             right++;
                             hashMap.put("status", "1");
+                            arrayListRightVoc.add(textViewVocab.getText().toString());
                         }
                         else
                         {
@@ -955,6 +970,7 @@ public class GameRankActivity extends AppCompatActivity {
                             point++;
                             right++;
                             hashMap.put("status", "1");
+                            arrayListRightVoc.add(textViewVocab.getText().toString());
                         }
                         else
                         {
@@ -970,6 +986,7 @@ public class GameRankActivity extends AppCompatActivity {
                             point++;
                             right++;
                             hashMap.put("status", "1");
+                            arrayListRightVoc.add(textViewVocab.getText().toString());
                         }
                         else
                         {
@@ -985,6 +1002,7 @@ public class GameRankActivity extends AppCompatActivity {
                             point++;
                             right++;
                             hashMap.put("status", "1");
+                            arrayListRightVoc.add(textViewVocab.getText().toString());
                         }
                         else
                         {
@@ -1000,6 +1018,7 @@ public class GameRankActivity extends AppCompatActivity {
                             point++;
                             right++;
                             hashMap.put("status", "1");
+                            arrayListRightVoc.add(textViewVocab.getText().toString());
                         }
                         else
                         {
@@ -1029,12 +1048,14 @@ public class GameRankActivity extends AppCompatActivity {
                                         setWrongCount(getWrongCount()+1);
                                     }
                                     sumVoc.get(i).put("status", "0");
+                                    arrayListRightVoc.remove(textViewVocab.getText().toString());
                                 }
                             }
                         }
                         else
                         {
                             right++;
+                            setWrongCount(0);
                         }
                     }
 
@@ -1052,12 +1073,14 @@ public class GameRankActivity extends AppCompatActivity {
                                         setWrongCount(getWrongCount()+1);
                                     }
                                     sumVoc.get(i).put("status", "0");
+                                    arrayListRightVoc.remove(textViewVocab.getText().toString());
                                 }
                             }
                         }
                         else
                         {
                             right++;
+                            setWrongCount(0);
                         }
                     }
 
@@ -1075,12 +1098,14 @@ public class GameRankActivity extends AppCompatActivity {
                                         setWrongCount(getWrongCount()+1);
                                     }
                                     sumVoc.get(i).put("status", "0");
+                                    arrayListRightVoc.remove(textViewVocab.getText().toString());
                                 }
                             }
                         }
                         else
                         {
                             right++;
+                            setWrongCount(0);
                         }
                     }
 
@@ -1098,12 +1123,14 @@ public class GameRankActivity extends AppCompatActivity {
                                         setWrongCount(getWrongCount()+1);
                                     }
                                     sumVoc.get(i).put("status", "0");
+                                    arrayListRightVoc.remove(textViewVocab.getText().toString());
                                 }
                             }
                         }
                         else
                         {
                             right++;
+                            setWrongCount(0);
                         }
                     }
 
@@ -1121,12 +1148,14 @@ public class GameRankActivity extends AppCompatActivity {
                                         setWrongCount(getWrongCount()+1);
                                     }
                                     sumVoc.get(i).put("status", "0");
+                                    arrayListRightVoc.remove(textViewVocab.getText().toString());
                                 }
                             }
                         }
                         else
                         {
                             right++;
+                            setWrongCount(0);
                         }
                     }
                 }
@@ -1467,93 +1496,246 @@ public class GameRankActivity extends AppCompatActivity {
         choicesChiIntArray.clear();
         questionChoiceArray.clear();
 
-        RealmResults<VocabDictionary> realmResultsQuestion = realm.where(VocabDictionary.class).lessThan("vocabLv", 2).findAll();
-
-        Random random = new Random(System.nanoTime());
-        int question = random.nextInt(realmResultsQuestion.size());
-        VocabDictionary vocabDictionaryQuestion = realmResultsQuestion.get(question);
-
-        //The vocab(s) that answered right won't appear again
-        while (questionChoiceArray.size() < 1)
+        //Start spawning correctly answered questions after strike three until the user answers right
+        //in progress
+        RealmResults<VocabDictionary> realmResultsQuestion;
+        if (getWrongCount() < 3)
         {
-            if (sumVoc.isEmpty())
+            realmResultsQuestion = realm.where(VocabDictionary.class).lessThan("vocabLv", 2).findAll();
+
+            Random random = new Random(System.nanoTime());
+            int question = random.nextInt(realmResultsQuestion.size());
+            VocabDictionary vocabDictionaryQuestion = realmResultsQuestion.get(question);
+
+            //The vocab(s) that answered right won't appear again
+            while (questionChoiceArray.size() < 1)
             {
-                questionChoiceArray.add(question);
-            }
-            else
-            {
-                for (int i = 0; i < sumVoc.size(); i++)
+                if (sumVoc.isEmpty())
                 {
-                    //如果sumVoc的單字=選取單字時
-                    if (sumVoc.get(i).get("voc").equals(vocabDictionaryQuestion.getVocab()))
+                    questionChoiceArray.add(question);
+                }
+                else
+                {
+                    for (int i = 0; i < sumVoc.size(); i++)
                     {
-                        //選取的單字是對的時 換單字
-                        if (sumVoc.get(i).get("status").equals("1"))
+                        //如果sumVoc的單字=選取單字時
+                        if (sumVoc.get(i).get("voc").equals(vocabDictionaryQuestion.getVocab()))
                         {
-                            random = new Random(System.nanoTime());
-                            question = random.nextInt(realmResultsQuestion.size());
-                            vocabDictionaryQuestion = realmResultsQuestion.get(question);
+                            //選取的單字是對的時 換單字
+                            if (sumVoc.get(i).get("status").equals("1"))
+                            {
+                                random = new Random(System.nanoTime());
+                                question = random.nextInt(realmResultsQuestion.size());
+                                vocabDictionaryQuestion = realmResultsQuestion.get(question);
+                            }
+                            //選取的單字是錯的時 跳出迴圈
+                            else if (sumVoc.get(i).get("status").equals("0"))
+                            {
+                                questionChoiceArray.add(question);
+                            }
                         }
-                        //選取的單字是錯的時 跳出迴圈
-                        else if (sumVoc.get(i).get("status").equals("0"))
+                        //如果sumVoc(arrayListVoc)不存在選取單字時 跳出迴圈
+                        else if (!arrayListVoc.contains(vocabDictionaryQuestion.getVocab()))
                         {
                             questionChoiceArray.add(question);
                         }
                     }
-                    //如果sumVoc(arrayListVoc)不存在選取單字時 跳出迴圈
-                    else if (!arrayListVoc.contains(vocabDictionaryQuestion.getVocab()))
+                }
+            }
+            vocabDictionaryQuestion = realmResultsQuestion.get(questionChoiceArray.get(0));
+
+            //Multiple choice algorithm
+            textViewVocab.setText(vocabDictionaryQuestion.getVocab());
+            textViewPoS.setText(vocabDictionaryQuestion.getVocabPoS());
+
+            RealmResults<VocabDictionary> realmResultsChoice = realm.where(VocabDictionary.class).equalTo("vocabPoS", textViewPoS.getText().toString()).findAll();
+            //choices
+            while (choicesArray.size() < 4)
+            {
+                int choice = random.nextInt(realmResultsChoice.size());
+                if (!choicesArray.contains(choice))
+                {
+                    VocabDictionary vocabDictionaryChoice = realmResultsChoice.get(choice);
+                    if (!vocabDictionaryQuestion.getVocabChi().equals(vocabDictionaryChoice.getVocabChi()))
                     {
-                        questionChoiceArray.add(question);
+                        choicesArray.add(choice);
                     }
                 }
             }
-        }
-        vocabDictionaryQuestion = realmResultsQuestion.get(questionChoiceArray.get(0));
+            VocabDictionary vocabDictionaryChoice1 = realmResultsChoice.get(choicesArray.get(0));
+            VocabDictionary vocabDictionaryChoice2 = realmResultsChoice.get(choicesArray.get(1));
+            VocabDictionary vocabDictionaryChoice3 = realmResultsChoice.get(choicesArray.get(2));
+            VocabDictionary vocabDictionaryChoice4 = realmResultsChoice.get(choicesArray.get(3));
 
+            //choicesChi
+            choicesChiArray.add(vocabDictionaryQuestion.getVocabChi());
+            choicesChiArray.add(vocabDictionaryChoice1.getVocabChi());
+            choicesChiArray.add(vocabDictionaryChoice2.getVocabChi());
+            choicesChiArray.add(vocabDictionaryChoice3.getVocabChi());
+            choicesChiArray.add(vocabDictionaryChoice4.getVocabChi());
 
-        textViewVocab.setText(vocabDictionaryQuestion.getVocab());
-        textViewPoS.setText(vocabDictionaryQuestion.getVocabPoS());
-
-        RealmResults<VocabDictionary> realmResultsChoice = realm.where(VocabDictionary.class).equalTo("vocabPoS", textViewPoS.getText().toString()).findAll();
-        //choices
-        while (choicesArray.size() < 4)
-        {
-            int choice = random.nextInt(realmResultsChoice.size());
-            if (!choicesArray.contains(choice))
+            //choicesChiInt
+            while (choicesChiIntArray.size() < 5)
             {
-                VocabDictionary vocabDictionaryChoice = realmResultsChoice.get(choice);
-                if (!vocabDictionaryQuestion.getVocabChi().equals(vocabDictionaryChoice.getVocabChi()))
+                int choice = random.nextInt(5);
+                if (!choicesChiIntArray.contains(choice))
                 {
-                    choicesArray.add(choice);
+                    choicesChiIntArray.add(choice);
                 }
             }
+
+            textViewA.setText(choicesChiArray.get(choicesChiIntArray.get(0)));
+            textViewB.setText(choicesChiArray.get(choicesChiIntArray.get(1)));
+            textViewC.setText(choicesChiArray.get(choicesChiIntArray.get(2)));
+            textViewD.setText(choicesChiArray.get(choicesChiIntArray.get(3)));
+            textViewE.setText(choicesChiArray.get(choicesChiIntArray.get(4)));
         }
-        VocabDictionary vocabDictionaryChoice1 = realmResultsChoice.get(choicesArray.get(0));
-        VocabDictionary vocabDictionaryChoice2 = realmResultsChoice.get(choicesArray.get(1));
-        VocabDictionary vocabDictionaryChoice3 = realmResultsChoice.get(choicesArray.get(2));
-        VocabDictionary vocabDictionaryChoice4 = realmResultsChoice.get(choicesArray.get(3));
-
-        //choicesChi
-        choicesChiArray.add(vocabDictionaryQuestion.getVocabChi());
-        choicesChiArray.add(vocabDictionaryChoice1.getVocabChi());
-        choicesChiArray.add(vocabDictionaryChoice2.getVocabChi());
-        choicesChiArray.add(vocabDictionaryChoice3.getVocabChi());
-        choicesChiArray.add(vocabDictionaryChoice4.getVocabChi());
-
-        //choicesChiInt
-        while (choicesChiIntArray.size() < 5)
+        else
         {
-            int choice = random.nextInt(5);
-            if (!choicesChiIntArray.contains(choice))
+            if (arrayListRightVoc.isEmpty())
             {
-                choicesChiIntArray.add(choice);
+                realmResultsQuestion = realm.where(VocabDictionary.class).lessThan("vocabLv", 2).findAll();
+
+                Random random = new Random(System.nanoTime());
+                int question = random.nextInt(realmResultsQuestion.size());
+                VocabDictionary vocabDictionaryQuestion = realmResultsQuestion.get(question);
+
+                //The vocab(s) that answered right won't appear again
+                while (questionChoiceArray.size() < 1)
+                {
+                    if (sumVoc.isEmpty())
+                    {
+                        questionChoiceArray.add(question);
+                    }
+                    else
+                    {
+                        for (int i = 0; i < sumVoc.size(); i++)
+                        {
+                            //如果sumVoc的單字=選取單字時
+                            if (sumVoc.get(i).get("voc").equals(vocabDictionaryQuestion.getVocab()))
+                            {
+                                //選取的單字是對的時 換單字
+                                if (sumVoc.get(i).get("status").equals("1"))
+                                {
+                                    random = new Random(System.nanoTime());
+                                    question = random.nextInt(realmResultsQuestion.size());
+                                    vocabDictionaryQuestion = realmResultsQuestion.get(question);
+                                }
+                                //選取的單字是錯的時 跳出迴圈
+                                else if (sumVoc.get(i).get("status").equals("0"))
+                                {
+                                    questionChoiceArray.add(question);
+                                }
+                            }
+                            //如果sumVoc(arrayListVoc)不存在選取單字時 跳出迴圈
+                            else if (!arrayListVoc.contains(vocabDictionaryQuestion.getVocab()))
+                            {
+                                questionChoiceArray.add(question);
+                            }
+                        }
+                    }
+                }
+                vocabDictionaryQuestion = realmResultsQuestion.get(questionChoiceArray.get(0));
+
+                //Multiple choice algorithm
+                textViewVocab.setText(vocabDictionaryQuestion.getVocab());
+                textViewPoS.setText(vocabDictionaryQuestion.getVocabPoS());
+
+                RealmResults<VocabDictionary> realmResultsChoice = realm.where(VocabDictionary.class).equalTo("vocabPoS", textViewPoS.getText().toString()).findAll();
+                //choices
+                while (choicesArray.size() < 4)
+                {
+                    int choice = random.nextInt(realmResultsChoice.size());
+                    if (!choicesArray.contains(choice))
+                    {
+                        VocabDictionary vocabDictionaryChoice = realmResultsChoice.get(choice);
+                        if (!vocabDictionaryQuestion.getVocabChi().equals(vocabDictionaryChoice.getVocabChi()))
+                        {
+                            choicesArray.add(choice);
+                        }
+                    }
+                }
+                VocabDictionary vocabDictionaryChoice1 = realmResultsChoice.get(choicesArray.get(0));
+                VocabDictionary vocabDictionaryChoice2 = realmResultsChoice.get(choicesArray.get(1));
+                VocabDictionary vocabDictionaryChoice3 = realmResultsChoice.get(choicesArray.get(2));
+                VocabDictionary vocabDictionaryChoice4 = realmResultsChoice.get(choicesArray.get(3));
+
+                //choicesChi
+                choicesChiArray.add(vocabDictionaryQuestion.getVocabChi());
+                choicesChiArray.add(vocabDictionaryChoice1.getVocabChi());
+                choicesChiArray.add(vocabDictionaryChoice2.getVocabChi());
+                choicesChiArray.add(vocabDictionaryChoice3.getVocabChi());
+                choicesChiArray.add(vocabDictionaryChoice4.getVocabChi());
+
+                //choicesChiInt
+                while (choicesChiIntArray.size() < 5)
+                {
+                    int choice = random.nextInt(5);
+                    if (!choicesChiIntArray.contains(choice))
+                    {
+                        choicesChiIntArray.add(choice);
+                    }
+                }
+
+                textViewA.setText(choicesChiArray.get(choicesChiIntArray.get(0)));
+                textViewB.setText(choicesChiArray.get(choicesChiIntArray.get(1)));
+                textViewC.setText(choicesChiArray.get(choicesChiIntArray.get(2)));
+                textViewD.setText(choicesChiArray.get(choicesChiIntArray.get(3)));
+                textViewE.setText(choicesChiArray.get(choicesChiIntArray.get(4)));
+            }
+            else
+            {
+                Random randomWrong = new Random(System.nanoTime());
+                int questionRight = randomWrong.nextInt(arrayListRightVoc.size());
+                realmResultsQuestion = realm.where(VocabDictionary.class).equalTo("vocab", arrayListRightVoc.get(questionRight)).findAll();
+                VocabDictionary vocabDictionaryQuestion = realmResultsQuestion.get(questionRight);
+
+                //Multiple choice algorithm
+                textViewVocab.setText(vocabDictionaryQuestion.getVocab());
+                textViewPoS.setText(vocabDictionaryQuestion.getVocabPoS());
+
+                RealmResults<VocabDictionary> realmResultsChoice = realm.where(VocabDictionary.class).equalTo("vocabPoS", textViewPoS.getText().toString()).findAll();
+                //choices
+                while (choicesArray.size() < 4)
+                {
+                    int choice = randomWrong.nextInt(realmResultsChoice.size());
+                    if (!choicesArray.contains(choice))
+                    {
+                        VocabDictionary vocabDictionaryChoice = realmResultsChoice.get(choice);
+                        if (!vocabDictionaryQuestion.getVocabChi().equals(vocabDictionaryChoice.getVocabChi()))
+                        {
+                            choicesArray.add(choice);
+                        }
+                    }
+                }
+                VocabDictionary vocabDictionaryChoice1 = realmResultsChoice.get(choicesArray.get(0));
+                VocabDictionary vocabDictionaryChoice2 = realmResultsChoice.get(choicesArray.get(1));
+                VocabDictionary vocabDictionaryChoice3 = realmResultsChoice.get(choicesArray.get(2));
+                VocabDictionary vocabDictionaryChoice4 = realmResultsChoice.get(choicesArray.get(3));
+
+                //choicesChi
+                choicesChiArray.add(vocabDictionaryQuestion.getVocabChi());
+                choicesChiArray.add(vocabDictionaryChoice1.getVocabChi());
+                choicesChiArray.add(vocabDictionaryChoice2.getVocabChi());
+                choicesChiArray.add(vocabDictionaryChoice3.getVocabChi());
+                choicesChiArray.add(vocabDictionaryChoice4.getVocabChi());
+
+                //choicesChiInt
+                while (choicesChiIntArray.size() < 5)
+                {
+                    int choice = randomWrong.nextInt(5);
+                    if (!choicesChiIntArray.contains(choice))
+                    {
+                        choicesChiIntArray.add(choice);
+                    }
+                }
+
+                textViewA.setText(choicesChiArray.get(choicesChiIntArray.get(0)));
+                textViewB.setText(choicesChiArray.get(choicesChiIntArray.get(1)));
+                textViewC.setText(choicesChiArray.get(choicesChiIntArray.get(2)));
+                textViewD.setText(choicesChiArray.get(choicesChiIntArray.get(3)));
+                textViewE.setText(choicesChiArray.get(choicesChiIntArray.get(4)));
             }
         }
-
-        textViewA.setText(choicesChiArray.get(choicesChiIntArray.get(0)));
-        textViewB.setText(choicesChiArray.get(choicesChiIntArray.get(1)));
-        textViewC.setText(choicesChiArray.get(choicesChiIntArray.get(2)));
-        textViewD.setText(choicesChiArray.get(choicesChiIntArray.get(3)));
-        textViewE.setText(choicesChiArray.get(choicesChiIntArray.get(4)));
     }
 }

@@ -48,20 +48,12 @@ public class GameRankActivity extends AppCompatActivity {
     ArrayList<String> choicesChiArray = new ArrayList<>();
     ArrayList<Integer> choicesChiIntArray = new ArrayList<>();
     ArrayList<Integer> questionChoiceArray = new ArrayList<>();
-    int wrongCount;
-
-    public int getWrongCount() {
-        return wrongCount;
-    }
-
-    public void setWrongCount(int wrongCount) {
-        this.wrongCount = wrongCount;
-    }
 
     ArrayList<HashMap<String, String>> sumVoc = new ArrayList<>();
     HashMap<String, String> hashMap = new HashMap<>();
     ArrayList<String> arrayListVoc = new ArrayList<>();
     ArrayList<String> arrayListRightVoc = new ArrayList<>();
+    ArrayList<Integer> arrayListLevelSize = new ArrayList<>();
 
     public ArrayList<HashMap<String, String>> getSumVoc() {
         return sumVoc;
@@ -74,6 +66,24 @@ public class GameRankActivity extends AppCompatActivity {
     double point = 0;
     double counter = 0;
     double right = 0;
+    int wrongCount;
+    int level;
+
+    public int getWrongCount() {
+        return wrongCount;
+    }
+
+    public void setWrongCount(int wrongCount) {
+        this.wrongCount = wrongCount;
+    }
+
+    public int getLevel() {
+        return level;
+    }
+
+    public void setLevel(int level) {
+        this.level = level;
+    }
 
     ColorStateList oldColor;
 
@@ -174,7 +184,6 @@ public class GameRankActivity extends AppCompatActivity {
         });
 
         realm = Realm.getDefaultInstance();
-        QuestionGenerator();
 
         setPickA(0);
         setPickB(0);
@@ -183,8 +192,16 @@ public class GameRankActivity extends AppCompatActivity {
         setPickE(0);
         setPick(0);
         setWrongCount(0);
-
+        setLevel(1);
+        //Recording all the levels' size for the ranking system
+        for (int i = 1; i <= 25; i++)
+        {
+            RealmResults<VocabDictionary> realmResultsLevel = realm.where(VocabDictionary.class).equalTo("vocabLv", i).findAll();
+            arrayListLevelSize.add(realmResultsLevel.size());
+        }
         oldColor = textViewA.getTextColors();
+
+        QuestionGenerator();
 
         Intent intent = new Intent(this, GameRankService.class);
         startService(intent);
@@ -1497,11 +1514,20 @@ public class GameRankActivity extends AppCompatActivity {
         questionChoiceArray.clear();
 
         //Start spawning correctly answered questions after strike three until the user answers right
-        //in progress
         RealmResults<VocabDictionary> realmResultsQuestion;
         if (getWrongCount() < 3)
         {
-            realmResultsQuestion = realm.where(VocabDictionary.class).lessThan("vocabLv", 2).findAll();
+            //Level up when all the vocabs in the current tier are answered correctly
+            int pastRightVoc = 0;
+            for (int i = 1; i <= getLevel()-1; i++)
+            {
+                pastRightVoc += arrayListLevelSize.get(i-1);
+            }
+            if (arrayListRightVoc.size() == pastRightVoc+arrayListLevelSize.get(getLevel()-1))
+            {
+                setLevel(getLevel()+1);
+            }
+            realmResultsQuestion = realm.where(VocabDictionary.class).equalTo("vocabLv", getLevel()).findAll();
 
             Random random = new Random(System.nanoTime());
             int question = random.nextInt(realmResultsQuestion.size());
@@ -1594,7 +1620,16 @@ public class GameRankActivity extends AppCompatActivity {
         {
             if (arrayListRightVoc.isEmpty())
             {
-                realmResultsQuestion = realm.where(VocabDictionary.class).lessThan("vocabLv", 2).findAll();
+                int pastRightVoc = 0;
+                for (int i = 1; i <= getLevel()-1; i++)
+                {
+                    pastRightVoc += arrayListLevelSize.get(i-1);
+                }
+                if (arrayListRightVoc.size() == pastRightVoc+arrayListLevelSize.get(getLevel()-1))
+                {
+                    setLevel(getLevel()+1);
+                }
+                realmResultsQuestion = realm.where(VocabDictionary.class).equalTo("vocabLv", getLevel()).findAll();
 
                 Random random = new Random(System.nanoTime());
                 int question = random.nextInt(realmResultsQuestion.size());

@@ -68,6 +68,7 @@ public class GameRankActivity extends AppCompatActivity {
     double right = 0;
     int wrongCount;
     int level;
+    int questionCurrentRight;
 
     public int getWrongCount() {
         return wrongCount;
@@ -83,6 +84,14 @@ public class GameRankActivity extends AppCompatActivity {
 
     public void setLevel(int level) {
         this.level = level;
+    }
+
+    public int getQuestionCurrentRight() {
+        return questionCurrentRight;
+    }
+
+    public void setQuestionCurrentRight(int questionCurrentRight) {
+        this.questionCurrentRight = questionCurrentRight;
     }
 
     ColorStateList oldColor;
@@ -1513,7 +1522,7 @@ public class GameRankActivity extends AppCompatActivity {
         choicesChiIntArray.clear();
         questionChoiceArray.clear();
 
-        //Start spawning correctly answered questions after strike three until the user answers right
+        //Start spawning current level correctly answered questions after strike three until the user answers right
         RealmResults<VocabDictionary> realmResultsQuestion;
         if (getWrongCount() < 3)
         {
@@ -1720,56 +1729,120 @@ public class GameRankActivity extends AppCompatActivity {
             }
             else
             {
-                Random randomWrong = new Random(System.nanoTime());
-                int questionRight = randomWrong.nextInt(arrayListRightVoc.size());
-                realmResultsQuestion = realm.where(VocabDictionary.class).equalTo("vocab", arrayListRightVoc.get(questionRight)).findAll();
-                VocabDictionary vocabDictionaryQuestion = realmResultsQuestion.get(questionRight);
-
-                //Multiple choice algorithm
-                textViewVocab.setText(vocabDictionaryQuestion.getVocab());
-                textViewPoS.setText(vocabDictionaryQuestion.getVocabPoS());
-
-                RealmResults<VocabDictionary> realmResultsChoice = realm.where(VocabDictionary.class).equalTo("vocabPoS", textViewPoS.getText().toString()).findAll();
-                //choices
-                while (choicesArray.size() < 4)
+                //in progress
+                int pastRightVoc = 0;
+                for (int i = 1; i <= getLevel()-1; i++)
                 {
-                    int choice = randomWrong.nextInt(realmResultsChoice.size());
-                    if (!choicesArray.contains(choice))
+                    pastRightVoc += arrayListLevelSize.get(i-1);
+                }
+                setQuestionCurrentRight(arrayListRightVoc.size()-pastRightVoc-1);
+
+                //Random nextInt() function's parameter can't be <= 0
+                if (getQuestionCurrentRight() == 0)
+                {
+                    Random randomRight = new Random(System.nanoTime());
+                    realmResultsQuestion = realm.where(VocabDictionary.class).equalTo("vocab", arrayListRightVoc.get(0)).findAll();
+                    VocabDictionary vocabDictionaryQuestion = realmResultsQuestion.get(0);
+
+                    //Multiple choice algorithm
+                    textViewVocab.setText(vocabDictionaryQuestion.getVocab());
+                    textViewPoS.setText(vocabDictionaryQuestion.getVocabPoS());
+
+                    RealmResults<VocabDictionary> realmResultsChoice = realm.where(VocabDictionary.class).equalTo("vocabPoS", textViewPoS.getText().toString()).findAll();
+                    //choices
+                    while (choicesArray.size() < 4)
                     {
-                        VocabDictionary vocabDictionaryChoice = realmResultsChoice.get(choice);
-                        if (!vocabDictionaryQuestion.getVocabChi().equals(vocabDictionaryChoice.getVocabChi()))
+                        int choice = randomRight.nextInt(realmResultsChoice.size());
+                        if (!choicesArray.contains(choice))
                         {
-                            choicesArray.add(choice);
+                            VocabDictionary vocabDictionaryChoice = realmResultsChoice.get(choice);
+                            if (!vocabDictionaryQuestion.getVocabChi().equals(vocabDictionaryChoice.getVocabChi()))
+                            {
+                                choicesArray.add(choice);
+                            }
                         }
                     }
-                }
-                VocabDictionary vocabDictionaryChoice1 = realmResultsChoice.get(choicesArray.get(0));
-                VocabDictionary vocabDictionaryChoice2 = realmResultsChoice.get(choicesArray.get(1));
-                VocabDictionary vocabDictionaryChoice3 = realmResultsChoice.get(choicesArray.get(2));
-                VocabDictionary vocabDictionaryChoice4 = realmResultsChoice.get(choicesArray.get(3));
+                    VocabDictionary vocabDictionaryChoice1 = realmResultsChoice.get(choicesArray.get(0));
+                    VocabDictionary vocabDictionaryChoice2 = realmResultsChoice.get(choicesArray.get(1));
+                    VocabDictionary vocabDictionaryChoice3 = realmResultsChoice.get(choicesArray.get(2));
+                    VocabDictionary vocabDictionaryChoice4 = realmResultsChoice.get(choicesArray.get(3));
 
-                //choicesChi
-                choicesChiArray.add(vocabDictionaryQuestion.getVocabChi());
-                choicesChiArray.add(vocabDictionaryChoice1.getVocabChi());
-                choicesChiArray.add(vocabDictionaryChoice2.getVocabChi());
-                choicesChiArray.add(vocabDictionaryChoice3.getVocabChi());
-                choicesChiArray.add(vocabDictionaryChoice4.getVocabChi());
+                    //choicesChi
+                    choicesChiArray.add(vocabDictionaryQuestion.getVocabChi());
+                    choicesChiArray.add(vocabDictionaryChoice1.getVocabChi());
+                    choicesChiArray.add(vocabDictionaryChoice2.getVocabChi());
+                    choicesChiArray.add(vocabDictionaryChoice3.getVocabChi());
+                    choicesChiArray.add(vocabDictionaryChoice4.getVocabChi());
 
-                //choicesChiInt
-                while (choicesChiIntArray.size() < 5)
-                {
-                    int choice = randomWrong.nextInt(5);
-                    if (!choicesChiIntArray.contains(choice))
+                    //choicesChiInt
+                    while (choicesChiIntArray.size() < 5)
                     {
-                        choicesChiIntArray.add(choice);
+                        int choice = randomRight.nextInt(5);
+                        if (!choicesChiIntArray.contains(choice))
+                        {
+                            choicesChiIntArray.add(choice);
+                        }
                     }
-                }
 
-                textViewA.setText(choicesChiArray.get(choicesChiIntArray.get(0)));
-                textViewB.setText(choicesChiArray.get(choicesChiIntArray.get(1)));
-                textViewC.setText(choicesChiArray.get(choicesChiIntArray.get(2)));
-                textViewD.setText(choicesChiArray.get(choicesChiIntArray.get(3)));
-                textViewE.setText(choicesChiArray.get(choicesChiIntArray.get(4)));
+                    textViewA.setText(choicesChiArray.get(choicesChiIntArray.get(0)));
+                    textViewB.setText(choicesChiArray.get(choicesChiIntArray.get(1)));
+                    textViewC.setText(choicesChiArray.get(choicesChiIntArray.get(2)));
+                    textViewD.setText(choicesChiArray.get(choicesChiIntArray.get(3)));
+                    textViewE.setText(choicesChiArray.get(choicesChiIntArray.get(4)));
+                }
+                else
+                {
+                    Random randomRight = new Random(System.nanoTime());
+                    int questionCurrentRight = randomRight.nextInt((arrayListRightVoc.size()-pastRightVoc)-1)+pastRightVoc;
+                    realmResultsQuestion = realm.where(VocabDictionary.class).equalTo("vocab", arrayListRightVoc.get(questionCurrentRight)).findAll();
+                    VocabDictionary vocabDictionaryQuestion = realmResultsQuestion.get(questionCurrentRight);
+
+                    //Multiple choice algorithm
+                    textViewVocab.setText(vocabDictionaryQuestion.getVocab());
+                    textViewPoS.setText(vocabDictionaryQuestion.getVocabPoS());
+
+                    RealmResults<VocabDictionary> realmResultsChoice = realm.where(VocabDictionary.class).equalTo("vocabPoS", textViewPoS.getText().toString()).findAll();
+                    //choices
+                    while (choicesArray.size() < 4)
+                    {
+                        int choice = randomRight.nextInt(realmResultsChoice.size());
+                        if (!choicesArray.contains(choice))
+                        {
+                            VocabDictionary vocabDictionaryChoice = realmResultsChoice.get(choice);
+                            if (!vocabDictionaryQuestion.getVocabChi().equals(vocabDictionaryChoice.getVocabChi()))
+                            {
+                                choicesArray.add(choice);
+                            }
+                        }
+                    }
+                    VocabDictionary vocabDictionaryChoice1 = realmResultsChoice.get(choicesArray.get(0));
+                    VocabDictionary vocabDictionaryChoice2 = realmResultsChoice.get(choicesArray.get(1));
+                    VocabDictionary vocabDictionaryChoice3 = realmResultsChoice.get(choicesArray.get(2));
+                    VocabDictionary vocabDictionaryChoice4 = realmResultsChoice.get(choicesArray.get(3));
+
+                    //choicesChi
+                    choicesChiArray.add(vocabDictionaryQuestion.getVocabChi());
+                    choicesChiArray.add(vocabDictionaryChoice1.getVocabChi());
+                    choicesChiArray.add(vocabDictionaryChoice2.getVocabChi());
+                    choicesChiArray.add(vocabDictionaryChoice3.getVocabChi());
+                    choicesChiArray.add(vocabDictionaryChoice4.getVocabChi());
+
+                    //choicesChiInt
+                    while (choicesChiIntArray.size() < 5)
+                    {
+                        int choice = randomRight.nextInt(5);
+                        if (!choicesChiIntArray.contains(choice))
+                        {
+                            choicesChiIntArray.add(choice);
+                        }
+                    }
+
+                    textViewA.setText(choicesChiArray.get(choicesChiIntArray.get(0)));
+                    textViewB.setText(choicesChiArray.get(choicesChiIntArray.get(1)));
+                    textViewC.setText(choicesChiArray.get(choicesChiIntArray.get(2)));
+                    textViewD.setText(choicesChiArray.get(choicesChiIntArray.get(3)));
+                    textViewE.setText(choicesChiArray.get(choicesChiIntArray.get(4)));
+                }
             }
         }
     }

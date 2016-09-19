@@ -30,7 +30,7 @@
         android:layout_height="wrap_content"
         android:textAppearance="?android:attr/textAppearanceLarge"
         android:text="0"
-        android:id="@+id/textViewRankPoint"
+        android:id="@+id/textViewRankPt"
         android:layout_below="@+id/imageViewRankMetal"
         android:layout_centerHorizontal="true"
         android:layout_marginTop="16dp" />
@@ -40,7 +40,7 @@
         android:layout_height="wrap_content"
         android:text="Play"
         android:id="@+id/buttonRankPlay"
-        android:layout_below="@+id/textViewRankPoint"
+        android:layout_below="@+id/textViewRankPt"
         android:layout_centerHorizontal="true"
         android:layout_marginTop="16dp"
         android:textColor="#FFFFFF" />

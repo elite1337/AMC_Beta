@@ -13,6 +13,7 @@ import java.util.HashMap;
 public class GameRankEndActivity extends AppCompatActivity {
 
     GameRankActivity gameRankActivity;
+    Intent intent;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -25,7 +26,7 @@ public class GameRankEndActivity extends AppCompatActivity {
         TextView textViewPt = (TextView) findViewById(R.id.textViewRankEndPt);
         TextView textViewCC = (TextView) findViewById(R.id.textViewRankEndCC);
 
-        Intent intent = getIntent();
+        intent = getIntent();
         ArrayList<HashMap<String, String>> arrayList = (ArrayList<HashMap<String,String>>) intent.getSerializableExtra("sumvoc");
         GameRankEndBaseAdapter historyAdapter = new GameRankEndBaseAdapter(this, arrayList, gameRankActivity);
 
@@ -46,9 +47,10 @@ public class GameRankEndActivity extends AppCompatActivity {
     @Override
     public void onBackPressed() {
 
-        Intent intent = new Intent(GameRankEndActivity.this, MainActivity.class);
-        intent.putExtra("gamerankend", "1");
-        startActivity(intent);
+        Intent intentMain = new Intent(GameRankEndActivity.this, MainActivity.class);
+        intentMain.putExtra("gamerankend", "1");
+        intentMain.putExtra("point", (int) intent.getDoubleExtra("point", 0));
+        startActivity(intentMain);
     }
 
     @Override
@@ -57,9 +59,10 @@ public class GameRankEndActivity extends AppCompatActivity {
         switch (item.getItemId())
         {
             case android.R.id.home:
-                Intent intent = new Intent(GameRankEndActivity.this, MainActivity.class);
-                intent.putExtra("gamerankend", "1");
-                startActivity(intent);
+                Intent intentMain = new Intent(GameRankEndActivity.this, MainActivity.class);
+                intentMain.putExtra("gamerankend", "1");
+                intentMain.putExtra("point", (int) intent.getDoubleExtra("point", 0));
+                startActivity(intentMain);
                 return true;
             default:
                 return super.onOptionsItemSelected(item);

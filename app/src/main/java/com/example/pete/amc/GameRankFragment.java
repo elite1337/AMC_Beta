@@ -10,6 +10,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.TextView;
 
 
 /**
@@ -69,7 +70,13 @@ public class GameRankFragment extends Fragment {
 
         View view = inflater.inflate(R.layout.fragment_game_rank, container, false);
 
+        Intent intent = getActivity().getIntent();
+
+        TextView textViewPoint = (TextView) view.findViewById(R.id.textViewRankPt);
         Button button = (Button)view.findViewById(R.id.buttonRankPlay);
+
+        textViewPoint.setText(intent.getIntExtra("point", 0)+"");
+
         button.getBackground().setColorFilter(0xFF3F51B5, PorterDuff.Mode.MULTIPLY);
         button.setOnClickListener(new View.OnClickListener() {
             @Override

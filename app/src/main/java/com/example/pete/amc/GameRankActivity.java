@@ -283,6 +283,18 @@ public class GameRankActivity extends AppCompatActivity {
                         }
                         else
                         {
+                            for (int i = 0; i < sumVoc.size(); i++)
+                            {
+                                if (sumVoc.get(i).get("voc").equals(textViewVocab.getText().toString()))
+                                {
+                                    if (sumVoc.get(i).get("status").equals("0"))
+                                    {
+                                        point++;
+                                    }
+                                    sumVoc.get(i).put("status", "1");
+                                    arrayListRightVoc.add(textViewVocab.getText().toString());
+                                }
+                            }
                             right++;
                             setWrongCount(0);
                         }
@@ -368,6 +380,18 @@ public class GameRankActivity extends AppCompatActivity {
                         }
                         else
                         {
+                            for (int i = 0; i < sumVoc.size(); i++)
+                            {
+                                if (sumVoc.get(i).get("voc").equals(textViewVocab.getText().toString()))
+                                {
+                                    if (sumVoc.get(i).get("status").equals("0"))
+                                    {
+                                        point++;
+                                    }
+                                    sumVoc.get(i).put("status", "1");
+                                    arrayListRightVoc.add(textViewVocab.getText().toString());
+                                }
+                            }
                             right++;
                             setWrongCount(0);
                         }
@@ -453,6 +477,18 @@ public class GameRankActivity extends AppCompatActivity {
                         }
                         else
                         {
+                            for (int i = 0; i < sumVoc.size(); i++)
+                            {
+                                if (sumVoc.get(i).get("voc").equals(textViewVocab.getText().toString()))
+                                {
+                                    if (sumVoc.get(i).get("status").equals("0"))
+                                    {
+                                        point++;
+                                    }
+                                    sumVoc.get(i).put("status", "1");
+                                    arrayListRightVoc.add(textViewVocab.getText().toString());
+                                }
+                            }
                             right++;
                             setWrongCount(0);
                         }
@@ -538,6 +574,18 @@ public class GameRankActivity extends AppCompatActivity {
                         }
                         else
                         {
+                            for (int i = 0; i < sumVoc.size(); i++)
+                            {
+                                if (sumVoc.get(i).get("voc").equals(textViewVocab.getText().toString()))
+                                {
+                                    if (sumVoc.get(i).get("status").equals("0"))
+                                    {
+                                        point++;
+                                    }
+                                    sumVoc.get(i).put("status", "1");
+                                    arrayListRightVoc.add(textViewVocab.getText().toString());
+                                }
+                            }
                             right++;
                             setWrongCount(0);
                         }
@@ -623,6 +671,18 @@ public class GameRankActivity extends AppCompatActivity {
                         }
                         else
                         {
+                            for (int i = 0; i < sumVoc.size(); i++)
+                            {
+                                if (sumVoc.get(i).get("voc").equals(textViewVocab.getText().toString()))
+                                {
+                                    if (sumVoc.get(i).get("status").equals("0"))
+                                    {
+                                        point++;
+                                    }
+                                    sumVoc.get(i).put("status", "1");
+                                    arrayListRightVoc.add(textViewVocab.getText().toString());
+                                }
+                            }
                             right++;
                             setWrongCount(0);
                         }
@@ -856,7 +916,20 @@ public class GameRankActivity extends AppCompatActivity {
                             }
                             else
                             {
+                                for (int i = 0; i < sumVoc.size(); i++)
+                                {
+                                    if (sumVoc.get(i).get("voc").equals(textViewVocab.getText().toString()))
+                                    {
+                                        if (sumVoc.get(i).get("status").equals("0"))
+                                        {
+                                            point++;
+                                        }
+                                        sumVoc.get(i).put("status", "1");
+                                        arrayListRightVoc.add(textViewVocab.getText().toString());
+                                    }
+                                }
                                 right++;
+                                setWrongCount(0);
                             }
                         }
 
@@ -878,7 +951,20 @@ public class GameRankActivity extends AppCompatActivity {
                             }
                             else
                             {
+                                for (int i = 0; i < sumVoc.size(); i++)
+                                {
+                                    if (sumVoc.get(i).get("voc").equals(textViewVocab.getText().toString()))
+                                    {
+                                        if (sumVoc.get(i).get("status").equals("0"))
+                                        {
+                                            point++;
+                                        }
+                                        sumVoc.get(i).put("status", "1");
+                                        arrayListRightVoc.add(textViewVocab.getText().toString());
+                                    }
+                                }
                                 right++;
+                                setWrongCount(0);
                             }
                         }
 
@@ -900,7 +986,20 @@ public class GameRankActivity extends AppCompatActivity {
                             }
                             else
                             {
+                                for (int i = 0; i < sumVoc.size(); i++)
+                                {
+                                    if (sumVoc.get(i).get("voc").equals(textViewVocab.getText().toString()))
+                                    {
+                                        if (sumVoc.get(i).get("status").equals("0"))
+                                        {
+                                            point++;
+                                        }
+                                        sumVoc.get(i).put("status", "1");
+                                        arrayListRightVoc.add(textViewVocab.getText().toString());
+                                    }
+                                }
                                 right++;
+                                setWrongCount(0);
                             }
                         }
 
@@ -922,7 +1021,20 @@ public class GameRankActivity extends AppCompatActivity {
                             }
                             else
                             {
+                                for (int i = 0; i < sumVoc.size(); i++)
+                                {
+                                    if (sumVoc.get(i).get("voc").equals(textViewVocab.getText().toString()))
+                                    {
+                                        if (sumVoc.get(i).get("status").equals("0"))
+                                        {
+                                            point++;
+                                        }
+                                        sumVoc.get(i).put("status", "1");
+                                        arrayListRightVoc.add(textViewVocab.getText().toString());
+                                    }
+                                }
                                 right++;
+                                setWrongCount(0);
                             }
                         }
 
@@ -944,7 +1056,20 @@ public class GameRankActivity extends AppCompatActivity {
                             }
                             else
                             {
+                                for (int i = 0; i < sumVoc.size(); i++)
+                                {
+                                    if (sumVoc.get(i).get("voc").equals(textViewVocab.getText().toString()))
+                                    {
+                                        if (sumVoc.get(i).get("status").equals("0"))
+                                        {
+                                            point++;
+                                        }
+                                        sumVoc.get(i).put("status", "1");
+                                        arrayListRightVoc.add(textViewVocab.getText().toString());
+                                    }
+                                }
                                 right++;
+                                setWrongCount(0);
                             }
                         }
                     }
@@ -1080,6 +1205,18 @@ public class GameRankActivity extends AppCompatActivity {
                         }
                         else
                         {
+                            for (int i = 0; i < sumVoc.size(); i++)
+                            {
+                                if (sumVoc.get(i).get("voc").equals(textViewVocab.getText().toString()))
+                                {
+                                    if (sumVoc.get(i).get("status").equals("0"))
+                                    {
+                                        point++;
+                                    }
+                                    sumVoc.get(i).put("status", "1");
+                                    arrayListRightVoc.add(textViewVocab.getText().toString());
+                                }
+                            }
                             right++;
                             setWrongCount(0);
                         }
@@ -1105,6 +1242,18 @@ public class GameRankActivity extends AppCompatActivity {
                         }
                         else
                         {
+                            for (int i = 0; i < sumVoc.size(); i++)
+                            {
+                                if (sumVoc.get(i).get("voc").equals(textViewVocab.getText().toString()))
+                                {
+                                    if (sumVoc.get(i).get("status").equals("0"))
+                                    {
+                                        point++;
+                                    }
+                                    sumVoc.get(i).put("status", "1");
+                                    arrayListRightVoc.add(textViewVocab.getText().toString());
+                                }
+                            }
                             right++;
                             setWrongCount(0);
                         }
@@ -1130,6 +1279,18 @@ public class GameRankActivity extends AppCompatActivity {
                         }
                         else
                         {
+                            for (int i = 0; i < sumVoc.size(); i++)
+                            {
+                                if (sumVoc.get(i).get("voc").equals(textViewVocab.getText().toString()))
+                                {
+                                    if (sumVoc.get(i).get("status").equals("0"))
+                                    {
+                                        point++;
+                                    }
+                                    sumVoc.get(i).put("status", "1");
+                                    arrayListRightVoc.add(textViewVocab.getText().toString());
+                                }
+                            }
                             right++;
                             setWrongCount(0);
                         }
@@ -1155,6 +1316,18 @@ public class GameRankActivity extends AppCompatActivity {
                         }
                         else
                         {
+                            for (int i = 0; i < sumVoc.size(); i++)
+                            {
+                                if (sumVoc.get(i).get("voc").equals(textViewVocab.getText().toString()))
+                                {
+                                    if (sumVoc.get(i).get("status").equals("0"))
+                                    {
+                                        point++;
+                                    }
+                                    sumVoc.get(i).put("status", "1");
+                                    arrayListRightVoc.add(textViewVocab.getText().toString());
+                                }
+                            }
                             right++;
                             setWrongCount(0);
                         }
@@ -1180,6 +1353,18 @@ public class GameRankActivity extends AppCompatActivity {
                         }
                         else
                         {
+                            for (int i = 0; i < sumVoc.size(); i++)
+                            {
+                                if (sumVoc.get(i).get("voc").equals(textViewVocab.getText().toString()))
+                                {
+                                    if (sumVoc.get(i).get("status").equals("0"))
+                                    {
+                                        point++;
+                                    }
+                                    sumVoc.get(i).put("status", "1");
+                                    arrayListRightVoc.add(textViewVocab.getText().toString());
+                                }
+                            }
                             right++;
                             setWrongCount(0);
                         }
@@ -1398,7 +1583,20 @@ public class GameRankActivity extends AppCompatActivity {
                             }
                             else
                             {
+                                for (int i = 0; i < sumVoc.size(); i++)
+                                {
+                                    if (sumVoc.get(i).get("voc").equals(textViewVocab.getText().toString()))
+                                    {
+                                        if (sumVoc.get(i).get("status").equals("0"))
+                                        {
+                                            point++;
+                                        }
+                                        sumVoc.get(i).put("status", "1");
+                                        arrayListRightVoc.add(textViewVocab.getText().toString());
+                                    }
+                                }
                                 right++;
+                                setWrongCount(0);
                             }
                         }
 
@@ -1420,7 +1618,20 @@ public class GameRankActivity extends AppCompatActivity {
                             }
                             else
                             {
+                                for (int i = 0; i < sumVoc.size(); i++)
+                                {
+                                    if (sumVoc.get(i).get("voc").equals(textViewVocab.getText().toString()))
+                                    {
+                                        if (sumVoc.get(i).get("status").equals("0"))
+                                        {
+                                            point++;
+                                        }
+                                        sumVoc.get(i).put("status", "1");
+                                        arrayListRightVoc.add(textViewVocab.getText().toString());
+                                    }
+                                }
                                 right++;
+                                setWrongCount(0);
                             }
                         }
 
@@ -1442,7 +1653,20 @@ public class GameRankActivity extends AppCompatActivity {
                             }
                             else
                             {
+                                for (int i = 0; i < sumVoc.size(); i++)
+                                {
+                                    if (sumVoc.get(i).get("voc").equals(textViewVocab.getText().toString()))
+                                    {
+                                        if (sumVoc.get(i).get("status").equals("0"))
+                                        {
+                                            point++;
+                                        }
+                                        sumVoc.get(i).put("status", "1");
+                                        arrayListRightVoc.add(textViewVocab.getText().toString());
+                                    }
+                                }
                                 right++;
+                                setWrongCount(0);
                             }
                         }
 
@@ -1464,7 +1688,20 @@ public class GameRankActivity extends AppCompatActivity {
                             }
                             else
                             {
+                                for (int i = 0; i < sumVoc.size(); i++)
+                                {
+                                    if (sumVoc.get(i).get("voc").equals(textViewVocab.getText().toString()))
+                                    {
+                                        if (sumVoc.get(i).get("status").equals("0"))
+                                        {
+                                            point++;
+                                        }
+                                        sumVoc.get(i).put("status", "1");
+                                        arrayListRightVoc.add(textViewVocab.getText().toString());
+                                    }
+                                }
                                 right++;
+                                setWrongCount(0);
                             }
                         }
 
@@ -1486,7 +1723,20 @@ public class GameRankActivity extends AppCompatActivity {
                             }
                             else
                             {
+                                for (int i = 0; i < sumVoc.size(); i++)
+                                {
+                                    if (sumVoc.get(i).get("voc").equals(textViewVocab.getText().toString()))
+                                    {
+                                        if (sumVoc.get(i).get("status").equals("0"))
+                                        {
+                                            point++;
+                                        }
+                                        sumVoc.get(i).put("status", "1");
+                                        arrayListRightVoc.add(textViewVocab.getText().toString());
+                                    }
+                                }
                                 right++;
+                                setWrongCount(0);
                             }
                         }
                     }
